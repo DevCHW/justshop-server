@@ -2,7 +2,7 @@ package com.justshop.domain.orderproduct.domain;
 
 import com.justshop.domain.BaseEntity;
 import com.justshop.domain.order.domain.Order;
-import com.justshop.domain.product.Product;
+import com.justshop.domain.product.domain.Product;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
