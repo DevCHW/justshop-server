@@ -1,7 +1,7 @@
-package com.justshop.domain.product;
+package com.justshop.domain.product.domain;
 
 import com.justshop.domain.BaseEntity;
-import com.justshop.domain.product.enumurated.ProductSellingStatus;
+import com.justshop.domain.product.domain.enumerated.ProductSellingStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,8 @@ import javax.persistence.*;
 @Getter
 public class Product extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String productNumber;

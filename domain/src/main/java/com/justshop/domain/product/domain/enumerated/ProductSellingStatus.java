@@ -1,9 +1,8 @@
-package com.justshop.domain.product.enumurated;
+package com.justshop.domain.product.domain.enumerated;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public enum ProductSellingStatus {
