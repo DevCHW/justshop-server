@@ -1,0 +1,17 @@
+dependencies {
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // p6spy
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+    // h2
+    runtimeOnly 'com.h2database:h2'
+}
+
+bootJar { enabled = false }
+
+jar { enabled = true }
