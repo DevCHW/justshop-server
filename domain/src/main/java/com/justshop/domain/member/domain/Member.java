@@ -4,6 +4,7 @@ import com.justshop.domain.BaseEntity;
 import com.justshop.domain.member.domain.enumerated.Gender;
 import com.justshop.domain.member.domain.enumerated.MemberStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,4 +39,15 @@ public class Member extends BaseEntity {
 
     private boolean allowToMarketingNotification;
 
+    @Builder
+    public Member(String loginId, String password, String name, String email, Gender gender, LocalDate birthday, MemberStatus status, boolean allowToMarketingNotification) {
+        this.loginId = loginId;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.status = status;
+        this.allowToMarketingNotification = allowToMarketingNotification;
+    }
 }

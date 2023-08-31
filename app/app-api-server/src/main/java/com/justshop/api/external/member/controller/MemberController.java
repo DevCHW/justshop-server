@@ -1,11 +1,11 @@
 package com.justshop.api.external.member.controller;
 
 import com.justshop.api.external.member.service.MemberService;
+import com.justshop.api.external.member.service.response.MemberResponse;
+import com.justshop.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -15,9 +15,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // TODO : 회원 단일조회 기능 구현하기
-    @GetMapping
-    public String ok() {
-        return "ok";
+    /**
+     * 회원 단건 조회
+     */
+    @GetMapping("/{id}")
+    public ApiResponse<MemberResponse> getOneMember(@PathVariable Long id) {
+        return ApiResponse.ok(memberService.getOneMember(id));
     }
+
 }
