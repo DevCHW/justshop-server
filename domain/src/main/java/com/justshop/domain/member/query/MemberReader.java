@@ -1,4 +1,4 @@
-package com.justshop.domain.member.command;
+package com.justshop.domain.member.query;
 
 import com.justshop.domain.member.domain.Member;
 import com.justshop.domain.member.domain.MemberRepository;
