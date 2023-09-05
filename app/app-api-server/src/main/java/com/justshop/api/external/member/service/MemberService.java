@@ -30,8 +30,8 @@ public class MemberService {
      * 회원 가입
      */
     @Transactional
-    public MemberResponse signUp(MemberCreateServiceRequest memberCreateServiceRequest) {
-        Member member = memberCreateServiceRequest.toEntity();
+    public MemberResponse signUp(MemberCreateServiceRequest request) {
+        Member member = request.toEntity();
         return MemberResponse.of(memberManager.create(member));
     }
 

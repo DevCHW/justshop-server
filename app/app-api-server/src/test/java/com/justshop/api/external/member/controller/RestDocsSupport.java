@@ -29,10 +29,10 @@ public abstract class RestDocsSupport {
                 .build();
 
         // TODO:
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE);
-        javaTimeModule.addDeserializer(LocalDate.class, LocalDateDeserializer.INSTANCE);
-        objectMapper.registerModule(javaTimeModule);
+//        JavaTimeModule javaTimeModule = new JavaTimeModule();
+//        javaTimeModule.addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE);
+//        javaTimeModule.addDeserializer(LocalDate.class, LocalDateDeserializer.INSTANCE);
+//        objectMapper.registerModule(javaTimeModule);
     }
 
     protected abstract Object initController();

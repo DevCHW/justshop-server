@@ -1,9 +1,12 @@
-[[product-create]]
-=== 신규 상품 등록
+[[member]]
 
-==== HTTP Request
+[[members-get]]
+=== 회원 단일 조회
+회원 id로 유저 정보를 조회할 수 있다.
+
+==== {operation-curl-request-title}
 include::{snippets}/members-get/http-request.adoc[]
 
-==== HTTP Response
+==== {operation-http-response-title}
 include::{snippets}/members-get/http-response.adoc[]
 include::{snippets}/members-get/response-fields.adoc[]

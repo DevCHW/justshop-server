@@ -25,7 +25,7 @@ class MemberManagerTest {
 
     @DisplayName("회원 등록을 할 수 있다.")
     @Test
-    void 회원가입() {
+    void signUp() {
         // given
         Member member = createMember("ggoma003", "qwer1234$",
                 "최현우", "ggoma003@naver.com",

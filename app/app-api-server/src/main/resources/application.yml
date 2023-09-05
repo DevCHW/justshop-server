@@ -15,7 +15,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-
+  ## jasypt
+  jasypt:
+    encryptor:
+      password: RknSA3#jkDS34*bkj$j3kl12@#
 ---
 spring:
   config:
