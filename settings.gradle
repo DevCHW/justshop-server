@@ -1,8 +1,6 @@
 rootProject.name = 'justshop'
-include 'app'
 include 'clients'
 include 'common'
-include 'domain'
-include 'app:app-api-server'
-findProject(':app:app-api-server')?.name = 'app-api-server'
+include 'core'
+include 'api-server'
 
