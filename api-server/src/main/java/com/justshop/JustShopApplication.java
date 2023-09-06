@@ -1,4 +1,4 @@
-package com.justshop.apiserver;
+package com.justshop;
 
 import com.justshop.apiserver.config.BeanNameConfig;
 import org.springframework.boot.SpringApplication;
