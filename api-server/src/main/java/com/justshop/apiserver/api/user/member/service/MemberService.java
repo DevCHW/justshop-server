@@ -1,7 +1,7 @@
-package com.justshop.apiserver.api.external.member.service;
+package com.justshop.apiserver.api.user.member.service;
 
-import com.justshop.apiserver.api.external.member.service.request.MemberCreateServiceRequest;
-import com.justshop.apiserver.api.external.member.service.response.MemberResponse;
+import com.justshop.apiserver.api.user.member.service.request.MemberCreateServiceRequest;
+import com.justshop.apiserver.api.user.member.service.response.MemberResponse;
 import com.justshop.core.member.command.MemberManager;
 import com.justshop.core.member.domain.Member;
 import com.justshop.core.member.query.MemberReader;

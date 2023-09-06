@@ -1,10 +1,9 @@
 package com.justshop.core.member.command;
 
-import com.justshop.core.member.command.MemberManager;
 import com.justshop.core.member.domain.Member;
 import com.justshop.core.member.domain.repository.MemberRepository;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

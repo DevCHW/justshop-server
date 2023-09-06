@@ -1,12 +1,12 @@
 package com.justshop.apiserver.external.member.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.justshop.apiserver.api.external.member.controller.MemberController;
-import com.justshop.apiserver.api.external.member.service.MemberService;
-import com.justshop.apiserver.api.external.member.service.response.MemberResponse;
+import com.justshop.apiserver.api.user.member.controller.MemberController;
+import com.justshop.apiserver.api.user.member.service.MemberService;
+import com.justshop.apiserver.api.user.member.service.response.MemberResponse;
 import com.justshop.apiserver.api.response.ApiResponse;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,10 +26,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

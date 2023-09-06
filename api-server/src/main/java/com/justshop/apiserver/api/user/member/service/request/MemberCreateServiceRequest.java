@@ -1,9 +1,9 @@
-package com.justshop.apiserver.api.external.member.service.request;
+package com.justshop.apiserver.api.user.member.service.request;
 
-import com.justshop.apiserver.api.external.member.controller.request.MemberCreateRequest;
+import com.justshop.apiserver.api.user.member.controller.request.MemberCreateRequest;
 import com.justshop.core.member.domain.Member;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import lombok.Builder;
 import lombok.Getter;
 

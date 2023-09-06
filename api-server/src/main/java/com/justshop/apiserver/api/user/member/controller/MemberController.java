@@ -1,7 +1,7 @@
-package com.justshop.apiserver.api.external.member.controller;
+package com.justshop.apiserver.api.user.member.controller;
 
-import com.justshop.apiserver.api.external.member.service.MemberService;
-import com.justshop.apiserver.api.external.member.service.response.MemberResponse;
+import com.justshop.apiserver.api.user.member.service.MemberService;
+import com.justshop.apiserver.api.user.member.service.response.MemberResponse;
 import com.justshop.apiserver.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

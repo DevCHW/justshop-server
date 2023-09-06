@@ -1,14 +1,14 @@
 package com.justshop.apiserver.external.member.service;
 
-import com.justshop.apiserver.api.external.member.controller.request.MemberCreateRequest;
-import com.justshop.apiserver.api.external.member.service.MemberService;
-import com.justshop.apiserver.api.external.member.service.request.MemberCreateServiceRequest;
-import com.justshop.apiserver.api.external.member.service.response.MemberResponse;
+import com.justshop.apiserver.api.user.member.controller.request.MemberCreateRequest;
+import com.justshop.apiserver.api.user.member.service.MemberService;
+import com.justshop.apiserver.api.user.member.service.request.MemberCreateServiceRequest;
+import com.justshop.apiserver.api.user.member.service.response.MemberResponse;
 import com.justshop.core.member.command.MemberManager;
 import com.justshop.core.member.query.MemberReader;
 import com.justshop.core.member.domain.Member;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

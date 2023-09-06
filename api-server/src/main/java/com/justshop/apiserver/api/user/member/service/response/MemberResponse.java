@@ -1,9 +1,9 @@
-package com.justshop.apiserver.api.external.member.service.response;
+package com.justshop.apiserver.api.user.member.service.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.justshop.core.member.domain.Member;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
