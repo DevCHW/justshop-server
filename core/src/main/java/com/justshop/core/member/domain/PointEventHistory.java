@@ -1,6 +1,6 @@
 package com.justshop.core.member.domain;
 
-import com.justshop.core.member.domain.enumerated.PointEventType;
+import com.justshop.core.member.domain.enums.PointEventType;
 import com.justshop.core.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;

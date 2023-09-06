@@ -1,14 +1,13 @@
-package com.justshop.core.member.domain.enumerated;
+package com.justshop.core.product.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Gender {
+public enum ProductGender {
 
-    MAN("남자"), WOMEN("여자");
+    MAN("남성용"), WOMAN("여성용"), ALL("전체");
 
     private final String description;
-
 }

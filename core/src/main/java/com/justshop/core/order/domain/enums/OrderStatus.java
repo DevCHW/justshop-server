@@ -1,4 +1,4 @@
-package com.justshop.core.order.domain.enumerated;
+package com.justshop.core.order.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 public enum OrderStatus {
 
     ORDER("주문"),
-    RECEIVED("주문접수"),
     CANCELED("주문취소"),
-    COMPLETED("처리완료");
+    DELIVERING("배송중"),
+    COMPLETED("주문완료");
 
-    private final String text;
+    private final String description;
 
 }

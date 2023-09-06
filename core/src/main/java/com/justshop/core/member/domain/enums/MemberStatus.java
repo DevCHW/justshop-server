@@ -1,4 +1,4 @@
-package com.justshop.core.member.domain.enumerated;
+package com.justshop.core.member.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

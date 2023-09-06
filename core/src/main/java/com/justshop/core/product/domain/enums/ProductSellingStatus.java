@@ -1,4 +1,4 @@
-package com.justshop.core.product.domain.enumerated;
+package com.justshop.core.product.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +9,8 @@ public enum ProductSellingStatus {
 
     SELLING("판매중"),
     HOLD("판매 보류"),
-    STOP_SELLING("판매 중지"),
-    SOLD_OUT("품절");
+    STOP_SELLING("판매 중지");
 
-    private final String text;
+    private final String description;
 
 }

@@ -2,8 +2,8 @@ package com.justshop.core.member.domain;
 
 import com.justshop.core.BaseEntity;
 import com.justshop.core.common.converter.BooleanToYNConverter;
-import com.justshop.core.member.domain.enumerated.Gender;
-import com.justshop.core.member.domain.enumerated.MemberStatus;
+import com.justshop.core.member.domain.enums.Gender;
+import com.justshop.core.member.domain.enums.MemberStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

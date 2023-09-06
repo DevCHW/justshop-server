@@ -1,13 +1,13 @@
-package com.justshop.core.member.domain.enumerated;
+package com.justshop.core.member.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum PointEventType {
+public enum Gender {
 
-    ADD("적립"), DEDUCTION("차감");
+    MAN("남자"), WOMEN("여자");
 
     private final String description;
 
