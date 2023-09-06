@@ -1,4 +1,4 @@
-/** app-api-server */
+/** api-server */
 plugins {
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }

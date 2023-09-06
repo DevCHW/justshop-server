@@ -1,25 +1,27 @@
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.15'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+buildscript {
+	ext {
+		springBootVersion = '2.7.15'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.15.RELEASE"
+	}
 }
 
-repositories {
-	mavenCentral()
+allprojects {
+	group = 'com.justshop'
+	version = '0.0.1'
 }
-
-bootJar { enabled = false }
-
-jar { enabled = true }
 
 subprojects {
-	group = 'com.justshop'
-	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = '11'
-
 	apply plugin: 'java-library'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
+
+	sourceCompatibility = '11'
 
 	repositories {
 		mavenCentral()
@@ -36,6 +38,8 @@ subprojects {
 		// lombok
 		compileOnly 'org.projectlombok:lombok'
 		annotationProcessor 'org.projectlombok:lombok'
+		testCompileOnly 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
 
 		// test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
