@@ -5,8 +5,11 @@ buildscript {
 }
 
 plugins {
-    //querydsl 추가
+    // querydsl
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+
+    // test fixtures
+    id 'java-test-fixtures'
 }
 
 dependencies {
@@ -25,6 +28,9 @@ dependencies {
     //querydsl
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    //testFixture
+    testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 //querydsl config
