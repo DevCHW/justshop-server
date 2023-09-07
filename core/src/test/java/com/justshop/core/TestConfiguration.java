@@ -1,4 +1,4 @@
-package com.justshop.core.config;
+package com.justshop.core;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
