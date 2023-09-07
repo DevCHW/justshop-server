@@ -2,6 +2,7 @@ package com.justshop.core.member.domain;
 
 import com.justshop.core.BaseEntity;
 import com.justshop.core.common.converter.BooleanToYNConverter;
+import com.justshop.core.common.encrypt.SHA256;
 import com.justshop.core.member.domain.enums.Gender;
 import com.justshop.core.member.domain.enums.MemberStatus;
 import lombok.AccessLevel;

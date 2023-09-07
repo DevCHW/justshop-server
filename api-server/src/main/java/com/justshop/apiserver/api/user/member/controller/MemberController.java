@@ -1,7 +1,7 @@
 package com.justshop.apiserver.api.user.member.controller;
 
 import com.justshop.apiserver.api.user.member.service.MemberService;
-import com.justshop.apiserver.api.user.member.service.response.MemberResponse;
+import com.justshop.apiserver.api.user.member.service.dto.response.MemberResponse;
 import com.justshop.apiserver.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +15,10 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    /**
-     * 회원 단건 조회
-     */
+    // 내정보 조회
     @GetMapping("/{id}")
-    public ApiResponse<MemberResponse> getOneMember(@PathVariable Long id) {
-        return ApiResponse.ok(memberService.getOneMember(id));
+    public ApiResponse<MemberResponse> getMyInfo(@PathVariable Long id) {
+        return ApiResponse.ok(memberService.getMyInfo(id));
     }
 
 }
