@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 @RequiredArgsConstructor
 public class QueryDslConfig {
 
-    @PersistenceContext
     private final EntityManager entityManager;
 
     @Bean
