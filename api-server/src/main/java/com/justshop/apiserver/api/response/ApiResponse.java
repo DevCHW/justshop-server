@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@JsonPropertyOrder({"code", "message", "data"})
 @NoArgsConstructor
 @EqualsAndHashCode
+@JsonPropertyOrder({"code", "status", "message", "data"})
 public class ApiResponse<T> {
 
     private String code;
     private HttpStatus status;
     private String message;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public ApiResponse(HttpStatus status, String message, T data) {
@@ -27,16 +27,16 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-    public static <T> ApiResponse<T> of(HttpStatus httpStatus, String message, T data) {
+    public static <T> ApiResponse<T> of(T data, HttpStatus httpStatus, String message) {
         return new ApiResponse<>(httpStatus, message, data);
     }
 
-    public static <T> ApiResponse<T> of(HttpStatus httpStatus, T data) {
-        return ApiResponse.of(httpStatus, httpStatus.name(), data);
+    public static <T> ApiResponse<T> of(T data, HttpStatus httpStatus) {
+        return ApiResponse.of(data, httpStatus, httpStatus.name());
     }
 
     public static <T> ApiResponse<T> ok(T data) {
-        return ApiResponse.of(HttpStatus.OK, HttpStatus.OK.name(), data);
+        return ApiResponse.of(data, HttpStatus.OK, HttpStatus.OK.name());
     }
 
 }
