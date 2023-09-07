@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "options")
 public class Option extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,6 @@ public class Option extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OptionType type; // 옵션 타입
 
-    private String value; // 옵션 값
+    private String optionValue; // 옵션 값
 
 }

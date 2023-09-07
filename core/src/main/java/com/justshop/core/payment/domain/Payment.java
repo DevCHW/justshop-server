@@ -29,7 +29,7 @@ public class Payment extends BaseEntity {
     private Order order; // 주문 ID
 
     @Enumerated(EnumType.STRING)
-    private PaymentGroup group; // 결제 종류
+    private PaymentGroup paymentGroup; // 결제 종류
 
     @Enumerated(EnumType.STRING)
     private PaymentType type; // 결제 수단
