@@ -19,20 +19,9 @@ public class MemberService {
     private final MemberReader memberReader;
     private final MemberManager memberManager;
 
-    /**
-     * 회원 단건 조회
-     */
-    public MemberResponse getOneMember(Long id) {
-        return MemberResponse.of(memberReader.read(id));
-    }
-
-    /**
-     * 회원 가입
-     */
-    @Transactional
-    public MemberResponse signUp(MemberCreateServiceRequest request) {
-        Member member = request.toEntity();
-        return MemberResponse.of(memberManager.create(member));
+    // 회원 단건 조회
+    public MemberResponse getMyInfo(Long id) {
+        return MemberResponse.from(memberReader.read(id));
     }
 
 }

@@ -70,4 +70,19 @@ public class Member extends BaseEntity {
         this.point = point;
     }
 
+    // 비밀번호 암호화
+    public void encryptPassword() {
+        this.password = SHA256.encrypt(this.password);
+    }
+
+    // 포인트 적립
+    public void addPoint(int amount) {
+        this.point = point += amount;
+    }
+
+    // 포인트 사용
+    public void usePoint(int amount) {
+        this.point = point -= amount;
+    }
+
 }
