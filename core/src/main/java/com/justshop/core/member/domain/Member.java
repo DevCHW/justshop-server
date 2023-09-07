@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,35 +20,38 @@ import java.time.LocalDateTime;
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // member_id
+    private Long id;
 
     @Column(unique = true)
-    private String loginId; // 로그인 ID
+    private String loginId;
 
-    private String password; // 로그인 패스워드
+    private String password;
 
     @Column(unique = true)
-    private String email; // 이메일
+    private String email;
 
-    private String name; // 이름
-    
-    private String nickname; // 닉네임
-    
-    private String phone; // 폰번호
+    private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender; // 성별 (MAN, WOMAN)
+    @Column(unique = true)
+    private String nickname;
 
-    private LocalDate birthday; // 생년월일
+    private String phone;
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus status; // 회원 상태 (ACTIVE, SECESSION)
+    private Gender gender;
+
+    private LocalDate birthday;
+
+    @ColumnDefault(value = "'ACTIVE'")
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     @Convert(converter = BooleanToYNConverter.class)
-    private boolean allowToMarketingNotification; // 이메일 수신 동의여부
+    private boolean allowToMarketingNotification;
 
-    private LocalDateTime lastPasswordChanged; // 마지막 비밀번호 변경일자
+    private LocalDateTime lastPasswordChanged;
 
+    @ColumnDefault(value = "0")
     private int point;
 
     @Builder
@@ -65,4 +69,5 @@ public class Member extends BaseEntity {
         this.lastPasswordChanged = lastPasswordChanged;
         this.point = point;
     }
+
 }
