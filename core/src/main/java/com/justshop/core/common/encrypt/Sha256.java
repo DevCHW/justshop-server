@@ -2,7 +2,7 @@ package com.justshop.core.common.encrypt;
 
 import java.security.MessageDigest;
 
-public class SHA256 {
+public class Sha256 {
 	public static String encrypt(String plainText) {
         try{
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -25,8 +25,8 @@ public class SHA256 {
             }
 
             return hexString.toString();
-        }catch(Exception e){
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
-    }	
+    }
 }
