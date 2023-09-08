@@ -2,9 +2,10 @@ package com.justshop.core.member.domain;
 
 import com.justshop.core.BaseEntity;
 import com.justshop.core.common.converter.BooleanToYNConverter;
-import com.justshop.core.common.encrypt.SHA256;
+import com.justshop.core.common.encrypt.Sha256;
 import com.justshop.core.member.domain.enums.Gender;
 import com.justshop.core.member.domain.enums.MemberStatus;
+import com.justshop.core.member.exception.NotEnoughPointException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,7 +49,7 @@ public class Member extends BaseEntity {
     private MemberStatus status;
 
     @Convert(converter = BooleanToYNConverter.class)
-    private boolean allowToMarketingNotification;
+    private Boolean allowToMarketingNotification;
 
     private LocalDateTime lastPasswordChanged;
 
@@ -56,7 +57,7 @@ public class Member extends BaseEntity {
     private int point;
 
     @Builder
-    public Member(String loginId, String password, String email, String name, String nickname, String phone, Gender gender, LocalDate birthday, MemberStatus status, boolean allowToMarketingNotification, LocalDateTime lastPasswordChanged, int point) {
+    public Member(String loginId, String password, String email, String name, String nickname, String phone, Gender gender, LocalDate birthday, MemberStatus status, Boolean allowToMarketingNotification, LocalDateTime lastPasswordChanged, int point) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
@@ -73,7 +74,7 @@ public class Member extends BaseEntity {
 
     // 비밀번호 암호화
     public void encryptPassword() {
-        this.password = SHA256.encrypt(this.password);
+        this.password = Sha256.encrypt(this.password);
     }
 
     // 포인트 적립
@@ -83,6 +84,10 @@ public class Member extends BaseEntity {
 
     // 포인트 사용
     public void usePoint(int amount) {
+        if (point < amount) {
+            throw new NotEnoughPointException("보유 포인트가 부족합니다.");
+        }
+
         this.point = point -= amount;
     }
 
