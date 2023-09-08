@@ -1,5 +1,6 @@
 package com.justshop.core.member.command;
 
+import com.justshop.core.member.exception.NotEnoughPointException;
 import com.justshop.core.member.domain.Member;
 import com.justshop.core.member.domain.PointEventHistory;
 import com.justshop.core.member.domain.enums.Gender;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class PointManagerTest extends IntegrationTestSupport {
 
@@ -61,9 +63,20 @@ class PointManagerTest extends IntegrationTestSupport {
 
     }
 
+    @DisplayName("포인트를 사용할 때 포인트가 부족하다면 NotEnoughPointException 예외가 발생한다.")
+    @Test
+    void useExceptionCase() {
+        // given
+        int memberPoint = 3000;
+        Member member = memberRepository.save(createMember(memberPoint));
+        int useAmount = 4000;
+        String message = "포인트 차감 메세지";
 
-    // TODO : 포인트가 부족하다면 NotEnoughPointException 예외가 발생한다. 테스트 작성
-
+        // then
+        assertThatThrownBy(() -> pointManager.use(member, useAmount, message))
+                .isInstanceOf(NotEnoughPointException.class)
+                .hasMessage("포인트가 부족합니다.");
+    }
 
     private Member createMember(int point) {
         return Member.builder()

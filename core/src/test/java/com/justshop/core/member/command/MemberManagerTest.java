@@ -2,9 +2,6 @@ package com.justshop.core.member.command;
 
 import com.justshop.core.member.domain.Member;
 import com.justshop.core.member.domain.repository.MemberRepository;
-import com.justshop.core.member.domain.enums.Gender;
-import com.justshop.core.member.domain.enums.MemberStatus;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+
+import static com.justshop.core.member.domain.enums.Gender.*;
+import static com.justshop.core.member.domain.enums.MemberStatus.ACTIVE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -23,50 +24,41 @@ class MemberManagerTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @DisplayName("회원 등록을 할 수 있다.")
+    @DisplayName("회원을 생성한다.")
     @Test
     void signUp() {
         // given
-        Member member = createMember("ggoma003", "qwer1234$",
-                "최현우", "ggoma003@naver.com",
-                Gender.MAN,
-                LocalDate.of(1997, 1, 3),
-                MemberStatus.ACTIVE,
-                true);
+        Member target = generateMember();
 
         // when
-        Member result = memberManager.create(member);
+        Member result = memberManager.create(target);
 
         // then
-        Assertions.assertThat(result)
-                .extracting("loginId", "password", "name", "email", "gender", "birthday", "status", "allowToMarketingNotification")
-                .contains("ggoma003",
-                        "qwer1234$",
-                        "최현우",
-                        "ggoma003@naver.com",
-                        Gender.MAN,
-                        LocalDate.of(1997, 1, 3),
-                        MemberStatus.ACTIVE,
-                        true);
+        assertThat(result.getLoginId()).isEqualTo(target.getLoginId());
+        assertThat(result.getPassword()).isEqualTo(target.getPassword());
+        assertThat(result.getName()).isEqualTo(target.getName());
+        assertThat(result.getEmail()).isEqualTo(target.getEmail());
+        assertThat(result.getNickname()).isEqualTo(target.getNickname());
+        assertThat(result.getGender()).isEqualTo(target.getGender());
+        assertThat(result.getPhone()).isEqualTo(target.getPhone());
+        assertThat(result.getBirthday()).isEqualTo(target.getBirthday());
+        assertThat(result.getStatus()).isEqualTo(target.getStatus());
+        assertThat(result.getPoint()).isEqualTo(target.getPoint());
     }
 
-    // 회원 엔티티 생성 메소드
-    private Member createMember(String loginId,
-                                String password,
-                                String name,
-                                String email,
-                                Gender gender,
-                                LocalDate birthday,
-                                MemberStatus status,
-                                boolean allowToMarketingNotification) {
+    private Member generateMember() {
         return Member.builder()
-                .loginId(loginId)
-                .password(password)
-                .name(name)
-                .email(email)
-                .gender(gender)
-                .birthday(birthday)
-                .allowToMarketingNotification(allowToMarketingNotification)
+                .loginId("test123")
+                .password("qwer1234$")
+                .name("홍길동")
+                .email("example@google.com")
+                .nickname("HelloWorld")
+                .gender(MAN)
+                .phone("01012345678")
+                .birthday(LocalDate.of(1997, 1, 3))
+                .status(ACTIVE)
+                .point(0)
+                .allowToMarketingNotification(true)
                 .build();
     }
 
