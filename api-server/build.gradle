@@ -16,13 +16,13 @@ dependencies {
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
+    // modules - test fixtures
+    testImplementation(testFixtures(project(":core")))
+
     // modules
     implementation project(':core')
     implementation project(':common')
     implementation project(':clients')
-
-    // modules - test fixtures
-    testImplementation(testFixtures(project(":core")))
 }
 
 ext { // 전역 변수

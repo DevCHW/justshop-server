@@ -19,4 +19,5 @@ public enum PaymentType {
     EMPTY("없음");
 
     private final String description;
+
 }

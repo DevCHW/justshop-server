@@ -2,7 +2,7 @@ package com.justshop.apiserver.api.user.member.controller;
 
 import com.justshop.apiserver.api.user.member.service.MemberService;
 import com.justshop.apiserver.api.user.member.service.dto.response.MemberResponse;
-import com.justshop.apiserver.api.response.ApiResponse;
+import com.justshop.apiserver.config.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

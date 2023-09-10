@@ -9,8 +9,7 @@ public enum OrderStatus {
 
     ORDER("주문"),
     CANCELED("주문취소"),
-    DELIVERING("배송중"),
-    COMPLETED("주문완료");
+    COMPLETED("처리완료");
 
     private final String description;
 

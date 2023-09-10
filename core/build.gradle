@@ -25,12 +25,16 @@ dependencies {
     // h2
     runtimeOnly 'com.h2database:h2'
 
-    //querydsl
+    // querydsl
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
-    //testFixture
+    // testFixture
     testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // modules
+    implementation project(':common')
+
 }
 
 //querydsl config

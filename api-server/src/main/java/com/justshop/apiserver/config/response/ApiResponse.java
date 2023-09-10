@@ -1,6 +1,5 @@
-package com.justshop.apiserver.api.response;
+package com.justshop.apiserver.config.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

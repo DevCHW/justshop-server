@@ -2,6 +2,7 @@ package com.justshop.core.order.domain;
 
 import com.justshop.core.order.domain.enums.OrderStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,9 +26,21 @@ public class Order {
 
     private int totalPrice; // 주문 금액
 
-    private LocalDateTime registeredDateTime; // 주문 일자
+    private int discountAmount; // 할인 가격
+
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderProduct> orderProducts = new ArrayList<>(); // 상품 주문 리스트
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    private Long memberId;
+
+    @Builder
+    public Order(OrderStatus orderStatus, int totalPrice, List<OrderProduct> orderProducts, Long memberId, int discountAmount) {
+        this.orderStatus = orderStatus;
+        this.totalPrice = totalPrice;
+        this.orderProducts = orderProducts;
+        this.memberId = memberId;
+        this.discountAmount = discountAmount;
+    }
 
 }

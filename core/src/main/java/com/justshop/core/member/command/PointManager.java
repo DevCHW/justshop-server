@@ -22,8 +22,8 @@ public class PointManager {
     public static final int NEW_MEMBER_ADD_POINT_AMOUNT = 5000;
 
     public static final String NEW_MEMBER_ADD_POINT_MESSAGE = "신규 회원가입 축하 포인트 적립";
-    public static final String USE_MESSAGE = "포인트 사용";
-    public static final String APPEND_MESSAGE = "포인트 적립";
+    public static final String USE_POINT_MESSAGE = "포인트 사용";
+    public static final String APPEND_POINT_MESSAGE = "포인트 적립";
 
     // 포인트 적립
     public PointEventHistory append(Member member, int amount, String message) {
