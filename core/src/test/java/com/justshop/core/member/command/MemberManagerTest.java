@@ -1,7 +1,8 @@
 package com.justshop.core.member.command;
 
 import com.justshop.core.member.domain.Member;
-import com.justshop.core.member.domain.repository.MemberRepository;
+import com.justshop.core.member.implementation.command.MemberManager;
+import com.justshop.core.member.persistence.jpa.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

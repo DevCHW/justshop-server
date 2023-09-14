@@ -1,5 +1,6 @@
 package com.justshop.apiserver.api.user.mail;
 
+import com.justshop.apiserver.user.mail.application.MailService;
 import com.justshop.email.MailSendClient;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

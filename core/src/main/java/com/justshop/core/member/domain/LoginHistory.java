@@ -23,4 +23,5 @@ public class LoginHistory extends BaseEntity {
     private String loginIp; // 로그인된 IP 주소
 
     private LocalDateTime loginDate; // 로그인 일자
+
 }

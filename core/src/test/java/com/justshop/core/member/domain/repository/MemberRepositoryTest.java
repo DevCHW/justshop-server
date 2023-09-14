@@ -3,6 +3,7 @@ package com.justshop.core.member.domain.repository;
 import com.justshop.core.member.domain.Member;
 import com.justshop.core.member.domain.enums.Gender;
 import com.justshop.core.member.domain.enums.MemberStatus;
+import com.justshop.core.member.persistence.jpa.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

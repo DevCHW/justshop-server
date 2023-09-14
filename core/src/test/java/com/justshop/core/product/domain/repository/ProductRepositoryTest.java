@@ -3,6 +3,7 @@ package com.justshop.core.product.domain.repository;
 import com.justshop.core.product.domain.Product;
 import com.justshop.core.product.domain.enums.ProductGender;
 import com.justshop.core.product.domain.enums.ProductSellingStatus;
+import com.justshop.core.product.persistence.jpa.ProductRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

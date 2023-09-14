@@ -5,12 +5,11 @@ import com.justshop.core.common.ErrorCode;
 import com.justshop.core.product.domain.enums.ProductGender;
 import com.justshop.core.product.domain.enums.ProductSellingStatus;
 import com.justshop.core.product.exception.StatusNotSellingException;
-import com.justshop.util.NumberUtil;
+import com.justshop.common.NumberUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.NumberUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;

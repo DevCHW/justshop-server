@@ -1,6 +1,6 @@
 package com.justshop;
 
-import com.justshop.apiserver.config.BeanNameConfig;
+import com.justshop.apiserver.common.config.BeanNameConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
