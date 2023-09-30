@@ -20,25 +20,25 @@ public class Member extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String loginId;
-    private String password;
-    private String name;
-    private String nickname;
-    private int point;
-    private LocalDate birthday;
+    private String email; //이메일
+    private String password; //비밀번호
+    private String name; //이름
+    private String nickname; //닉네임
+    private int point; //포인트
+    private LocalDate birthday; //생년월일
 
     @Enumerated(EnumType.STRING)
-    private Role memberRole;
+    private Role memberRole; //권한
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender; //성별
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus status;
+    private MemberStatus status; //상태
 
     @Builder
-    public Member(String loginId, String password, String name, String nickname, int point, LocalDate birthday, Role memberRole, Gender gender, MemberStatus status) {
-        this.loginId = loginId;
+    public Member(String email, String password, String name, String nickname, int point, LocalDate birthday, Role memberRole, Gender gender, MemberStatus status) {
+        this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
@@ -48,4 +48,5 @@ public class Member extends BaseEntity {
         this.gender = gender;
         this.status = status;
     }
+
 }

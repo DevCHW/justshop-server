@@ -1,29 +1,27 @@
-package com.justshop.member.presentation;
+package com.justshop.member.api.auth.presentation;
 
-import com.justshop.member.application.SignUpService;
-import com.justshop.member.presentation.dto.SignUpRequest;
-import com.justshop.member.presentation.dto.mapper.ServiceLayerDtoMapper;
+import com.justshop.member.api.auth.application.SignUpService;
+import com.justshop.member.api.auth.presentation.dto.request.SignUpRequest;
+import com.justshop.member.api.auth.presentation.dto.mapper.ServiceLayerDtoMapper;
 import com.justshop.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
-public class MemberController {
+public class AuthController {
 
     private final SignUpService signUpService;
 
     // 회원가입
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse signUp(@RequestBody @Valid SignUpRequest request) {
         signUpService.signUp(ServiceLayerDtoMapper.mapping(request));
-
         return ApiResponse.created();
     }
 

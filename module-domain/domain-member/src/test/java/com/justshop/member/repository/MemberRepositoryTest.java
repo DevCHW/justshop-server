@@ -1,6 +1,6 @@
 package com.justshop.member.repository;
 
-import com.justshop.jpa.config.JpaConfig;
+import com.justshop.jpa.JpaConfig;
 import com.justshop.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
