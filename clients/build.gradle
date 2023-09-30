@@ -1,8 +1,0 @@
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.sun.mail:javax.mail:1.6.2'
-}
-
-bootJar { enabled = false }
-
-jar { enabled = true }

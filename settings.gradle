@@ -1,6 +1,21 @@
 rootProject.name = 'justshop'
-include 'clients'
-include 'common'
-include 'core'
-include 'api-server'
+// app
+include 'module-app'
+include 'module-app:member-service'
+
+// core
+include 'module-core'
+
+// domain
+include 'module-domain'
+include 'module-domain:domain-jpa'
+include 'module-domain:domain-member'
+
+// internal
+include 'module-internal'
+include 'module-internal:core-web'
+include 'module-app:order-service'
+findProject(':module-app:order-service')?.name = 'order-service'
+include 'module-domain:domain-order'
+findProject(':module-domain:domain-order')?.name = 'domain-order'
 
