@@ -12,8 +12,8 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
-public class AuthController {
+@RequestMapping("/api/v1/members")
+public class SignUpController {
 
     private final SignUpService signUpService;
 
@@ -24,19 +24,5 @@ public class AuthController {
         signUpService.signUp(ServiceLayerDtoMapper.mapping(request));
         return ApiResponse.created();
     }
-
-    // TODO: Rest docs 설정
-
-    // TODO: 내정보 조회
-
-    // TODO: 로그인
-
-    // TODO: 로그아웃
-
-    // TODO: 회원 탈퇴
-
-    // TODO: 내정보 수정
-
-    // TODO: 내정보 조회
 
 }

@@ -2,6 +2,7 @@ package com.justshop.member.api.auth.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.justshop.member.entity.enums.Gender;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,5 +34,15 @@ public class SignUpRequest {
 
     @NotNull(message = "성별은 필수값입니다.")
     private Gender gender; //성별
+
+    @Builder
+    public SignUpRequest(String email, String password, String name, String nickname, LocalDate birthday, Gender gender) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nickname = nickname;
+        this.birthday = birthday;
+        this.gender = gender;
+    }
 
 }
