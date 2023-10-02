@@ -64,6 +64,23 @@ include::{snippets}/member-delete/http-response.adoc[]
 include::{snippets}/member-delete/response-fields.adoc[]
 
 
+=== 닉네임 중복여부 조회
+==== HTTP Request
+include::{snippets}/member-get-exists-nickname/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-get-exists-nickname/http-response.adoc[]
+include::{snippets}/member-get-exists-nickname/response-fields.adoc[]
+
+=== 이메일 중복여부 조회
+==== HTTP Request
+include::{snippets}/member-get-exists-email/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-get-exists-email/http-response.adoc[]
+include::{snippets}/member-get-exists-email/response-fields.adoc[]
+
+
 === 이메일 인증
 ==== HTTP Request
 // include::{snippets}/member-auth-email/request-fields.adoc[]

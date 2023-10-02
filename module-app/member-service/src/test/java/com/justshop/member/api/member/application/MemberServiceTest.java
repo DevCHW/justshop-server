@@ -108,4 +108,59 @@ class MemberServiceTest {
         assertThat(findMember.getNickname()).isEqualTo(changeNickname); //변경하려는 닉네임으로 잘 변경되어있어야 한다.
     }
 
+    @DisplayName("이미 존재하는 닉네임이라면 True를 반환한다.")
+    @Test
+    void exists_nickname_return_true() {
+        // given
+        Member member = DataFactoryUtil.generateMember();
+        memberRepository.save(member);
+
+        // when
+        Boolean result = memberService.existsNickname(member.getNickname());
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("존재하는 닉네임이 없다면 False를 반환한다.")
+    @Test
+    void exists_nickname_return_false() {
+        // given
+
+        String nickname = "NotExistsNickname";
+
+        // when
+        Boolean result = memberService.existsNickname(nickname);
+
+        // then
+        assertThat(result).isFalse();
+    }
+
+    @DisplayName("이미 존재하는 이메일이라면 True를 반환한다.")
+    @Test
+    void exists_email_return_true() {
+        // given
+        Member member = DataFactoryUtil.generateMember();
+        memberRepository.save(member);
+
+        // when
+        Boolean result = memberService.existsEmail(member.getEmail());
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("존재하는 이메일이 없다면 False를 반환한다.")
+    @Test
+    void exists_email_return_false() {
+        // given
+        String email = "NotExistsEmail";
+
+        // when
+        Boolean result = memberService.existsEmail(email);
+
+        // then
+        assertThat(result).isFalse();
+    }
+
 }

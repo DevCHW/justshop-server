@@ -204,4 +204,66 @@ class MemberControllerTest extends RestDocsSupport {
                 );
     }
 
+    @DisplayName("닉네임의 존재여부를 조회한다.")
+    @Test
+    void exists_nickname() throws Exception {
+        // given
+        String nickname = "exists_nickname";
+        given(memberService.existsNickname(anyString())).willReturn(true);
+
+        // when & then
+        mockMvc.perform(
+                        get("/api/v1/members/nickname/exists/{nickname}", nickname))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"))
+                .andDo(document("member-get-exists-nickname",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("nickname").description("nickname")
+                                ),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                        fieldWithPath("data").type(JsonFieldType.BOOLEAN).description("존재 여부")
+                                )
+                        )
+                );
+    }
+
+    @DisplayName("이메일 존재여부를 조회한다.")
+    @Test
+    void exists_email() throws Exception {
+        // given
+        String email = "exists@google.com";
+        given(memberService.existsEmail(anyString())).willReturn(true);
+
+        // when & then
+        mockMvc.perform(
+                        get("/api/v1/members/email/exists/{email}", email))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"))
+                .andDo(document("member-get-exists-email",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("email").description("email")
+                                ),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                        fieldWithPath("data").type(JsonFieldType.BOOLEAN).description("존재 여부")
+                                )
+                        )
+                );
+    }
+
 }
