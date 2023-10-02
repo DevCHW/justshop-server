@@ -1,0 +1,16 @@
+ifndef::snippets[]
+:snippets: ../../build/generated-snippets
+endif::[]
+= JustShop REST API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[JustShop-Member-API]]
+== JustShop 주문 시스템 API
+
+include::api/delivery/delivery.adoc[]
+

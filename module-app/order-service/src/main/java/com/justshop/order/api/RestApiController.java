@@ -1,4 +1,4 @@
-package com.justshop.member.api;
+package com.justshop.order.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

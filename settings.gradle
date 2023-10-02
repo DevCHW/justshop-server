@@ -2,6 +2,12 @@ rootProject.name = 'justshop'
 // app
 include 'module-app'
 include 'module-app:member-service'
+include 'module-app:order-service'
+include 'module-app:payment-service'
+include 'module-app:product-service'
+include 'module-app:category-service'
+include 'module-app:delivery-service'
+include 'module-app:point-service'
 
 // core
 include 'module-core'
@@ -10,12 +16,14 @@ include 'module-core'
 include 'module-domain'
 include 'module-domain:domain-jpa'
 include 'module-domain:domain-member'
+include 'module-domain:domain-order'
+include 'module-domain:domain-product'
+include 'module-domain:domain-payment'
+include 'module-domain:domain-delivery'
+include 'module-domain:domain-category'
+include 'module-domain:domain-point'
 
 // internal
 include 'module-internal'
 include 'module-internal:core-web'
-include 'module-app:order-service'
-findProject(':module-app:order-service')?.name = 'order-service'
-include 'module-domain:domain-order'
-findProject(':module-domain:domain-order')?.name = 'domain-order'
 

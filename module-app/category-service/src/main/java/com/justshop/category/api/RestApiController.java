@@ -1,4 +1,4 @@
-package com.justshop.member.api;
+package com.justshop.category.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,4 +12,5 @@ public class RestApiController {
     public String healthCheck() {
         return "ok";
     }
+
 }

@@ -5,14 +5,10 @@ import com.justshop.member.api.auth.application.SignUpService;
 import com.justshop.member.api.auth.application.dto.request.SignUpServiceRequest;
 import com.justshop.member.api.auth.presentation.dto.request.SignUpRequest;
 import com.justshop.member.entity.enums.Gender;
-import com.justshop.response.ApiResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 

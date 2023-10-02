@@ -1,9 +1,9 @@
 package com.justshop.member.entity;
 
-import com.justshop.jpa.entity.BaseEntity;
 import com.justshop.member.entity.enums.Gender;
 import com.justshop.member.entity.enums.MemberStatus;
 import com.justshop.member.entity.enums.Role;
+import com.justshop.jpa.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
