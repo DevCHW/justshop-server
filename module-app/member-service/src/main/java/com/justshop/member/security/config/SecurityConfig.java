@@ -32,10 +32,11 @@ public class SecurityConfig {
         // 같은 출처에 대하여만 iframe 옵션 활성
         http.headers().frameOptions().sameOrigin();
 
-        http.authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-                .addFilter(getAuthenticationFilter());
+//        http.authorizeRequests()
+//                .antMatchers("/**").permitAll()
+//                .antMatchers("/actuator/**").permitAll()
+//                .and()
+        http.addFilter(getAuthenticationFilter());
 
         // session 비활성화
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

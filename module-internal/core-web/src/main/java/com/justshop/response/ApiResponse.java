@@ -38,6 +38,10 @@ public class ApiResponse<T> {
         return ApiResponse.of(data, HttpStatus.OK, HttpStatus.OK.name());
     }
 
+    public static <T> ApiResponse<T> ok() {
+        return ApiResponse.of(null, HttpStatus.OK, HttpStatus.OK.name());
+    }
+
     public static <T> ApiResponse<T> created() {
         return ApiResponse.of(null, HttpStatus.CREATED, HttpStatus.CREATED.name());
     }

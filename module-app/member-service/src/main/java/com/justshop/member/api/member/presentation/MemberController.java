@@ -1,8 +1,12 @@
 package com.justshop.member.api.member.presentation;
 
 import com.justshop.member.api.member.application.MemberService;
+import com.justshop.member.api.member.application.dto.MemberResponse;
+import com.justshop.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,13 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
-    // TODO: Rest docs 설정
 
     // TODO: 내정보 조회
+    @GetMapping("/{memberId}")
+    public ApiResponse<MemberResponse> me(@PathVariable Long memberId) {
 
-    // TODO: 로그인
+        MemberResponse memberResponse = memberService.getMemberInfo(memberId);
+        return ApiResponse.ok();
+    }
 
-    // TODO: 로그아웃
+    // 비밀번호 변경
+
 
     // TODO: 회원 탈퇴
 

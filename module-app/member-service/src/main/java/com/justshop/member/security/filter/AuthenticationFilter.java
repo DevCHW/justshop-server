@@ -57,16 +57,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication authResult) throws IOException, ServletException {
         String username = authResult.getName();
 
-//        log.info("successfulAuthentication");
-//        log.info("username={}", username);
-
         Long memberId = loginService.getMemberIdByEmail(username);
 
         byte[] tokenSecret = env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8);
         String encodedSecret = Base64.getEncoder().encodeToString(tokenSecret);
-
-//        log.info("encode token secret={}", encodedSecret);
-//        log.info("token expiration_time={}", env.getProperty("token.expiration_time"));
 
         String token = Jwts.builder()
                 .setSubject(username)

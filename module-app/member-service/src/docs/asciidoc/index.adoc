@@ -9,10 +9,8 @@ endif::[]
 :toclevels: 2
 :sectlinks:
 
-[[JustShop-API]]
-== JustShop API
+[[JustShop-Member-API]]
+== JustShop 회원 시스템 API
 
-[[Member]]
-=== 회원가입
 include::api/member/member.adoc[]
 

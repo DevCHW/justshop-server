@@ -1,12 +1,15 @@
 package com.justshop.error;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorCode {
 
     INVALID_INPUT_VALUE(400, "COMMON-001", "유효성 검증에 실패한 경우"),
     FILE_UPLOAD_CONFLICT(409, "COMMON-002", "파일 업로드 중 실패한 경우"),
 
     // MEMBER
-    MEMBER_NOT_FOUND(404, "MEMBER-001", "회원을 찾을 수 없는 경우"),
+    MEMBER_NOT_FOUND(404, "MEMBER-001", "회원을 찾을 수 없습니다."),
     UNAUTHORIZED(401, "MEMBER-002", "인증에 실패한 경우"),
     DUPLICATE_LOGIN_ID(400, "MEMBER-003", "계정명이 중복된 경우"),
     ROLE_NOT_EXISTS(403, "MEMBER-004", "권한이 부족한 경우"),

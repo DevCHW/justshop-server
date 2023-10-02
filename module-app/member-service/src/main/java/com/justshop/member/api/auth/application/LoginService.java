@@ -21,16 +21,19 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
+        Member member = memberRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
 
         return new User(member.getEmail(), member.getPassword(),
                 true, true, true, true,
                 new ArrayList<>());
     }
 
-    // 이메일로 회원 아이디 얻기
+    // 이메일로 회원 아이디 조회
     public Long getMemberIdByEmail(String email) {
-        return memberRepository.findIdByEmail(email);
+        Long memberId = memberRepository.findIdByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email)).getId();
+        return memberId;
     }
 
 }

@@ -49,4 +49,9 @@ public class Member extends BaseEntity {
         this.status = status;
     }
 
+    // 비밀번호 변경
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
 }
