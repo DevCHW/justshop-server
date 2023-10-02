@@ -17,6 +17,7 @@ include::{snippets}/member-create/http-response.adoc[]
 // include::{snippets}/member-auth/http-response.adoc[]
 // include::{snippets}/member-auth/response-fields.adoc[]
 
+
 === 로그아웃
 ==== HTTP Request
 // include::{snippets}/member-logout/http-request.adoc[]
@@ -26,6 +27,7 @@ include::{snippets}/member-create/http-response.adoc[]
 // include::{snippets}/member-logout/http-response.adoc[]
 // include::{snippets}/member-logout/response-fields.adoc[]
 
+
 === 회원정보 조회
 ==== HTTP Request
 include::{snippets}/member-get-my-info/http-request.adoc[]
@@ -33,6 +35,7 @@ include::{snippets}/member-get-my-info/http-request.adoc[]
 ==== HTTP Response
 include::{snippets}/member-get-my-info/http-response.adoc[]
 include::{snippets}/member-get-my-info/response-fields.adoc[]
+
 
 === 비밀번호 변경
 ==== HTTP Request
@@ -42,6 +45,24 @@ include::{snippets}/member-update-password/http-request.adoc[]
 ==== HTTP Response
 include::{snippets}/member-update-password/http-response.adoc[]
 include::{snippets}/member-update-password/response-fields.adoc[]
+
+=== 닉네임 변경
+==== HTTP Request
+include::{snippets}/member-update-nickname/request-fields.adoc[]
+include::{snippets}/member-update-nickname/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-update-nickname/http-response.adoc[]
+include::{snippets}/member-update-nickname/response-fields.adoc[]
+
+=== 회원 탈퇴
+==== HTTP Request
+include::{snippets}/member-delete/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-delete/http-response.adoc[]
+include::{snippets}/member-delete/response-fields.adoc[]
+
 
 === 이메일 인증
 ==== HTTP Request

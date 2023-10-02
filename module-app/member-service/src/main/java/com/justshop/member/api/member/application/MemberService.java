@@ -1,6 +1,5 @@
 package com.justshop.member.api.member.application;
 
-import com.justshop.error.ErrorCode;
 import com.justshop.exception.BusinessException;
 import com.justshop.member.api.member.application.dto.MemberResponse;
 import com.justshop.member.entity.Member;
@@ -32,10 +31,25 @@ public class MemberService {
 
     // 비밀번호 변경
     @Transactional
-    public void passwordEdit(Long memberId, String password) {
+    public void editPassword(Long memberId, String password) {
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
 
         findMember.changePassword(passwordEncoder.encode(password));
+    }
+
+    // 회원 탈퇴
+    @Transactional
+    public void deleteMember(Long memberId) {
+        memberRepository.deleteById(memberId);
+    }
+
+    // 닉네임 변경
+    @Transactional
+    public void editNickname(Long memberId, String nickname) {
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+
+        findMember.changeNickname(nickname);
     }
 }

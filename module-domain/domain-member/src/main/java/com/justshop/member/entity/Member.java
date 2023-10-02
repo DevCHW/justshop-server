@@ -54,4 +54,11 @@ public class Member extends BaseEntity {
         this.password = password;
     }
 
+    // 닉네임 변경
+    public void changeNickname(String nickname) {
+        if (!this.nickname.equals(nickname)) {
+            this.nickname = nickname;
+        }
+    }
+
 }

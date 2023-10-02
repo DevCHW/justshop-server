@@ -2,9 +2,11 @@ package com.justshop.member.api.member.presentation;
 
 import com.justshop.member.api.member.application.MemberService;
 import com.justshop.member.api.member.application.dto.MemberResponse;
+import com.justshop.member.api.member.presentation.dto.UpdateNicknameRequest;
 import com.justshop.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,15 +29,28 @@ public class MemberController {
     // 비밀번호 변경
     // TODO : 비밀번호 하나만 변경인데, PUT이 맞는지 PATCH가 맞는지 알아보고 결정하기
     @PatchMapping("/{memberId}/password")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ApiResponse passwordEdit(@PathVariable Long memberId,
-                                    @RequestBody @Valid PasswordRequest request) {
-        memberService.passwordEdit(memberId, request.getPassword());
-        return ApiResponse.ok();
+                                    @RequestBody @Valid UpdatePasswordRequest request) {
+        memberService.editPassword(memberId, request.getPassword());
+        return ApiResponse.noContent();
     }
 
-    // TODO: 회원 탈퇴
+    // 회원 탈퇴 TODO: 테스트 작성
+    @DeleteMapping("/{memberId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ApiResponse delete(@PathVariable Long memberId) {
+        memberService.deleteMember(memberId);
+        return ApiResponse.noContent();
+    }
 
-    // TODO: 내정보 수정
+    // 닉네임 변경 TODO: 테스트 작성
+    @PatchMapping("/{memberId}/nickname")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ApiResponse updateMyInfo(@PathVariable Long memberId,
+                                    @RequestBody UpdateNicknameRequest request) {
+        memberService.editNickname(memberId, request.getNickname());
+        return ApiResponse.noContent();
+    }
 
-    // TODO: 내정보 조회
 }

@@ -26,24 +26,29 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
+    // Factory method
     public static <T> ApiResponse<T> of(T data, HttpStatus httpStatus, String message) {
         return new ApiResponse<>(httpStatus, message, data);
     }
 
-    public static <T> ApiResponse<T> of(T data, HttpStatus httpStatus) {
-        return ApiResponse.of(data, httpStatus, httpStatus.name());
-    }
-
+    // 200 OK
     public static <T> ApiResponse<T> ok(T data) {
         return ApiResponse.of(data, HttpStatus.OK, HttpStatus.OK.name());
     }
 
+    // 200 OK
     public static ApiResponse ok() {
         return ApiResponse.of(null, HttpStatus.OK, HttpStatus.OK.name());
     }
 
+    // 201 CREATED
     public static <T> ApiResponse<T> created() {
         return ApiResponse.of(null, HttpStatus.CREATED, HttpStatus.CREATED.name());
+    }
+
+    // 204 NO CONTENT
+    public static <T> ApiResponse<T> noContent() {
+        return ApiResponse.of(null, HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name());
     }
 
 }

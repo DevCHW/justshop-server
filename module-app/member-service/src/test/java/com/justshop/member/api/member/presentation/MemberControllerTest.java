@@ -3,6 +3,7 @@ package com.justshop.member.api.member.presentation;
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.member.application.MemberService;
 import com.justshop.member.api.member.application.dto.MemberResponse;
+import com.justshop.member.api.member.presentation.dto.UpdateNicknameRequest;
 import com.justshop.member.entity.enums.Gender;
 import com.justshop.member.entity.enums.MemberStatus;
 import com.justshop.member.entity.enums.Role;
@@ -16,8 +17,7 @@ import java.time.LocalDate;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -106,10 +106,10 @@ class MemberControllerTest extends RestDocsSupport {
     
     @DisplayName("회원은 비밀번호를 변경할 수 있다.")
     @Test
-    void passwordEdit() throws Exception {
+    void edit_password() throws Exception {
         // given
         Long memberId = 1L;
-        PasswordRequest request = new PasswordRequest("changePassword$");
+        UpdatePasswordRequest request = new UpdatePasswordRequest("changePassword$");
 
         // when & then
         mockMvc.perform(
@@ -117,10 +117,10 @@ class MemberControllerTest extends RestDocsSupport {
                                 .content(objectMapper.writeValueAsString(request))
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value("200"))
-                .andExpect(jsonPath("$.status").value("OK"))
-                .andExpect(jsonPath("$.message").value("OK"))
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.code").value("204"))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.message").value("NO_CONTENT"))
                 .andDo(document("member-update-password",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
@@ -138,6 +138,70 @@ class MemberControllerTest extends RestDocsSupport {
                         )
                 );
     }
-    
+
+    @DisplayName("회원은 닉네임을 변경할 수 있다.")
+    @Test
+    void edit_nickname() throws Exception {
+        // given
+        Long memberId = 1L;
+        UpdateNicknameRequest request = new UpdateNicknameRequest("changeNickname");
+
+        // when & then
+        mockMvc.perform(
+                        patch("/api/v1/members/{memberId}/nickname", memberId)
+                                .content(objectMapper.writeValueAsString(request))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.code").value("204"))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.message").value("NO_CONTENT"))
+                .andDo(document("member-update-nickname",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("memberId").description("회원 ID")
+                                ),
+                                requestFields(
+                                        fieldWithPath("nickname").type(JsonFieldType.STRING).description("닉네임")
+                                ),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")
+                                )
+                        )
+                );
+    }
+
+    @DisplayName("회원은 회원탈퇴를 할 수 있다.")
+    @Test
+    void delete_member() throws Exception {
+        // given
+        Long memberId = 1L;
+
+        // when & then
+        mockMvc.perform(
+                        delete("/api/v1/members/{memberId}", memberId)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.code").value("204"))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.message").value("NO_CONTENT"))
+                .andDo(document("member-delete",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("memberId").description("회원 ID")
+                                ),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")
+                                )
+                        )
+                );
+    }
 
 }
