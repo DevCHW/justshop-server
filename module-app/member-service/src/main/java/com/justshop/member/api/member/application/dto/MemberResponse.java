@@ -1,5 +1,6 @@
 package com.justshop.member.api.member.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.justshop.member.entity.Member;
 import com.justshop.member.entity.enums.Gender;
 import com.justshop.member.entity.enums.MemberStatus;
@@ -17,13 +18,14 @@ public class MemberResponse {
     private String name; //이름
     private String nickname; // 닉네임
     private int point; // 포인트
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate birthday; // 생년월일
     private Role memberRole; // 권한
     private Gender gender; // 성별
     private MemberStatus status; // 상태
 
     @Builder
-    private MemberResponse(Long memberId, String email, String name, String nickname, int point, LocalDate birthday, Role memberRole, Gender gender, MemberStatus status) {
+    public MemberResponse(Long memberId, String email, String name, String nickname, int point, LocalDate birthday, Role memberRole, Gender gender, MemberStatus status) {
         this.memberId = memberId;
         this.email = email;
         this.name = name;

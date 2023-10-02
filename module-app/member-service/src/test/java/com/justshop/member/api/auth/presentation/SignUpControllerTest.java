@@ -72,6 +72,11 @@ class SignUpControllerTest extends RestDocsSupport {
                                 fieldWithPath("nickname").type(JsonFieldType.STRING).description("닉네임"),
                                 fieldWithPath("birthday").type(JsonFieldType.STRING).description("생년월일"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
+                            ),
+                            responseFields(
+                                    fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                    fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                    fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")
                             )
                         )
                 );

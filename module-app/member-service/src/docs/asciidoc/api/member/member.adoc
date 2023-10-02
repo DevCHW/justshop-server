@@ -26,16 +26,22 @@ include::{snippets}/member-create/http-response.adoc[]
 // include::{snippets}/member-logout/http-response.adoc[]
 // include::{snippets}/member-logout/response-fields.adoc[]
 
-
-=== 로그아웃
+=== 회원정보 조회
 ==== HTTP Request
-// include::{snippets}/member-logout/request-fields.adoc[]
-// include::{snippets}/member-logout/http-request.adoc[]
+include::{snippets}/member-get-my-info/http-request.adoc[]
 
 ==== HTTP Response
-// include::{snippets}/member-logout/http-response.adoc[]
-// include::{snippets}/member-logout/response-fields.adoc[]
+include::{snippets}/member-get-my-info/http-response.adoc[]
+include::{snippets}/member-get-my-info/response-fields.adoc[]
 
+=== 비밀번호 변경
+==== HTTP Request
+include::{snippets}/member-update-password/request-fields.adoc[]
+include::{snippets}/member-update-password/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-update-password/http-response.adoc[]
+include::{snippets}/member-update-password/response-fields.adoc[]
 
 === 이메일 인증
 ==== HTTP Request
