@@ -53,4 +53,18 @@ public class MemberController {
         return ApiResponse.noContent();
     }
 
+    // 닉네임 중복확인 TODO: 테스트 작성
+    @GetMapping("/nickname/exists/{nickname}")
+    public ApiResponse<Boolean> existsNickname(@PathVariable String nickname) {
+        Boolean existsNickname = memberService.existsNickname(nickname);
+        return ApiResponse.ok(existsNickname);
+    }
+
+    // 이메일 중복확인 TODO: 테스트 작성
+    @GetMapping("/email/exists/{email}")
+    public ApiResponse<Boolean> existsEmail(@PathVariable String email) {
+        Boolean existsEmail = memberService.existsEmail(email);
+        return ApiResponse.ok(existsEmail);
+    }
+
 }

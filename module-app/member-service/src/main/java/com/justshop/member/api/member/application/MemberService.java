@@ -52,4 +52,14 @@ public class MemberService {
 
         findMember.changeNickname(nickname);
     }
+
+    // 닉네임 중복체크
+    public Boolean existsNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    // 이메일 중복체크
+    public Boolean existsEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
 }
