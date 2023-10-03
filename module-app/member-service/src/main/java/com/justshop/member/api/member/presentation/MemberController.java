@@ -19,7 +19,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 내정보 조회
+    // 회원 정보 조회
     @GetMapping("/{memberId}")
     public ApiResponse<MemberResponse> getMyInfo(@PathVariable Long memberId) {
         MemberResponse response = memberService.getMemberInfo(memberId);
