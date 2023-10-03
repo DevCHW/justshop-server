@@ -23,7 +23,7 @@ public enum ErrorCode {
     PRODUCT_NOT_FOUND(404,"PRODUCT-001", "상품을 찾을 수 없습니다."),
     PRODUCT_LIKE_NOT_FOUND(404, "PRODUCT-002", "상품 좋아요를 찾을 수 없습니다."),
     PRODUCT_LIKE_EXISTS_ALREADY(409, "PRODUCT-003", "상품 좋아요가 이미 존재합니다."),
-
+    Product_OPTION_NOT_FOUND(404, "PRODUCT-004", "상품 옵션을 찾을 수 없습니다"),
     // POINT
     NOT_ENOUGH_POINT(422, "ORDER-005", "포인트가 부족합니다."),
 

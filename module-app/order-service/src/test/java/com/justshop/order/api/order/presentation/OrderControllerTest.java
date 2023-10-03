@@ -68,6 +68,7 @@ class OrderControllerTest extends RestDocsSupport {
 
                         ),
                         responseFields(
+
                                 fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
                                 fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"))

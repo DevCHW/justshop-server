@@ -1,6 +1,9 @@
 package com.justshop.product.api.product.application;
 
+import com.justshop.exception.BusinessException;
 import com.justshop.product.api.product.application.dto.response.ProductPriceResponse;
+import com.justshop.product.api.product.application.dto.response.ProductResponse;
+import com.justshop.product.domain.entity.Product;
 import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.repository.ProductOptionRepository;
 import com.justshop.product.domain.repository.ProductRepository;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.justshop.error.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,4 +30,14 @@ public class ProductService {
                 .map(po -> ProductPriceResponse.from(po))
                 .collect(Collectors.toList());
     }
+
+    // 상품 상세 조회
+    public ProductResponse getProductInfo(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BusinessException(PRODUCT_LIKE_NOT_FOUND));
+
+        // TODO: 기능 마저 작성하기, 테스트 작성, 현재는 단순한 Product 정보만 return해줌.
+        return ProductResponse.from(product);
+    }
+
 }

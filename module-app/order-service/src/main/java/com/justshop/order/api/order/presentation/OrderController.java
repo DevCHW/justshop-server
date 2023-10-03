@@ -1,6 +1,7 @@
 package com.justshop.order.api.order.presentation;
 
 import com.justshop.order.api.order.application.OrderService;
+import com.justshop.order.api.order.application.dto.response.OrderResponse;
 import com.justshop.order.api.order.presentation.dto.mapper.ServiceLayerDtoMapper;
 import com.justshop.order.api.order.presentation.dto.request.CreateOrderRequest;
 import com.justshop.response.ApiResponse;
@@ -25,6 +26,13 @@ public class OrderController {
     public ApiResponse order(@RequestBody @Valid CreateOrderRequest request) {
         orderService.order(ServiceLayerDtoMapper.mapping(request));
         return ApiResponse.created();
+    }
+
+    // 주문 정보 조회
+    @GetMapping("/{orderId}")
+    public ApiResponse<OrderResponse> getOrder(@PathVariable Long orderId) {
+        OrderResponse response = orderService.getOrder(orderId);
+        return ApiResponse.ok(response);
     }
 
 }

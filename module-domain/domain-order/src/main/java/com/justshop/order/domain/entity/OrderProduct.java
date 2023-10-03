@@ -25,7 +25,8 @@ public class OrderProduct extends BaseEntity {
     private Long quantity; // 주문 수량
 
     @Builder
-    public OrderProduct(Long productId, Long productOptionId, Long quantity) {
+    public OrderProduct(Order order, Long productId, Long productOptionId, Long quantity) {
+        this.order = order;
         this.productId = productId;
         this.productOptionId = productOptionId;
         this.quantity = quantity;

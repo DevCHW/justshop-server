@@ -2,15 +2,13 @@ package com.justshop.product.api.product.presentation;
 
 import com.justshop.product.api.product.application.ProductService;
 import com.justshop.product.api.product.application.dto.response.ProductPriceResponse;
+import com.justshop.product.api.product.application.dto.response.ProductResponse;
 import com.justshop.response.ApiResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +26,13 @@ public class ProductController {
                 .map(s -> Long.parseLong(s)).collect(Collectors.toList());
 
         List<ProductPriceResponse> response = productService.getOrderProductsInfo(productOptionIds);
+        return ApiResponse.ok(response);
+    }
+
+    // 상품 상세 조회
+    @GetMapping("/{productId}")
+    public ApiResponse<ProductResponse> getProduct(@PathVariable Long productId) {
+        ProductResponse response = productService.getProductInfo(productId);
         return ApiResponse.ok(response);
     }
 

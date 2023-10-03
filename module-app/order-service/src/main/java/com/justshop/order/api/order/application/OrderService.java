@@ -2,12 +2,15 @@ package com.justshop.order.api.order.application;
 
 import com.justshop.exception.BusinessException;
 import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest;
+import com.justshop.order.api.order.application.dto.response.OrderResponse;
 import com.justshop.order.api.order.infrastructure.kafka.KafkaProducer;
 import com.justshop.order.api.order.infrastructure.kafka.dto.OrderCreate;
 import com.justshop.order.client.MemberServiceClient;
 import com.justshop.order.client.ProductServiceClient;
 import com.justshop.order.client.response.MemberResponse;
 import com.justshop.order.client.response.ProductPriceResponse;
+import com.justshop.order.domain.entity.Order;
+import com.justshop.order.domain.entity.OrderProduct;
 import com.justshop.order.domain.repository.OrderRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -130,10 +133,20 @@ public class OrderService {
         log.info("주문요청이 성공적으로 처리되었습니다.");
 
         // 주문 저장 이벤트 메세지 발행
-        kafkaProducer.send("order-create", message);
+//        kafkaProducer.send("order-create", message);
 
         // TODO : 포인트 사용금액만큼 사용 (포인트 시스템에서 구독)
         // TODO : 상품들 재고 감소 (상품 시스템에서 구독)
+    }
+
+
+    // 주문 상세조회
+    public OrderResponse getOrder(Long orderId) {
+        Order order = orderRepository.findByIdWithOrderProducts(orderId)
+                .orElseThrow(() -> new BusinessException(ORDER_NOT_FOUND));
+
+        // TODO: OrderResponse 작성
+        return OrderResponse.from(order);
     }
 
 }

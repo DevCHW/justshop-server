@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class CreateOrderServiceRequest {
@@ -47,7 +46,11 @@ public class CreateOrderServiceRequest {
                 .payAmount(payAmount)
                 .status(OrderStatus.INIT)
                 .build();
-        this.orderProducts.forEach(op -> new OrderProduct(op.getProductId(), op.getProductOptionId(), op.getQuantity().longValue()));
+
+        this.orderProducts.forEach(
+                op -> order.add(
+                        new OrderProduct(order, op.getProductId(), op.getProductOptionId(), op.getQuantity().longValue())
+                ));
 
         return order;
     }

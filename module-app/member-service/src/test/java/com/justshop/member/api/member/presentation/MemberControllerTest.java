@@ -1,9 +1,11 @@
 package com.justshop.member.api.member.presentation;
 
+import com.justshop.member.DataFactoryUtil;
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.member.application.MemberService;
 import com.justshop.member.api.member.application.dto.MemberResponse;
 import com.justshop.member.api.member.presentation.dto.UpdateNicknameRequest;
+import com.justshop.member.entity.Member;
 import com.justshop.member.entity.enums.Gender;
 import com.justshop.member.entity.enums.MemberStatus;
 import com.justshop.member.entity.enums.Role;
