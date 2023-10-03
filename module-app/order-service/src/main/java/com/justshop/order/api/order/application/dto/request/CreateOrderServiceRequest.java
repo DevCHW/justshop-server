@@ -1,11 +1,13 @@
 package com.justshop.order.api.order.application.dto.request;
 
 import com.justshop.order.domain.entity.Order;
+import com.justshop.order.domain.entity.OrderProduct;
 import com.justshop.order.domain.entity.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class CreateOrderServiceRequest {
@@ -25,24 +27,29 @@ public class CreateOrderServiceRequest {
 
     @Getter
     public static class OrderProductRequest {
+        private Long productId; //상품 ID
         private Long productOptionId; //상품 옵션 ID
         private Integer quantity; //주문 수량
 
         @Builder
-        public OrderProductRequest(Long productOptionId, Integer quantity) {
+        public OrderProductRequest(Long productId, Long productOptionId, Integer quantity) {
+            this.productId = productId;
             this.productOptionId = productOptionId;
             this.quantity = quantity;
         }
     }
 
     public Order toEntity(Long orderPrice, Long payAmount) {
-        return Order.builder()
+        Order order = Order.builder()
                 .memberId(memberId)
                 .orderPrice(orderPrice)
                 .discountAmount(orderPrice - payAmount)
                 .payAmount(payAmount)
                 .status(OrderStatus.INIT)
                 .build();
+        this.orderProducts.forEach(op -> new OrderProduct(op.getProductId(), op.getProductOptionId(), op.getQuantity().longValue()));
+
+        return order;
     }
 
 }
