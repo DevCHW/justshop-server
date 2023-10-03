@@ -12,6 +12,7 @@ public class ServiceLayerDtoMapper {
         // 주문 상품 정보 리스트 Controller Layer -> Service Layer로 변환
         List<CreateOrderServiceRequest.OrderProductRequest> convertedOrderProducts = request.getOrderProducts().stream()
                 .map(o -> CreateOrderServiceRequest.OrderProductRequest.builder()
+                        .productId(o.getProductId())
                         .productOptionId(o.getProductOptionId())
                         .quantity(o.getQuantity())
                         .build())

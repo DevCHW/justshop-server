@@ -2,6 +2,8 @@ package com.justshop.order.api.order.application;
 
 import com.justshop.exception.BusinessException;
 import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest;
+import com.justshop.order.api.order.infrastructure.kafka.KafkaProducer;
+import com.justshop.order.api.order.infrastructure.kafka.dto.OrderCreate;
 import com.justshop.order.client.MemberServiceClient;
 import com.justshop.order.client.ProductServiceClient;
 import com.justshop.order.client.response.MemberResponse;
@@ -32,6 +34,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberServiceClient memberServiceClient;
     private final ProductServiceClient productServiceClient;
+    private final KafkaProducer kafkaProducer;
 
     // 주문 TODO: 코드 리팩토링.....하기..
     @Transactional
@@ -50,17 +53,18 @@ public class OrderService {
 
         // 주문자한테 사용 포인트 이상 있는지 확인, 사용 포인트보다 보유 포인트가 적다면 익셉션
         if (memberInfo.getPoint() < request.getUsePoint()) {
+            log.error(NOT_ENOUGH_STOCK.getDescription());
             throw new BusinessException(NOT_ENOUGH_POINT, "포인트가 부족합니다.");
         }
 
         // 사용될 쿠폰이 있다면 쿠폰서비스에서 쿠폰 조회
         int couponDiscountRate = 0;
-        if (Objects.isNull(request.getCouponId())) {
+        if (!Objects.isNull(request.getCouponId())) {
+            log.info("사용될 쿠폰이 있습니다. 사용될 쿠폰ID={}", request.getCouponId());
             // Feign Client로 쿠폰서비스에서 쿠폰을 조회한다.
             // 쿠폰을 찾지 못한다면 익셉션
             // 쿠폰 보유자가 요청된 사용자가 맞는지 확인한다. 다르다면 익셉션
             // 쿠폰의 할인율을 couponDiscountRate 변수에 담기.
-            log.info("사용될 쿠폰이 있습니다.");
         }
 
         // 주문한 상품 옵션 아이디 리스트 추출
@@ -104,16 +108,32 @@ public class OrderService {
         System.out.println("======= >> 주문 금액 계산 과정 끝 << ==========");
 
         // 최종 결제할 금액 계산
-        Long finalAmount = (totalPrice.get() - request.getUsePoint()) * (couponDiscountRate/100);
+        Long payAmount = (totalPrice.get() - request.getUsePoint()) * (couponDiscountRate/100);
 
         // 주문정보 저장
-        orderRepository.save(request.toEntity(totalPrice.get(), finalAmount));
+        Long orderId = orderRepository.save(request.toEntity(totalPrice.get(), payAmount)).getId();
+
+        // 주문 생성 이벤트 메세지 만들기
+        List<OrderCreate.OrderQuantity> orderQuantities = request.getOrderProducts().stream()
+                .map(op -> new OrderCreate.OrderQuantity(op.getProductOptionId(), op.getQuantity()))
+                .collect(Collectors.toList());
+
+        OrderCreate message = OrderCreate.builder()
+                .orderId(orderId)
+                .memberId(request.getMemberId())
+                .couponId(request.getCouponId())
+                .usePoint(request.getUsePoint())
+                .payAmount(payAmount)
+                .orderQuantities(orderQuantities)
+                .build();
 
         log.info("주문요청이 성공적으로 처리되었습니다.");
-        // TODO : 주문 저장 이벤트 메세지 발행 =>
+
+        // 주문 저장 이벤트 메세지 발행
+        kafkaProducer.send("order-create", message);
+
         // TODO : 포인트 사용금액만큼 사용 (포인트 시스템에서 구독)
         // TODO : 상품들 재고 감소 (상품 시스템에서 구독)
-
     }
 
 }
