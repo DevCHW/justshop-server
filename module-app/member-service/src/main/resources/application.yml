@@ -2,8 +2,6 @@ server:
   port: 8083
 
 spring:
-  jackson:
-    property-naming-strategy: SNAKE_CASE
 
   output:
     ansi:
