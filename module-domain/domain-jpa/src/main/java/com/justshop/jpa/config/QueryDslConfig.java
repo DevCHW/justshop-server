@@ -1,4 +1,4 @@
-package com.justshop.order.domain.config;
+package com.justshop.jpa.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
