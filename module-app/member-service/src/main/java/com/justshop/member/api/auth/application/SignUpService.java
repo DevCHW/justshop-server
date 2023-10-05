@@ -1,6 +1,7 @@
 package com.justshop.member.api.auth.application;
 
 import com.justshop.member.api.auth.application.dto.request.SignUpServiceRequest;
+import com.justshop.member.api.auth.infrastructure.kafka.producer.MemberCreateProducer;
 import com.justshop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,11 +14,13 @@ public class SignUpService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final MemberCreateProducer memberCreateProducer;
 
     @Transactional
     public Long signUp(SignUpServiceRequest request) {
-        // TODO: 추후 이벤트 발행
-        return memberRepository.save(request.toEntity(passwordEncoder)).getId();
+        Long savedMemberId = memberRepository.save(request.toEntity(passwordEncoder)).getId();
+        memberCreateProducer.send(savedMemberId);
+        return savedMemberId;
     }
 
 }
