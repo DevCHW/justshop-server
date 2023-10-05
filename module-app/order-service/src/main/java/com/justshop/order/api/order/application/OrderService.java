@@ -3,7 +3,7 @@ package com.justshop.order.api.order.application;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.api.order.application.dto.response.OrderResponse;
-import com.justshop.order.api.order.infrastructure.kafka.producer.OrderCreateProducer;
+import com.justshop.order.infrastructure.kafka.producer.OrderCreateProducer;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.order.client.MemberServiceClient;
 import com.justshop.order.client.ProductServiceClient;

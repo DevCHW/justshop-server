@@ -1,4 +1,4 @@
-package com.justshop.point.api.point.infrastructure.kafka.consumer;
+package com.justshop.product.infrastructure.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,24 +6,21 @@ import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.Topics;
 import com.justshop.core.kafka.message.order.OrderCreate;
-import com.justshop.point.api.point.application.PointService;
+import com.justshop.product.api.product.application.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
-
-import java.util.Objects;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
 public class OrderServiceConsumer {
 
-    private final PointService pointService;
+    private final ProductService productService;
 
-    // 주문 완료 시 사용 포인트만큼 차감
     @KafkaListener(topics = Topics.ORDER_CREATE)
-    public void usePoint(String kafkaMessage) {
+    public void decreaseStock(String kafkaMessage) {
         log.info("Kafka Message: -> {}", kafkaMessage);
 
         OrderCreate message;
@@ -34,13 +31,6 @@ public class OrderServiceConsumer {
             throw new BusinessException(ErrorCode.JsonParsingError);
         }
 
-        Long usePoint = message.getUsePoint(); // 사용 포인트
-        Long memberId = message.getMemberId(); // 주문자 ID
-        String pointEventMessage = "상품 구매 사용 포인트 차감"; // 포인트 이벤트 메세지
-
-        if (!Objects.isNull(usePoint) && usePoint > 0 && !Objects.isNull(memberId)) {
-            pointService.usePoint(usePoint, memberId, pointEventMessage);
-        }
+        productService.decreaseStock(message);
     }
-
 }

@@ -1,7 +1,7 @@
 package com.justshop.member.api.auth.application;
 
 import com.justshop.member.api.auth.application.dto.request.SignUpServiceRequest;
-import com.justshop.member.api.auth.infrastructure.kafka.producer.MemberCreateProducer;
+import com.justshop.member.infrastructure.kafka.producer.MemberCreateProducer;
 import com.justshop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,6 +1,6 @@
 package com.justshop.point.api.point.application;
 
-import com.justshop.point.api.point.infrastructure.kafka.producer.PointEventHistoryCreateProducer;
+import com.justshop.point.infrastructure.kafka.producer.PointEventHistoryCreateProducer;
 import com.justshop.core.kafka.message.point.PointEventCreate;
 import com.justshop.point.domain.entity.PointEventHistory;
 import com.justshop.point.domain.entity.enums.PointEventType;

@@ -1,4 +1,4 @@
-package com.justshop.point.api.point.infrastructure.kafka.consumer;
+package com.justshop.point.infrastructure.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

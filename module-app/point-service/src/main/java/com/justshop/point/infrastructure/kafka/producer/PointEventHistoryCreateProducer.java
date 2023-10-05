@@ -1,4 +1,4 @@
-package com.justshop.point.api.point.infrastructure.kafka.producer;
+package com.justshop.point.infrastructure.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
