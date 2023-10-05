@@ -1,4 +1,4 @@
-package com.justshop.order.api.order.infrastructure.kafka.dto;
+package com.justshop.core.kafka.message.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
