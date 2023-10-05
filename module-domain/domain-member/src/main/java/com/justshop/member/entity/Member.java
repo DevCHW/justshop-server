@@ -1,5 +1,7 @@
 package com.justshop.member.entity;
 
+import com.justshop.core.error.ErrorCode;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.member.entity.enums.Gender;
 import com.justshop.member.entity.enums.MemberStatus;
 import com.justshop.member.entity.enums.Role;
@@ -59,6 +61,19 @@ public class Member extends BaseEntity {
         if (!this.nickname.equals(nickname)) {
             this.nickname = nickname;
         }
+    }
+
+    // 포인트 적립
+    public void addPoint(Long amount) {
+        this.point += amount;
+    }
+
+    // 포인트 차감
+    public void decreasePoint(Long amount) {
+        if (point < amount) {
+            throw new BusinessException(ErrorCode.NOT_ENOUGH_POINT, "회원의 보유 포인트가 부족하여 포인트를 차감할 수 없습니다.");
+        }
+        this.point -= amount;
     }
 
 }

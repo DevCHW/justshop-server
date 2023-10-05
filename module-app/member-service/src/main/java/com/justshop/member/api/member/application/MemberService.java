@@ -1,6 +1,6 @@
 package com.justshop.member.api.member.application;
 
-import com.justshop.exception.BusinessException;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.member.api.member.application.dto.MemberResponse;
 import com.justshop.member.entity.Member;
 import com.justshop.member.repository.MemberRepository;
@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.justshop.error.ErrorCode.*;
+import static com.justshop.core.error.ErrorCode.*;
 
 @Slf4j
 @Service
@@ -61,5 +61,21 @@ public class MemberService {
     // 이메일 중복체크
     public Boolean existsEmail(String email) {
         return memberRepository.existsByEmail(email);
+    }
+
+    // 포인트 변경
+    @Transactional
+    public void updatePoint(Long memberId, Long amount, String type) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+
+        if ("ADD".equals(type)) {
+            member.addPoint(amount);
+        }
+
+        if ("DEDUCTION".equals(type)) {
+            member.decreasePoint(amount);
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 package com.justshop.member.api.member.application;
 
-import com.justshop.exception.BusinessException;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.member.DataFactoryUtil;
 import com.justshop.member.api.member.application.dto.MemberResponse;
 import com.justshop.member.entity.Member;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
-import static com.justshop.error.ErrorCode.MEMBER_NOT_FOUND;
+import static com.justshop.core.error.ErrorCode.MEMBER_NOT_FOUND;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest

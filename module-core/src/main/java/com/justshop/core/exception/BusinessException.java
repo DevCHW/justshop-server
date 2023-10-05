@@ -1,6 +1,6 @@
-package com.justshop.exception;
+package com.justshop.core.exception;
 
-import com.justshop.error.ErrorCode;
+import com.justshop.core.error.ErrorCode;
 
 public class BusinessException extends RuntimeException {
 
