@@ -1,0 +1,36 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+dependencies {
+    // h2
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'com.h2database:h2'
+
+    //querydsl
+    api "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+}
+
+//querydsl config
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}

@@ -1,0 +1,62 @@
+project(':module-domain:domain-member') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-order') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-category') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-delivery') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-payment') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-point') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
+project(':module-domain:domain-product') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}

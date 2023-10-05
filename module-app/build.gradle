@@ -1,0 +1,69 @@
+project(':module-app:member-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-member')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:order-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-order')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:category-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-category')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:delivery-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-delivery')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:payment-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-payment')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:point-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-point')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:product-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-product')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
