@@ -1,10 +1,11 @@
-package com.justshop.order.api.order.infrastructure.kafka;
+package com.justshop.order.api.order.infrastructure.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.justshop.error.ErrorCode;
-import com.justshop.exception.BusinessException;
-import com.justshop.order.api.order.infrastructure.kafka.dto.OrderCreate;
+import com.justshop.core.error.ErrorCode;
+import com.justshop.core.exception.BusinessException;
+import com.justshop.core.kafka.message.Topics;
+import com.justshop.core.kafka.message.order.OrderCreate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class KafkaProducer {
+public class OrderCreateProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public OrderCreate send(String topic, OrderCreate order) {
+    public OrderCreate send(OrderCreate order) {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonInString = "";
 
@@ -27,7 +28,7 @@ public class KafkaProducer {
             throw new BusinessException(ErrorCode.JsonParsingError);
         }
 
-        kafkaTemplate.send(topic, jsonInString);
+        kafkaTemplate.send(Topics.ORDER_CREATE, jsonInString);
         log.info("Order MicroService - Kafka 이벤트 메세지 발행 : {}", jsonInString);
         return order;
     }
