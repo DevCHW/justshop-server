@@ -1,5 +1,7 @@
 package com.justshop.product.domain.entity;
 
+import com.justshop.core.error.ErrorCode;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Size;
 import lombok.AccessLevel;
@@ -39,6 +41,15 @@ public class ProductOption {
         this.etc = etc;
         this.additionalPrice = additionalPrice;
         this.stockQuantity = stockQuantity;
+    }
+
+    // 재고수량 감소
+    public void decreaseStock(Long quantity) {
+        if (stockQuantity < quantity) {
+            throw new BusinessException(ErrorCode.NOT_ENOUGH_STOCK, "재고가 부족합니다.");
+        }
+
+        this.stockQuantity -= quantity;
     }
 
 }
