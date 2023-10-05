@@ -1,4 +1,4 @@
-package com.justshop.error;
+package com.justshop.core.error;
 
 import lombok.Getter;
 
