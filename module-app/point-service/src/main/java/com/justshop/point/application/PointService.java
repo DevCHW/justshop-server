@@ -21,7 +21,7 @@ public class PointService {
 
     // 포인트 차감
     @Transactional
-    public void decreasePoint(final Long amount, final Long memberId, final String pointEventMessage) {
+    public Long decreasePoint(final Long amount, final Long memberId, final String pointEventMessage) {
         PointEventHistory pointEvent = PointEventHistory.builder()
                 .memberId(memberId)
                 .type(PointEventType.DEDUCTION)
@@ -34,11 +34,13 @@ public class PointService {
         // 이벤트 메세지 발행
         PointEventCreate message = generatePointEventCreateMessage(savedHistory);
         pointEventHistoryCreateProducer.send(message);
+
+        return savedHistory.getId();
     }
 
     // 포인트 적립
     @Transactional
-    public void add(final Long memberId, final Long amount, final String pointEventMessage) {
+    public Long addPoint(final Long amount, final Long memberId, final String pointEventMessage) {
         PointEventHistory pointEvent = PointEventHistory.builder()
                 .memberId(memberId)
                 .type(PointEventType.ADD)
@@ -51,6 +53,8 @@ public class PointService {
         // 이벤트 메세지 발행
         PointEventCreate message = generatePointEventCreateMessage(savedHistory);
         pointEventHistoryCreateProducer.send(message);
+
+        return savedHistory.getId();
     }
 
     // PointEvent 생성 메세지
