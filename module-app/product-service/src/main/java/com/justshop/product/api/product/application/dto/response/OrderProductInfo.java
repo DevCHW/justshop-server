@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ProductPriceResponse {
+public class OrderProductInfo {
 
     private Long productOptionId; // 상품 옵션 ID
     private Long productId; // 상품 ID
@@ -15,7 +15,7 @@ public class ProductPriceResponse {
     private int stockQuantity; //재고수량
 
     @Builder
-    public ProductPriceResponse(Long productOptionId, Long productId, Integer price, int additionalPrice, int stockQuantity) {
+    public OrderProductInfo(Long productOptionId, Long productId, Integer price, int additionalPrice, int stockQuantity) {
         this.productOptionId = productOptionId;
         this.productId = productId;
         this.price = price;
@@ -23,8 +23,8 @@ public class ProductPriceResponse {
         this.stockQuantity = stockQuantity;
     }
 
-    public static ProductPriceResponse from(ProductOption productOption) {
-        return ProductPriceResponse.builder()
+    public static OrderProductInfo from(ProductOption productOption) {
+        return OrderProductInfo.builder()
                 .productOptionId(productOption.getId())
                 .productId(productOption.getProduct().getId())
                 .price(productOption.getProduct().getPrice())

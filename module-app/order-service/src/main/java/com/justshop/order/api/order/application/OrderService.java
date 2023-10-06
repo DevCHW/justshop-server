@@ -6,24 +6,22 @@ import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRe
 import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest.OrderProductRequest;
 import com.justshop.order.api.order.application.dto.response.OrderResponse;
 import com.justshop.order.client.reader.CouponReader;
+import com.justshop.order.client.reader.DeliveryReader;
 import com.justshop.order.client.reader.MemberReader;
 import com.justshop.order.client.reader.ProductReader;
-import com.justshop.order.client.DeliveryServiceClient;
 import com.justshop.order.client.response.DeliveryResponse;
 import com.justshop.order.infrastructure.kafka.producer.OrderCreateProducer;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.order.client.response.MemberResponse;
-import com.justshop.order.client.response.ProductPriceResponse;
+import com.justshop.order.client.response.OrderProductInfo;
 import com.justshop.order.domain.entity.Order;
 import com.justshop.order.domain.repository.OrderRepository;
 import com.justshop.order.infrastructure.kafka.producer.OrderUpdateProducer;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -39,9 +37,9 @@ import static com.justshop.order.domain.entity.enums.OrderStatus.*;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final DeliveryServiceClient deliveryServiceClient;
     private final OrderCreateProducer orderCreateProducer;
     private final OrderUpdateProducer orderUpdateProducer;
+    private final DeliveryReader deliveryReader;
     private final MemberReader memberReader;
     private final ProductReader productReader;
     private final CouponReader couponReader;
@@ -57,20 +55,20 @@ public class OrderService {
         int couponDiscountRate = couponReader.read(request.getCouponId());
 
         // 주문상품 조회하여 재고체크, 주문상품 총 가격계산
-        List<ProductPriceResponse> productPrices = productReader.read(request.getOrderProducts());
-        Long totalPrice = getTotalPriceAndStockCheck(request.getOrderProducts(), productPrices);
+        List<OrderProductInfo> orderProductInfoList = productReader.read(request.getOrderProducts());
+        Long totalPrice = getTotalPriceAndStockCheck(request.getOrderProducts(), orderProductInfoList);
 
         // 최종결제금액 계산
         Long payAmount = calculatePrice(totalPrice, request.getUsePoint(), couponDiscountRate);
 
         // 주문 생성
-        Order savedOrder = orderRepository.save(request.toEntity(totalPrice, payAmount));
+        Long savedOrderId = orderRepository.save(request.toEntity(totalPrice, payAmount)).getId();
 
         // 주문 생성 이벤트 메세지 발행
-        OrderCreate message = CreateOrderCreateEventMessage(request, payAmount, savedOrder);
+        OrderCreate message = CreateOrderCreateEventMessage(request, payAmount, savedOrderId);
         orderCreateProducer.send(message);
 
-        return savedOrder.getId();
+        return savedOrderId;
     }
 
     // 보유포인트 체크
@@ -82,7 +80,7 @@ public class OrderService {
     }
 
     // 재고 체크, 가격 계산
-    private Long getTotalPriceAndStockCheck(List<OrderProductRequest> orderProducts, List<ProductPriceResponse> productPrices) {
+    private Long getTotalPriceAndStockCheck(List<OrderProductRequest> orderProducts, List<OrderProductInfo> productPrices) {
         Map<Long, Integer> orderQuantityMap = orderProducts.stream()
                 .collect(Collectors.toMap(op -> op.getProductOptionId(), op -> op.getQuantity()));
 
@@ -103,12 +101,12 @@ public class OrderService {
     }
 
     // 주문생성 Event Message 생성
-    private OrderCreate CreateOrderCreateEventMessage(CreateOrderServiceRequest request, Long payAmount, Order savedOrder) {
+    private OrderCreate CreateOrderCreateEventMessage(CreateOrderServiceRequest request, Long payAmount, Long orderId) {
         List<OrderCreate.OrderQuantity> orderQuantities = request.getOrderProducts().stream()
                 .map(op -> new OrderCreate.OrderQuantity(op.getProductOptionId(), op.getQuantity()))
                 .collect(Collectors.toList());
         return OrderCreate.builder()
-                .orderId(savedOrder.getId())
+                .orderId(orderId)
                 .memberId(request.getMemberId())
                 .couponId(request.getCouponId())
                 .usePoint(request.getUsePoint())
@@ -138,19 +136,7 @@ public class OrderService {
         }
 
         // 배송정보 조회해서 배송중이라면 취소불가
-        Map<String, Long> deliverySearchParam = new HashMap<>();
-        deliverySearchParam.put("orderId", orderId);
-        DeliveryResponse deliveryResponse;
-        try {
-            deliveryResponse = deliveryServiceClient.getDelivery(deliverySearchParam).getData();
-        } catch (FeignException e) {
-            log.error(e.getMessage());
-            throw new BusinessException(ORDER_CANCEL_FAIL, "배송 시스템 장애로 인하여 주문에 실패하였습니다.");
-        } catch (NullPointerException e) {
-            log.error(e.getMessage());
-            throw new BusinessException(ORDER_CANCEL_FAIL, "배송 정보 조회에 실패하여 주문에 실패하였습니다.");
-        }
-
+        DeliveryResponse deliveryResponse = deliveryReader.read(orderId);
         // TODO : 배송중 또는 배송완료일 시 취소 처리 로직 ....
 
         // TODO : 결제정보 조회

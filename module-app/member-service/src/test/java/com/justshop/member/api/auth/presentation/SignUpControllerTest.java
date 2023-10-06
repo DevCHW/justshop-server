@@ -4,7 +4,7 @@ import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.auth.application.SignUpService;
 import com.justshop.member.api.auth.application.dto.request.SignUpServiceRequest;
 import com.justshop.member.api.auth.presentation.dto.request.SignUpRequest;
-import com.justshop.member.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.Gender;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

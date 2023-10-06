@@ -1,10 +1,10 @@
 package com.justshop.member.api.member.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.justshop.member.entity.Member;
-import com.justshop.member.entity.enums.Gender;
-import com.justshop.member.entity.enums.MemberStatus;
-import com.justshop.member.entity.enums.Role;
+import com.justshop.member.domain.entity.Member;
+import com.justshop.member.domain.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.MemberStatus;
+import com.justshop.member.domain.entity.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 

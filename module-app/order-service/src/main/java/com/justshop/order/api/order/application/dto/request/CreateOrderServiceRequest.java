@@ -49,7 +49,7 @@ public class CreateOrderServiceRequest {
                 .build();
 
         this.orderProducts.forEach(
-                op -> order.add(
+                op -> order.addOrderProduct(
                         new OrderProduct(order, op.getProductId(), op.getProductOptionId(), op.getQuantity().longValue())
                 ));
 

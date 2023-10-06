@@ -10,5 +10,4 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-
 }

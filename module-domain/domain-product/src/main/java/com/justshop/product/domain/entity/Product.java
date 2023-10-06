@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +31,9 @@ public class Product extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    List<ProductOption> productOptions = new ArrayList<>();
+
     @Builder
     public Product(String name, Integer price, Long salesQuantity, Long likeCount, Long reviewCount, SellingStatus status, Gender gender) {
         this.name = name;
@@ -38,6 +43,10 @@ public class Product extends BaseEntity {
         this.reviewCount = reviewCount;
         this.status = status;
         this.gender = gender;
+    }
+
+    public void addProductOption(ProductOption productOption) {
+        this.productOptions.add(productOption);
     }
 
 }

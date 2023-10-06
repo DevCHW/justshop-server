@@ -1,6 +1,6 @@
-package com.justshop.member.repository;
+package com.justshop.member.domain.repository;
 
-import com.justshop.member.entity.Member;
+import com.justshop.member.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

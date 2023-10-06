@@ -43,7 +43,7 @@ public class Order extends BaseEntity {
     }
 
     /* 연관관계 편의 메서드 */
-    public void add(OrderProduct orderProduct) {
+    public void addOrderProduct(OrderProduct orderProduct) {
         this.orderProducts.add(orderProduct);
     }
 

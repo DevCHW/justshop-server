@@ -1,9 +1,8 @@
 package com.justshop.order.client.reader;
 
 import com.justshop.core.exception.BusinessException;
-import com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.client.ProductServiceClient;
-import com.justshop.order.client.response.ProductPriceResponse;
+import com.justshop.order.client.response.OrderProductInfo;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +22,13 @@ public class ProductReader {
 
     private final ProductServiceClient productServiceClient;
 
-    public List<ProductPriceResponse> read(List<OrderProductRequest> orderProductRequests) {
+    public List<OrderProductInfo> read(List<OrderProductRequest> orderProductRequests) {
         MultiValueMap<String, Long> productOptionIds = new LinkedMultiValueMap<>();
         orderProductRequests.forEach(op ->
                 productOptionIds.add("productOptionId", op.getProductOptionId())
         );
         try {
-            return productServiceClient.getOrderPriceInfo(productOptionIds).getData();
+            return productServiceClient.getOrderProductInfo(productOptionIds).getData();
         } catch (FeignException e) {
             log.error(e.getMessage());
             throw new BusinessException(ORDER_FAIL, "상품 시스템 장애로 인하여 주문에 실패하였습니다.");

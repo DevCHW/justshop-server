@@ -1,13 +1,13 @@
-package com.justshop.member.entity.enums;
+package com.justshop.member.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Role {
+public enum Gender {
 
-    USER("회원"), ADMIN("관리자"), GUEST("손님");
+    MAN("남자"), WOMAN("여자");
 
     private final String description;
 }

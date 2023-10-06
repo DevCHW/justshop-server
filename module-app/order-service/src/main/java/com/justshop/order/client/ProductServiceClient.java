@@ -1,6 +1,6 @@
 package com.justshop.order.client;
 
-import com.justshop.order.client.response.ProductPriceResponse;
+import com.justshop.order.client.response.OrderProductInfo;
 import com.justshop.response.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
@@ -14,7 +14,7 @@ import java.util.List;
 @FeignClient(name = "product-service", url = "http://127.0.0.1:8087/api/v1/products")
 public interface ProductServiceClient {
 
-    @GetMapping("/prices")
-    ApiResponse<List<ProductPriceResponse>> getOrderPriceInfo(@SpringQueryMap MultiValueMap<String, Long> params);
+    @GetMapping("/order-products")
+    ApiResponse<List<OrderProductInfo>> getOrderProductInfo(@SpringQueryMap MultiValueMap<String, Long> params);
 
 }

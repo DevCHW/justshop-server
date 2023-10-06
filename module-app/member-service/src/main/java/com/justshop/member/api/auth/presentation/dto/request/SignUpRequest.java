@@ -1,7 +1,7 @@
 package com.justshop.member.api.auth.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.justshop.member.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.Gender;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

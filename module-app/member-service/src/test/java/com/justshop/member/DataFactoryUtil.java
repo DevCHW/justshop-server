@@ -1,8 +1,8 @@
 package com.justshop.member;
 
-import com.justshop.member.entity.Member;
-import com.justshop.member.entity.enums.Gender;
-import com.justshop.member.entity.enums.Role;
+import com.justshop.member.domain.entity.Member;
+import com.justshop.member.domain.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.Role;
 
 import java.time.LocalDate;
 

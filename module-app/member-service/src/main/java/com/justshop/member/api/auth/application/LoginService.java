@@ -1,7 +1,7 @@
 package com.justshop.member.api.auth.application;
 
-import com.justshop.member.entity.Member;
-import com.justshop.member.repository.MemberRepository;
+import com.justshop.member.domain.entity.Member;
+import com.justshop.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

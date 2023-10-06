@@ -1,9 +1,9 @@
 package com.justshop.member.api.auth.application.dto.request;
 
-import com.justshop.member.entity.Member;
-import com.justshop.member.entity.enums.Gender;
-import com.justshop.member.entity.enums.MemberStatus;
-import com.justshop.member.entity.enums.Role;
+import com.justshop.member.domain.entity.Member;
+import com.justshop.member.domain.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.MemberStatus;
+import com.justshop.member.domain.entity.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;

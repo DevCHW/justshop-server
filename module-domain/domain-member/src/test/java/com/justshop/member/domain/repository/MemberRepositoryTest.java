@@ -1,9 +1,9 @@
-package com.justshop.member.repository;
+package com.justshop.member.domain.repository;
 
 import com.justshop.jpa.JpaConfig;
-import com.justshop.member.entity.Member;
-import com.justshop.member.entity.enums.Gender;
-import com.justshop.member.entity.enums.Role;
+import com.justshop.member.domain.entity.Member;
+import com.justshop.member.domain.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

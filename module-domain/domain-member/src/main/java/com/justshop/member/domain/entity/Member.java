@@ -1,10 +1,10 @@
-package com.justshop.member.entity;
+package com.justshop.member.domain.entity;
 
 import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
-import com.justshop.member.entity.enums.Gender;
-import com.justshop.member.entity.enums.MemberStatus;
-import com.justshop.member.entity.enums.Role;
+import com.justshop.member.domain.entity.enums.Gender;
+import com.justshop.member.domain.entity.enums.MemberStatus;
+import com.justshop.member.domain.entity.enums.Role;
 import com.justshop.jpa.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;

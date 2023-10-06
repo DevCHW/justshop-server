@@ -1,6 +1,6 @@
 package com.justshop.member.api.auth.application;
 
-import com.justshop.member.repository.MemberRepository;
+import com.justshop.member.domain.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
