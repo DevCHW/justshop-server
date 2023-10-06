@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +17,7 @@ public class OrderResponse {
     private Long discountAmount; // 할인 가격
     private Long payAmount; // 결제 금액
     private OrderStatus status; // 주문 상태
-    private List<OrderProductInfo> orderProducts;
+    private List<OrderProductInfo> orderProducts; //주문 상품 정보
 
     @Builder
     public OrderResponse(Long memberId, Long orderPrice, Long discountAmount, Long payAmount, OrderStatus status) {

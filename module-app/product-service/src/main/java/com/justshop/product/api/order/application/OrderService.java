@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private final ProductOptionRepository productOptionRepository;
+
     // 상품 옵션 ID 리스트를 받아서 상품 가격 정보 조회
     public List<OrderProductInfo> getOrderProductsInfo(List<Long> productOptionIds) {
         List<ProductOption> productOptions = productOptionRepository.findAllByIdIn(productOptionIds);
