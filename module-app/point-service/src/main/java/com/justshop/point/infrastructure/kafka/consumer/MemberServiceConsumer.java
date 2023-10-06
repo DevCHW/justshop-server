@@ -1,11 +1,10 @@
 package com.justshop.point.infrastructure.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.justshop.core.kafka.message.Topics;
 import com.justshop.core.kafka.message.member.MemberCreate;
-import com.justshop.point.api.point.application.PointService;
+import com.justshop.point.application.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

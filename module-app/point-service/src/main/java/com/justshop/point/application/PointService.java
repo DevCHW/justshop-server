@@ -1,4 +1,4 @@
-package com.justshop.point.api.point.application;
+package com.justshop.point.application;
 
 import com.justshop.point.infrastructure.kafka.producer.PointEventHistoryCreateProducer;
 import com.justshop.core.kafka.message.point.PointEventCreate;
@@ -19,9 +19,9 @@ public class PointService {
     private final PointEventHistoryRepository pointEventHistoryRepository;
     private final PointEventHistoryCreateProducer pointEventHistoryCreateProducer;
 
-    // 포인트 사용
+    // 포인트 차감
     @Transactional
-    public void usePoint(final Long amount, final Long memberId, final String pointEventMessage) {
+    public void decreasePoint(final Long amount, final Long memberId, final String pointEventMessage) {
         PointEventHistory pointEvent = PointEventHistory.builder()
                 .memberId(memberId)
                 .type(PointEventType.DEDUCTION)
