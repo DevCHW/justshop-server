@@ -33,7 +33,7 @@ public class MemberServiceConsumer {
         Long memberId = message.getMemberId(); // 회원 ID
         Long amount = 1000L; // 포인트 변동 양
         String pointEventMessage = "신규 회원 가입 축하 "+ amount +"포인트 적립"; // 포인트 이벤트 메세지
-        pointService.add(memberId, amount, pointEventMessage);
+        pointService.addPoint(amount, memberId, pointEventMessage);
 
     }
 }
