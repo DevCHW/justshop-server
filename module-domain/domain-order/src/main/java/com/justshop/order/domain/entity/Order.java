@@ -1,5 +1,7 @@
 package com.justshop.order.domain.entity;
 
+import com.justshop.core.error.ErrorCode;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.jpa.entity.BaseEntity;
 import com.justshop.order.domain.entity.enums.OrderStatus;
 import lombok.AccessLevel;
@@ -40,8 +42,18 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
+    /* 연관관계 편의 메서드 */
     public void add(OrderProduct orderProduct) {
         this.orderProducts.add(orderProduct);
+    }
+
+    // 주문 취소
+    public void cancel() {
+        if (this.status.equals(OrderStatus.COMPLETE)) {
+            throw new BusinessException(ErrorCode.ORDER_CANCEL_FAIL, "처리 완료된 주문건은 취소가 불가합니다.");
+        }
+
+        this.status = OrderStatus.CANCEL;
     }
 
 }

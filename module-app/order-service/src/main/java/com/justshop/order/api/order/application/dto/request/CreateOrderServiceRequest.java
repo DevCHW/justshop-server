@@ -6,13 +6,14 @@ import com.justshop.order.domain.entity.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class CreateOrderServiceRequest {
 
     private Long memberId; // 주문자 ID
-    private List<OrderProductRequest> orderProducts; //상품 ID, 옵션 ID 리스트
+    private List<OrderProductRequest> orderProducts = new ArrayList<>(); //상품 ID, 옵션 ID 리스트
     private Long usePoint; //사용 포인트
     private Long couponId; //사용 쿠폰 ID
 
@@ -44,7 +45,7 @@ public class CreateOrderServiceRequest {
                 .orderPrice(orderPrice)
                 .discountAmount(orderPrice - payAmount)
                 .payAmount(payAmount)
-                .status(OrderStatus.INIT)
+                .status(OrderStatus.ORDERED)
                 .build();
 
         this.orderProducts.forEach(

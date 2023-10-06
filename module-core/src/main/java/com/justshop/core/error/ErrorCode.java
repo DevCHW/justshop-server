@@ -15,6 +15,7 @@ public enum ErrorCode {
     ORDER_FAIL(404, "ORDER-002", "주문에 실패하였습니다."),
     NOT_ENOUGH_STOCK(422, "ORDER-003", "재고가 부족합니다."),
     STATUS_NOT_SELLING(422, "ORDER-004", "현재 판매중이 아닌 상품입니다."),
+    ORDER_CANCEL_FAIL(422, "ORDER-005", "주문 취소가 실패하였습니다."),
 
     // DELIVERY
     DELIVERY_NOT_FOUND(404, "DELIVERY-001", "배송을 찾을 수 없습니다."),

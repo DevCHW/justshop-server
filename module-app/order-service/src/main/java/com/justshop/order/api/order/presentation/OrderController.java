@@ -35,4 +35,11 @@ public class OrderController {
         return ApiResponse.ok(response);
     }
 
+    // 주문 취소
+    @PatchMapping("/{orderId}")
+    public ApiResponse<Long> cancel(@PathVariable Long orderId) {
+        Long responseOrderId = orderService.cancel(orderId);
+        return ApiResponse.ok(responseOrderId);
+    }
+
 }

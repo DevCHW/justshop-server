@@ -1,4 +1,4 @@
-package com.justshop.member.api.member.infrastructure.kafka.consumer;
+package com.justshop.member.infrastructure.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
