@@ -22,8 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class SignUpControllerTest extends RestDocsSupport {
-//    @MockBean
-//    private SignUpService signUpService;
 
     private final SignUpService signUpService = mock(SignUpService.class);
 
@@ -32,7 +30,7 @@ class SignUpControllerTest extends RestDocsSupport {
         return new SignUpController(signUpService);
     }
 
-    @DisplayName("회원가입을 할 수 있다.")
+    @DisplayName("회원가입에 필요한 정보를 받아서 회원가입을 할 수 있다.")
     @Test
     void signUp() throws Exception {
         // given

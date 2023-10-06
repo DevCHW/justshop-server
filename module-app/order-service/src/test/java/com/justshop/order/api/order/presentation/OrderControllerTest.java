@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OrderControllerTest extends RestDocsSupport {
 
     private final OrderService orderService = Mockito.mock(OrderService.class);
+
     @Override
     protected Object initController() {
         return new OrderController(orderService);

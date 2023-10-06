@@ -19,6 +19,8 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product; // 상품 정보
 
+    private Long fileId; // 파일 ID
+
     @Convert(converter = BooleanToYNConverter.class)
     private boolean basicYn; // 기본이미지 여부
 }

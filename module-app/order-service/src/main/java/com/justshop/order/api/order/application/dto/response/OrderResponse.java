@@ -42,17 +42,19 @@ public class OrderResponse {
     @NoArgsConstructor
     public static class OrderProductInfo {
 
-        private String productId;// 상품 ID
-        private String productOptionId; // 상품 옵션 ID
-        private String quantity; // 주문 수량
-        private String productPrice; // 상품 옵션 가격
+        private Long productId;// 상품 ID
+        private Long productOptionId; // 상품 옵션 ID
+        private Long quantity; // 주문 수량
+        private Long productPrice; // 상품 옵션 가격
+        private String productImagePath; // 상품 이미지
 
         @Builder
-        public OrderProductInfo(String productId, String productOptionId, String quantity, String productPrice) {
+        public OrderProductInfo(Long productId, Long productOptionId, Long quantity, Long productPrice, String productImagePath) {
             this.productId = productId;
             this.productOptionId = productOptionId;
             this.quantity = quantity;
             this.productPrice = productPrice;
+            this.productImagePath = productImagePath;
         }
     }
 
