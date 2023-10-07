@@ -6,10 +6,9 @@ import com.justshop.category.domain.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,4 +43,11 @@ public class CategoryService {
                 });
         return categoryResponses;
     }
+
+    /* 카테고리 ID 목록을 하위 카테고리 ID와 함께 조회한다. */
+    public List<Long> getChildrenIds(Long categoryId) {
+        return categoryRepository.findAllByParentIdOrId(categoryId, categoryId).stream()
+                .map(Category::getId).collect(Collectors.toList());
+    }
+
 }
