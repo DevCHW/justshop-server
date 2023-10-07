@@ -31,7 +31,7 @@ public class PointServiceConsumer {
         try {
             message = objectMapper.readValue(kafkaMessage, PointEventCreate.class);
         } catch (JsonProcessingException e) {
-            throw new BusinessException(ErrorCode.JsonParsingError);
+            throw new BusinessException(ErrorCode.JSON_PARSING_ERROR);
         }
 
         Long amount = message.getAmount(); //포인트 변동금액

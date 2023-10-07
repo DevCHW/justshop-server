@@ -43,7 +43,7 @@ public class OrderService {
     private final ProductReader productReader;
     private final CouponReader couponReader;
 
-    // 주문
+    /* 주문 */
     @Transactional
     public Long order(CreateOrderServiceRequest request) {
         // 주문자 정보 조회, 포인트 체크

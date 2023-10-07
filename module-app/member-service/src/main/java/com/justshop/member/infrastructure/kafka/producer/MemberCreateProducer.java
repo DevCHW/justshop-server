@@ -27,7 +27,7 @@ public class MemberCreateProducer {
         try {
             jsonInString = objectMapper.writeValueAsString(memberCreate);
         } catch (JsonProcessingException e) {
-            throw new BusinessException(ErrorCode.JsonParsingError);
+            throw new BusinessException(ErrorCode.JSON_PARSING_ERROR);
         }
 
         kafkaTemplate.send(Topics.MEMBER_CREATE, jsonInString);

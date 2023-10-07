@@ -25,7 +25,7 @@ public class OrderCreateProducer {
         try {
             jsonInString = objectMapper.writeValueAsString(order);
         } catch (JsonProcessingException e) {
-            throw new BusinessException(ErrorCode.JsonParsingError);
+            throw new BusinessException(ErrorCode.JSON_PARSING_ERROR);
         }
 
         kafkaTemplate.send(Topics.ORDER_CREATE, jsonInString);

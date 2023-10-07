@@ -25,7 +25,7 @@ public class PointEventHistoryCreateProducer {
         try {
             jsonInString = objectMapper.writeValueAsString(pointEvent);
         } catch (JsonProcessingException e) {
-            throw new BusinessException(ErrorCode.JsonParsingError);
+            throw new BusinessException(ErrorCode.JSON_PARSING_ERROR);
         }
 
         kafkaTemplate.send(Topics.POINT_EVENT_CREATE, jsonInString);

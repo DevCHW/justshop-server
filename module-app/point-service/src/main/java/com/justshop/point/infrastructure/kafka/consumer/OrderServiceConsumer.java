@@ -31,7 +31,7 @@ public class OrderServiceConsumer {
         try {
             message = objectMapper.readValue(kafkaMessage, OrderCreate.class);
         } catch (JsonProcessingException e) {
-            throw new BusinessException(ErrorCode.JsonParsingError);
+            throw new BusinessException(ErrorCode.JSON_PARSING_ERROR);
         }
 
         Long usePoint = message.getUsePoint(); // 사용 포인트
