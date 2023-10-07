@@ -8,3 +8,11 @@ include::{snippets}/category-get-all/http-request.adoc[]
 include::{snippets}/category-get-all/http-response.adoc[]
 include::{snippets}/category-get-all/response-fields.adoc[]
 
+=== 하위 카테고리 ID 목록 조회
+==== HTTP Request
+include::{snippets}/category-get-children-ids/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/category-get-children-ids/http-response.adoc[]
+include::{snippets}/category-get-children-ids/response-fields.adoc[]
+

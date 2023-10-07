@@ -1,5 +1,6 @@
 package com.justshop.category.api.category.presentation;
 
+import com.justshop.category.DataFactoryUtil;
 import com.justshop.category.RestDocsSupport;
 import com.justshop.category.api.category.application.CategoryService;
 import com.justshop.category.api.category.application.dto.response.CategoryResponse;
@@ -11,6 +12,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -34,8 +36,9 @@ class CategoryControllerTest extends RestDocsSupport {
     @DisplayName("카테고리 목록을 계층형 카테고리 형식으로 조회한다.")
     @Test
     void getCategories() throws Exception {
+
         // given
-        List<CategoryResponse> response = generateCategoryResponses();
+        List<CategoryResponse> response = DataFactoryUtil.generateCategoryResponses();
 
         given(categoryService.getAll()).willReturn(response);
 
@@ -72,80 +75,35 @@ class CategoryControllerTest extends RestDocsSupport {
                 );
     }
 
-    private List<CategoryResponse> generateCategoryResponses() {
-        CategoryResponse response1 = CategoryResponse.builder()
-                .categoryId(1L)
-                .name("상의")
-                .parentId(null)
-                .depth(0)
-                .build();
+    @DisplayName("카테고리 ID를 받아서 하위 카테고리의 ID 목록을 조회한다.")
+    @Test
+    void getChildrenIds() throws Exception {
+        // given
+        List<Long> response = List.of(1L, 2L, 3L, 4L, 5L);
 
-        CategoryResponse response1_1 = CategoryResponse.builder()
-                .categoryId(3L)
-                .name("니트/스웨터")
-                .parentId(1L)
-                .depth(1)
-                .build();
-        CategoryResponse response1_2 = CategoryResponse.builder()
-                .categoryId(4L)
-                .name("후드티셔츠")
-                .parentId(1L)
-                .depth(1)
-                .build();
-        CategoryResponse response1_3 = CategoryResponse.builder()
-                .categoryId(5L)
-                .name("긴소매 티셔츠")
-                .parentId(1L)
-                .depth(1)
-                .build();
-        CategoryResponse response1_4 = CategoryResponse.builder()
-                .categoryId(6L)
-                .name("기타 상의")
-                .parentId(1L)
-                .depth(1)
-                .build();
-        response1.getChildren().add(response1_1);
-        response1.getChildren().add(response1_2);
-        response1.getChildren().add(response1_3);
-        response1.getChildren().add(response1_4);
+        given(categoryService.getChildrenIds(anyLong())).willReturn(response);
 
-        CategoryResponse response2 = CategoryResponse.builder()
-                .categoryId(2L)
-                .name("하의")
-                .parentId(null)
-                .depth(0)
-                .build();
-
-        CategoryResponse response2_1 = CategoryResponse.builder()
-                .categoryId(7L)
-                .name("코튼 팬츠")
-                .parentId(2L)
-                .depth(1)
-                .build();
-        CategoryResponse response2_2 = CategoryResponse.builder()
-                .categoryId(8L)
-                .name("데님 팬츠")
-                .parentId(2L)
-                .depth(1)
-                .build();
-        CategoryResponse response2_3 = CategoryResponse.builder()
-                .categoryId(9L)
-                .name("숏 팬츠")
-                .parentId(2L)
-                .depth(1)
-                .build();
-        CategoryResponse response2_4 = CategoryResponse.builder()
-                .categoryId(10L)
-                .name("기타 하의")
-                .parentId(2L)
-                .depth(1)
-                .build();
-        response1.getChildren().add(response2_1);
-        response1.getChildren().add(response2_2);
-        response1.getChildren().add(response2_3);
-        response1.getChildren().add(response2_4);
-
-        return List.of(response1, response2);
+        // when & then
+        mockMvc.perform(
+                        get("/api/v1/categories/3/children-ids")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"))
+                .andExpect(jsonPath("$.data").isArray())
+                .andDo(document("category-get-children-ids",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                        fieldWithPath("data[]").type(JsonFieldType.ARRAY).description("카테고리 ID 목록")
+                                )
+                        )
+                );
     }
 
 }
