@@ -4,6 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
+    INVALID_INPUT_VALUE(400, "COMMON-001", "유효성 검증에 실패하였습니디."),
+    HTTP_REQUEST_METHOD_NOT_SUPPORTED(405, "COMMON-002", "지원하지 않는 HTTP 메소드입니다."),
 
     // MEMBER
     MEMBER_NOT_FOUND(404, "MEMBER-001", "회원을 찾을 수 없습니다."),
@@ -31,8 +33,9 @@ public enum ErrorCode {
     // MAIL
     SEND_MAIL_FAIL(422, "MAIL-001", "메일 전송에 실패하였습니다."),
 
+    // SERVER ERROR
     INTERNAL_SERVER_ERROR(500, "SERVER-001", "서버가 요청을 처리할 수 없습니다."),
-    JsonParsingError(500, "SERVER-002", "JSON 파싱에 실패하였습니다.");
+    JSON_PARSING_ERROR(500, "SERVER-002", "JSON 파싱에 실패하였습니다.");
 
     private final int status;
     private final String code;
