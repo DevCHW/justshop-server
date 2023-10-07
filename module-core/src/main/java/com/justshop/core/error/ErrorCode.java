@@ -36,12 +36,12 @@ public enum ErrorCode {
 
     private final int status;
     private final String code;
-    private final String description;
+    private final String message;
 
-    ErrorCode(int status, String code, String description) {
+    ErrorCode(int status, String code, String message) {
         this.status = status;
         this.code = code;
-        this.description = description;
+        this.message = message;
     }
 
     public int getStatus() {
@@ -52,8 +52,8 @@ public enum ErrorCode {
         return code;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMessage() {
+        return message;
     }
 
 }

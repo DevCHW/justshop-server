@@ -1,7 +1,7 @@
 package com.justshop.member.security.config;
 
 import com.justshop.member.security.CustomAuthenticationManager;
-import com.justshop.member.api.auth.application.LoginService;
+import com.justshop.member.api.external.application.LoginService;
 import com.justshop.member.security.filter.AuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

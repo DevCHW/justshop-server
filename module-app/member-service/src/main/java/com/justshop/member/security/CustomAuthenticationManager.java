@@ -1,6 +1,6 @@
 package com.justshop.member.security;
 
-import com.justshop.member.api.auth.application.LoginService;
+import com.justshop.member.api.external.application.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

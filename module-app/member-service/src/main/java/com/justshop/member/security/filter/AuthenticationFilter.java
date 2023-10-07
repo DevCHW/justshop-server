@@ -1,8 +1,8 @@
 package com.justshop.member.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.justshop.member.api.auth.application.LoginService;
-import com.justshop.member.api.auth.presentation.dto.request.LoginRequest;
+import com.justshop.member.api.external.application.LoginService;
+import com.justshop.member.api.external.presentation.dto.request.LoginRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;

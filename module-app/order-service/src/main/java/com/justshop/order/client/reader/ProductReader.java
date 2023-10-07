@@ -1,6 +1,7 @@
 package com.justshop.order.client.reader;
 
 import com.justshop.core.exception.BusinessException;
+import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.client.ProductServiceClient;
 import com.justshop.order.client.response.OrderProductInfo;
 import feign.FeignException;
@@ -13,7 +14,7 @@ import org.springframework.util.MultiValueMap;
 import java.util.List;
 
 import static com.justshop.core.error.ErrorCode.ORDER_FAIL;
-import static com.justshop.order.api.order.application.dto.request.CreateOrderServiceRequest.*;
+import static com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest.*;
 
 @Slf4j
 @Component

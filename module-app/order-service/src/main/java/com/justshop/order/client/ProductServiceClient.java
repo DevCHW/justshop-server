@@ -11,7 +11,7 @@ import java.util.List;
 
 //@FeignClient(name = "product-service")
 // TODO: API Gateway 로드밸런싱 적용시 url 삭제
-@FeignClient(name = "product-service", url = "http://127.0.0.1:8087/api/v1/products")
+@FeignClient(name = "product-service", url = "http://127.0.0.1:8087/api/v1/internal/products")
 public interface ProductServiceClient {
 
     @GetMapping("/order-products")

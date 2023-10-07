@@ -1,6 +1,6 @@
 package com.justshop.category;
 
-import com.justshop.category.api.category.application.dto.response.CategoryResponse;
+import com.justshop.category.api.external.application.dto.response.CategoryResponse;
 import com.justshop.category.domain.entity.Category;
 
 import java.util.List;

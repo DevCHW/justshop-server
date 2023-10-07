@@ -6,7 +6,7 @@ import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.Topics;
 import com.justshop.core.kafka.message.point.PointEventCreate;
-import com.justshop.member.api.member.application.MemberService;
+import com.justshop.member.api.external.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
