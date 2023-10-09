@@ -46,6 +46,10 @@ public class ApiResponse<T> {
         return ApiResponse.of(null, HttpStatus.CREATED, HttpStatus.CREATED.name());
     }
 
+    public static <T> ApiResponse<T> created(T data) {
+        return ApiResponse.of(data, HttpStatus.CREATED, HttpStatus.CREATED.name());
+    }
+
     // 204 NO CONTENT
     public static <T> ApiResponse<T> noContent() {
         return ApiResponse.of(null, HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name());
