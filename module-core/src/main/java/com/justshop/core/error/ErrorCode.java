@@ -9,8 +9,12 @@ public enum ErrorCode {
 
     // MEMBER
     MEMBER_NOT_FOUND(404, "MEMBER-001", "회원을 찾을 수 없습니다."),
-    UNAUTHORIZED(401, "MEMBER-002", "인증에 실패한 경우"),
-    ROLE_NOT_EXISTS(403, "MEMBER-003", "권한이 부족한 경우"),
+    UNAUTHORIZED(401, "MEMBER-002", "인증에 실패하였습니다."),
+    ROLE_NOT_EXISTS(403, "MEMBER-003", "권한이 부족합니다."),
+    MEMBER_DELIVERY_ADDRESS_NOT_FOUND(404, "MEMBER-004", "회원의 배송지를 찾을 수 없습니다."),
+    ALREADY_BASIC_ADDRESS(422, "MEMBER-005", "이미 기본배송지로 설정된 배송지입니다."),
+    ALREADY_NORMAL_ADDRESS(422, "MEMBER-006", "이미 일반배송지로 설정된 배송지입니다."),
+    DELIVERY_ADDRESS_DELETE_FAIL(422, "MEMBER-007", "배송지 삭제에 실패하였습니다."),
 
     // ORDER
     ORDER_NOT_FOUND(404, "ORDER-001", "주문을 찾을 수 없습니다."),
