@@ -17,9 +17,9 @@ public class MemberServiceConsumer {
 
     private final PointService pointService;
 
-    // 신규 회원 가입시 1000 포인트 지급
+    /* 신규 회원 가입시 1000 포인트 지급 */
     @KafkaListener(topics = Topics.MEMBER_CREATE)
-    public void memberCreateEvent(String kafkaMessage) {
+    public Long memberCreateEvent(String kafkaMessage) {
         log.info("Kafka Message: -> {}", kafkaMessage);
 
         MemberCreate message;
@@ -33,7 +33,6 @@ public class MemberServiceConsumer {
         Long memberId = message.getMemberId(); // 회원 ID
         Long amount = 1000L; // 포인트 변동 양
         String pointEventMessage = "신규 회원 가입 축하 "+ amount +"포인트 적립"; // 포인트 이벤트 메세지
-        pointService.addPoint(amount, memberId, pointEventMessage);
-
+        return pointService.addPoint(amount, memberId, pointEventMessage);
     }
 }
