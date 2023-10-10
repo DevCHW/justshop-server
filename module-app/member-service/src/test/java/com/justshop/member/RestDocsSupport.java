@@ -3,6 +3,7 @@ package com.justshop.member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.justshop.response.error.GlobalExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -27,8 +28,7 @@ public abstract class RestDocsSupport {
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 추가
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(initController())
-                // TODO: 추후 Advice 설정 시 주석 해제
-//                .setControllerAdvice(new GlobalControllerAdvice())
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .apply(documentationConfiguration(provider)
                         .operationPreprocessors()
