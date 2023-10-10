@@ -2,9 +2,20 @@ server:
   port: 8087
 
 spring:
+  application:
+    name: product-service
+
   output:
     ansi:
       enabled: always
+
+  cloud:
+    config:
+      name: product-service
+  config:
+    import: optional:configserver:http://localhost:8888
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
 
   datasource:
     url: jdbc:h2:mem:~/justShopApplication
@@ -20,8 +31,10 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+        default_batch_fetch_size: 1000
+
     # (2.5~) Hibernate 초기화 이후 data.sql 실행, 테스트 데이터 넣을 때 넣는 옵션
-    defer-datasource-initialization: true
+#    defer-datasource-initialization: true
 
   h2:
     console:
@@ -29,6 +42,21 @@ spring:
       settings:
         web-allow-others: true  # 추가
 
-token:
-  expiration_time: 86400000
-  secret: springboot_my_json_web_token_default
+  eureka:
+    instance:
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    client:
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+        defaultZone: http://localhost:8761/eureka
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: refresh, health, beans, busrefresh, info, metrics, prometheus
+
+  sql:
+    init:
+      mode: never

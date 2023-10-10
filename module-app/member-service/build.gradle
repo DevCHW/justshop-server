@@ -16,8 +16,23 @@ dependencies {
     // security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // eureka client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // spring cloud config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    // spring cloud bus amqp
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
+    // resilience4j
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+
     // actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     // jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -34,7 +49,14 @@ dependencies {
 }
 
 ext { // 전역 변수
+    set('springCloudVersion', "2021.0.8")
     snippetsDir = file('build/generated-snippets')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 test {

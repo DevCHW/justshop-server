@@ -13,8 +13,20 @@ dependencies {
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // eureka client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // spring cloud config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    // spring cloud bus amqp
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
     // actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     // rest docs
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
@@ -23,8 +35,16 @@ dependencies {
 }
 
 ext { // 전역 변수
+    set('springCloudVersion', "2021.0.8")
     snippetsDir = file('build/generated-snippets')
 }
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 
 test {
     outputs.dir snippetsDir

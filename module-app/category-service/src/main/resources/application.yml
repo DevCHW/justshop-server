@@ -2,6 +2,23 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: category-service
+
+  cloud:
+    config:
+      name: category-service
+  config:
+    import: optional:configserver:http://localhost:8888
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
   output:
     ansi:
       enabled: always
@@ -29,6 +46,17 @@ spring:
       settings:
         web-allow-others: true  # 추가
 
-token:
-  expiration_time: 86400000
-  secret: springboot_my_json_web_token_default
+  eureka:
+    instance:
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    client:
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+        defaultZone: http://localhost:8761/eureka
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: refresh, health, beans, busrefresh, info, metrics, prometheus

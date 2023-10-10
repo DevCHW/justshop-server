@@ -1,0 +1,37 @@
+server:
+  port: 8888
+
+spring:
+  output:
+    ansi:
+      enabled: always
+
+  application:
+    name: config-server
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:\WorkSpace\IntelliJ\study\spring_cloud_msa\native-file-repo
+        git:
+#          uri: file:///C:\WorkSpace\IntelliJ\study\spring_cloud_msa\msa-local-repo
+          uri: https://github.com/DevCHW/spring-cloud-config
+#          만약 private repository로 만들었다?
+#          username: [your username]
+#          password: [your password]
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh

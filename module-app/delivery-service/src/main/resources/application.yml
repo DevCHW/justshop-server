@@ -2,12 +2,20 @@ server:
   port: 8082
 
 spring:
-  jackson:
-    property-naming-strategy: SNAKE_CASE
+  application:
+    name: delivery-service
 
   output:
     ansi:
       enabled: always
+
+  cloud:
+    config:
+      name: delivery-service
+  config:
+    import: optional:configserver:http://localhost:8888
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
 
   datasource:
     url: jdbc:h2:mem:~/justShopApplication
@@ -31,7 +39,17 @@ spring:
       enabled: true
       settings:
         web-allow-others: true  # 추가
+  eureka:
+    instance:
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    client:
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+        defaultZone: http://localhost:8761/eureka
 
-token:
-  expiration_time: 86400000
-  secret: springboot_my_json_web_token_default
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: refresh, health, beans, busrefresh, info, metrics, prometheus

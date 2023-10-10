@@ -21,6 +21,18 @@ dependencies {
     // actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    // eureka client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // spring cloud config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    // spring cloud bus amqp
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
+    // prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
     // feign client
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
