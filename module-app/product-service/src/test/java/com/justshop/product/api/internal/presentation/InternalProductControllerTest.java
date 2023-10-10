@@ -35,7 +35,7 @@ class InternalProductControllerTest extends RestDocsSupport {
         return new InternalProductController(internalProductService);
     }
 
-    // 주문상품 조회
+    /* 주문상품 조회 */
     @DisplayName("productOptionId 리스트를 받아 주문된 상품목록을 조회할 수 있다.")
     @Test
     void getOrderProductsInfo() throws Exception {

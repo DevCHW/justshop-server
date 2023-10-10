@@ -1,5 +1,7 @@
 package com.justshop.product.api.external.application;
 
+import com.justshop.core.error.ErrorCode;
+import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.core.kafka.message.order.OrderCreate.OrderQuantity;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
@@ -11,12 +13,9 @@ import com.justshop.product.domain.repository.ProductRepository;
 import com.justshop.product.domain.repository.querydsl.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,7 +31,6 @@ public class ProductService {
     private final FileReader fileReader;
 
     /* 상품 상세 조회 */
-    // TODO : 테스트 작성
     public ProductResponse getProductInfo(Long productId) {
         try {
             ProductDto productDto = productRepository.findProductDto(productId);
@@ -65,8 +63,9 @@ public class ProductService {
         productOptions.forEach (
                 productOption -> {
                     Long quantity = orderQuntityMap.get(productOption.getId());
-                    log.info("Decrease Stock, ID : {}, current stock : {}, decrease quantity : {}",
-                            productOption.getId(),productOption.getStockQuantity(), quantity);
+                    if (productOption.getStockQuantity() < quantity) {
+                        throw new BusinessException(ErrorCode.NOT_ENOUGH_STOCK, "주문 수량보다 재고가 부족합니다.");
+                    }
                     productOption.decreaseStock(quantity);
                 }
         );

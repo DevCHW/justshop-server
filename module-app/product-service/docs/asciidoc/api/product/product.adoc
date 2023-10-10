@@ -11,9 +11,8 @@ include::{snippets}/product-get-order-info/response-fields.adoc[]
 [[Product]]
 === 상품 상세조회
 ==== HTTP Request
-// include::{snippets}/product-get/http-request.adoc[]
-// include::{snippets}/product-get/request-fields.adoc[]
+include::{snippets}/product-get/http-request.adoc[]
 
 ==== HTTP Response
-// include::{snippets}/product-get/http-response.adoc[]
-// include::{snippets}/product-get/response-fields.adoc[]
+include::{snippets}/product-get/http-response.adoc[]
+include::{snippets}/product-get/response-fields.adoc[]

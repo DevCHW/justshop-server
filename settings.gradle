@@ -1,4 +1,5 @@
 rootProject.name = 'justshop'
+
 // app
 include 'module-app'
 include 'module-app:member-service'
@@ -8,6 +9,9 @@ include 'module-app:product-service'
 include 'module-app:category-service'
 include 'module-app:delivery-service'
 include 'module-app:point-service'
+include 'module-app:apigateway-service'
+include 'module-app:discovery-service'
+include 'module-app:cloud-config-service'
 
 // core
 include 'module-core'
@@ -26,4 +30,5 @@ include 'module-domain:domain-point'
 // internal
 include 'module-internal'
 include 'module-internal:core-web'
+
 

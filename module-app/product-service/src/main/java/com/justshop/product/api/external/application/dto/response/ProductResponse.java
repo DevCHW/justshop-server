@@ -72,6 +72,7 @@ public class ProductResponse {
                 .reviewCount(productDto.getReviewCount())
                 .status(productDto.getStatus())
                 .gender(productDto.getGender())
+                .detail(productDto.getDetail())
                 .images(images)
                 .options(options)
                 .build();
