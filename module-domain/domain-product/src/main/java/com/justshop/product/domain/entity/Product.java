@@ -1,12 +1,11 @@
 package com.justshop.product.domain.entity;
 
 import com.justshop.jpa.entity.BaseEntity;
+import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.justshop.product.domain.entity.enums.Size;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,10 +31,21 @@ public class Product extends BaseEntity {
     private Gender gender;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    List<ProductOption> productOptions = new ArrayList<>();
+    private List<ProductOption> productOptions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductCategory> productCategories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> productImages = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_detail_id")
+    private ProductDetail productDetail;
 
     @Builder
-    public Product(String name, Integer price, Long salesQuantity, Long likeCount, Long reviewCount, SellingStatus status, Gender gender) {
+    public Product(String name, Integer price, Long salesQuantity, Long likeCount,
+                   Long reviewCount, SellingStatus status, Gender gender) {
         this.name = name;
         this.price = price;
         this.salesQuantity = salesQuantity;
@@ -45,8 +55,26 @@ public class Product extends BaseEntity {
         this.gender = gender;
     }
 
-    public void addProductOption(ProductOption productOption) {
-        this.productOptions.add(productOption);
+    public void addProductCategory(Long categoryId) {
+        this.productCategories.add(new ProductCategory(this, categoryId));
     }
 
+    public void addProductOption(Size productSize, Color color, String etc, int additionalPrice, int stockQuantity) {
+        this.productOptions.add(ProductOption.builder()
+                .product(this)
+                .productSize(productSize)
+                .color(color)
+                .etc(etc)
+                .additionalPrice(additionalPrice)
+                .stockQuantity(stockQuantity)
+                .build());
+    }
+
+    public void addProductImage(Long fileId, Boolean basicYn) {
+        this.productImages.add(new ProductImage(this, fileId, basicYn));
+    }
+
+    public void addProductDetail(String description) {
+        this.productDetail = new ProductDetail(description);
+    }
 }

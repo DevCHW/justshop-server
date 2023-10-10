@@ -1,9 +1,7 @@
 package com.justshop.product.domain.entity;
 
 import com.justshop.jpa.converter.BooleanToYNConverter;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -23,4 +21,11 @@ public class ProductImage {
 
     @Convert(converter = BooleanToYNConverter.class)
     private boolean basicYn; // 기본이미지 여부
+
+    @Builder
+    public ProductImage(Product product, Long fileId, boolean basicYn) {
+        this.product = product;
+        this.fileId = fileId;
+        this.basicYn = basicYn;
+    }
 }

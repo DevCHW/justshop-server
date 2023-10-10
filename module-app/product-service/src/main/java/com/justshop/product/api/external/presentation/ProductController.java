@@ -13,7 +13,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-    // 상품 상세 조회
+    /* 상품 상세 조회 */
+    // TODO : 테스트 작성
     @GetMapping("/{productId}")
     public ApiResponse<ProductResponse> getProduct(@PathVariable Long productId) {
         ProductResponse response = productService.getProductInfo(productId);

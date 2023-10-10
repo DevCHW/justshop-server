@@ -3,6 +3,7 @@ package com.justshop.product.domain.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -19,4 +20,9 @@ public class ProductCategory {
     private Product product; // 상품 ID
 
     private Long categoryId; // 카테고리 ID
+
+    public ProductCategory(Product product, Long categoryId) {
+        this.product = product;
+        this.categoryId = categoryId;
+    }
 }
