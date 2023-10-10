@@ -12,4 +12,5 @@ public class RestApiController {
     public String healthCheck() {
         return "ok";
     }
+
 }

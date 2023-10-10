@@ -4,14 +4,12 @@ import com.justshop.category.domain.entity.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@ToString
 public class CategoryResponse {
 
     private Long categoryId; // 카테고리 ID
