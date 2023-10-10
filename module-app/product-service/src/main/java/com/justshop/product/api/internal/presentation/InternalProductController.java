@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 public class InternalProductController {
 
     private final InternalProductService internalProductService;
-    // 주문 상품 정보 조회
+
+    /* 주문 상품 정보 조회 */
     @GetMapping("/order-products")
     public ApiResponse<List<OrderProductInfo>> getOrderProductsInfo(@RequestParam MultiValueMap<String, String> productOptionIdMap) {
         List<Long> productOptionIds = productOptionIdMap.get("productOptionId").stream()
@@ -28,4 +29,5 @@ public class InternalProductController {
         List<OrderProductInfo> response = internalProductService.getOrderProductsInfo(productOptionIds);
         return ApiResponse.ok(response);
     }
+
 }
