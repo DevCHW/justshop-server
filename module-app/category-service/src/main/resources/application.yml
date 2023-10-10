@@ -8,6 +8,7 @@ spring:
   cloud:
     config:
       name: category-service
+
   config:
     import: optional:configserver:http://localhost:8888
     refresh:

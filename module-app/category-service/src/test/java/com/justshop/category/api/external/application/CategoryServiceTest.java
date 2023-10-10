@@ -1,7 +1,6 @@
 package com.justshop.category.api.external.application;
 
 import com.justshop.category.DataFactoryUtil;
-import com.justshop.category.api.external.application.CategoryService;
 import com.justshop.category.api.external.application.dto.response.CategoryResponse;
 import com.justshop.category.domain.entity.Category;
 import com.justshop.category.domain.repository.CategoryRepository;

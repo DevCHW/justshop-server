@@ -3,6 +3,9 @@ spring:
     ansi:
       enabled: always
   config:
+    import: optional:configserver:http://localhost:8888
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
     activate:
       on-profile: test
 
