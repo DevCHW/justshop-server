@@ -13,7 +13,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class InternalProductControllerTest extends RestDocsSupport {
 
-    private InternalProductService internalProductService = Mockito.mock(InternalProductService.class);
+    private final InternalProductService internalProductService = Mockito.mock(InternalProductService.class);
 
     @Override
     protected Object initController() {
@@ -69,7 +69,7 @@ class InternalProductControllerTest extends RestDocsSupport {
 
         List<OrderProductInfo> response = List.of(orderProductInfo1, orderProductInfo2, orderProductInfo3);
 
-        given(internalProductService.getOrderProductsInfo(any(List.class))).willReturn(response);
+        given(internalProductService.getOrderProductsInfo(anyList())).willReturn(response);
 
         // when & then
         mockMvc.perform(
