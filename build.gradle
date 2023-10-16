@@ -28,7 +28,6 @@ subprojects {
 		}
 	}
 
-	// 관리하는 모듈의 공통 dependencies
 	dependencies {
 		// lombok
 		compileOnly 'org.projectlombok:lombok'
@@ -47,16 +46,20 @@ subprojects {
 
 project('module-app') {
 	bootJar.enabled = false
+	jar.enabled = false
 }
 
 project('module-core') {
 	bootJar.enabled = false
+	jar.enabled = false
 }
 
 project('module-domain') {
 	bootJar.enabled = false
+	jar.enabled = false
 }
 
 project('module-internal') {
 	bootJar.enabled = false
+	jar.enabled = false
 }

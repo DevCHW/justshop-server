@@ -1,15 +1,14 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   output:
     ansi:
       enabled: always
-  cloud:
-    config:
-      enabled: false
 
-  config:
-    allow-override: false
-    activate:
-      on-profile: test
+  cloud:
+    discovery:
+      enabled: false
 
   datasource:
     url: jdbc:h2:mem:~/justShopApplication

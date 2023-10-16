@@ -24,7 +24,6 @@ spring:
         native:
           search-locations: file:///C:\WorkSpace\IntelliJ\study\spring_cloud_msa\native-file-repo
         git:
-#          uri: file:///C:\WorkSpace\IntelliJ\study\spring_cloud_msa\msa-local-repo
           uri: https://github.com/DevCHW/spring-cloud-config
 #          만약 private repository로 만들었다?
 #          username: [your username]

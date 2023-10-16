@@ -66,7 +66,7 @@ asciidoctor { // asciidoctor 작업 구성
     }
 
     doFirst {
-        delete "src/main/resources/static/docs/user-index.html"
+        delete "src/main/resources/static/docs/point-index.html"
     }
 
     baseDirFollowsSourceFile()	// 다른 adoc 파일을 include 할 때 경로를 baseDir로 맞춘다.
@@ -78,10 +78,10 @@ task copyAsciidoc(type: Copy) {
     into "src/main/resources/static/docs"
     include "index.html"
     destinationDir file("src/main/resources/static/docs/")
-    rename "index.html", "member-index.html"
+    rename "index.html", "point-index.html"
 
     doFirst {
-        delete "src/main/resources/static/docs/user-index.html"
+        delete "src/main/resources/static/docs/point-index.html"
     }
     dependsOn asciidoctor
 }

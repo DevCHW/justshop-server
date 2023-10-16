@@ -8,8 +8,10 @@ spring:
   cloud:
     config:
       name: member-service
+
   config:
     import: optional:configserver:http://localhost:8888
+
     refresh:
       extra-refreshable: com.zaxxer.hikari.HikariDataSource
 

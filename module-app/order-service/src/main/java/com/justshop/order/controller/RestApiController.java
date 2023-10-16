@@ -1,5 +1,6 @@
-package com.justshop.order.api;
+package com.justshop.order.controller;
 
+import com.justshop.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestApiController {
 
     @GetMapping("/health_check")
-    public String healthCheck() {
-        return "ok";
+    public ApiResponse<String> healthCheck() {
+        return ApiResponse.ok("ok");
     }
 }

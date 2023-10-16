@@ -2,20 +2,13 @@ package com.justshop.member.api.external.presentation;
 
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.external.application.MemberService;
-import com.justshop.member.api.internal.application.dto.MemberResponse;
-import com.justshop.member.api.external.presentation.MemberController;
 import com.justshop.member.api.external.presentation.dto.request.UpdateNicknameRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdatePasswordRequest;
-import com.justshop.member.domain.entity.enums.Gender;
-import com.justshop.member.domain.entity.enums.MemberStatus;
-import com.justshop.member.domain.entity.enums.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-
-import java.time.LocalDate;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -143,6 +136,7 @@ class MemberControllerTest extends RestDocsSupport {
     void exists_nickname() throws Exception {
         // given
         String nickname = "exists_nickname";
+
         given(memberService.existsNickname(anyString())).willReturn(true);
 
         // when & then

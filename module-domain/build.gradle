@@ -1,3 +1,7 @@
+project(':module-domain:domain-jpa') {
+    bootJar.enabled = false
+}
+
 project(':module-domain:domain-member') {
     bootJar.enabled = false
 
