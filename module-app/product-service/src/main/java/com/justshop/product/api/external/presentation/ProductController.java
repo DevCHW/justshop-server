@@ -41,15 +41,36 @@ public class ProductController {
                                                                  @PageableDefault(
                                                                          page = 0, size = 10, sort = "createdDateTime", direction = Sort.Direction.ASC
                                                                  ) Pageable pageable) {
-        SearchCondition searchCondition = SearchCondition.builder()
+
+        SearchCondition searchCondition = createSearchCondition(name, minPrice, maxPrice, status, gender);
+        Page<ProductResponse> response = productService.getProductsForPage(searchCondition, pageable);
+        return ApiResponse.ok(response);
+    }
+
+    /* 해당 카테고리의 상품 목록 조회 (페이징) */
+    @GetMapping("/categories/{categoryId}")
+    public ApiResponse<Page<ProductResponse>> getProductsCategoryForPage(@PathVariable Long categoryId,
+                                                                 @RequestParam(required = false) String name,
+                                                                 @RequestParam(required = false) String minPrice,
+                                                                 @RequestParam(required = false) String maxPrice,
+                                                                 @RequestParam(required = false) SellingStatus status,
+                                                                 @RequestParam(required = false) Gender gender,
+                                                                 @PageableDefault(
+                                                                         page = 0, size = 10, sort = "createdDateTime", direction = Sort.Direction.ASC
+                                                                 ) Pageable pageable) {
+        SearchCondition searchCondition = createSearchCondition(name, minPrice, maxPrice, status, gender);
+        Page<ProductResponse> response = productService.getProductsCategoryForPage(categoryId, searchCondition, pageable);
+        return ApiResponse.ok(response);
+    }
+
+    private SearchCondition createSearchCondition(String name, String minPrice, String maxPrice, SellingStatus status, Gender gender) {
+        return SearchCondition.builder()
                 .name(name)
-                .minPrice(hasText(minPrice)? Integer.parseInt(minPrice) : null)
-                .maxPrice(hasText(maxPrice)? Integer.parseInt(maxPrice) : null)
+                .minPrice(hasText(minPrice) ? Integer.parseInt(minPrice) : null)
+                .maxPrice(hasText(maxPrice) ? Integer.parseInt(maxPrice) : null)
                 .status(status)
                 .gender(gender)
                 .build();
-        Page<ProductResponse> response = productService.getProductsForPage(searchCondition, pageable);
-        return ApiResponse.ok(response);
     }
 
 }

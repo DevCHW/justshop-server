@@ -8,15 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
-@NoArgsConstructor
-@ToString
 public class SearchCondition {
 
     private String name;
-    private Integer minPrice;
-    private Integer maxPrice;
     private SellingStatus status;
     private Gender gender;
+    private Integer minPrice = 0;
+    private Integer maxPrice = 2147483647;
 
     @Builder
     public SearchCondition(String name, Integer minPrice, Integer maxPrice, SellingStatus status, Gender gender) {

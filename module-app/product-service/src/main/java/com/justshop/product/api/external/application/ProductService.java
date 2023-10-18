@@ -6,6 +6,7 @@ import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.core.kafka.message.order.OrderCreate.OrderQuantity;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
 import com.justshop.product.domain.entity.Product;
+import com.justshop.product.domain.entity.ProductCategory;
 import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.repository.ProductOptionRepository;
 import com.justshop.product.domain.repository.ProductRepository;
@@ -73,6 +74,16 @@ public class ProductService {
         Page<Product> pageResult = productRepository.findProductsPageBy(searchCondition, pageable);
         List<ProductResponse> content = pageResult.getContent()
                 .stream().map(product -> ProductResponse.from(product))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(content, pageable, pageResult.getTotalElements());
+    }
+
+    /* 카테고리별 상품목록 페이징 조회 */
+    public Page<ProductResponse> getProductsCategoryForPage(Long categoryId, SearchCondition searchCondition, Pageable pageable) {
+        Page<ProductCategory> pageResult = productRepository.findProductsPageByCategoryId(categoryId, searchCondition, pageable);
+        List<ProductResponse> content = pageResult.getContent()
+                .stream().map(productCategory -> ProductResponse.from(productCategory))
                 .collect(Collectors.toList());
 
         return new PageImpl<>(content, pageable, pageResult.getTotalElements());

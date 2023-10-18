@@ -70,8 +70,16 @@ public class Product extends BaseEntity {
                 .build());
     }
 
+    public void addAllProductOption(List<ProductOption> productOptions) {
+        this.productOptions.addAll(productOptions);
+    }
+
     public void addProductImage(String saveFileName, String originFileName, String path, boolean basicYn) {
         this.productImages.add(new ProductImage(this, saveFileName, originFileName, path, basicYn));
+    }
+
+    public void addAllProductImage(List<ProductImage> productImages) {
+        this.productImages.addAll(productImages);
     }
 
     public void addProductDetail(String description) {
