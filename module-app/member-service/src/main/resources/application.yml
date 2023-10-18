@@ -3,7 +3,7 @@ spring:
     default: local
 
   application:
-    name: product-service
+    name: member-service
 
   output:
     ansi:

@@ -1,6 +1,8 @@
 package com.justshop.member.api.external.presentation;
 
 import com.justshop.member.api.external.application.MemberService;
+import com.justshop.member.api.external.presentation.dto.mapper.ServiceLayerDtoMapper;
+import com.justshop.member.api.external.presentation.dto.request.SignUpRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdateNicknameRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdatePasswordRequest;
 import com.justshop.response.ApiResponse;
@@ -57,6 +59,14 @@ public class MemberController {
     public ApiResponse<Boolean> existsEmail(@PathVariable String email) {
         Boolean existsEmail = memberService.existsEmail(email);
         return ApiResponse.ok(existsEmail);
+    }
+
+    // 회원가입
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse signUp(@RequestBody @Valid SignUpRequest request) {
+        memberService.signUp(ServiceLayerDtoMapper.mapping(request));
+        return ApiResponse.created();
     }
 
 }

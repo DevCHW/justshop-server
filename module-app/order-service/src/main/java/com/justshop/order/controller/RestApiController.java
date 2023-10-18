@@ -13,4 +13,5 @@ public class RestApiController {
     public ApiResponse<String> healthCheck() {
         return ApiResponse.ok("ok");
     }
+
 }
