@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -51,11 +52,11 @@ public class DBInit {
             product.addProductOption(Size.S, Color.WHITE, null, 0, 300);
             product.addProductOption(Size.M, Color.WHITE, null, 0, 400);
             product.addProductOption(Size.L, Color.WHITE, null, 0, 500);
-            product.addProductImage(1L, true);
-            product.addProductImage(2L, false);
-            product.addProductImage(3L, false);
-            product.addProductImage(4L, false);
-            product.addProductImage(5L, false);
+            product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지1.PNG", "C://file/product/images", true);
+            product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지2.PNG", "C://file/product/images", false);
+            product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지3.PNG", "C://file/product/images", false);
+            product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지4.PNG", "C://file/product/images", false);
+            product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false);
             product.addProductDetail("Test Product Description .");
 
             em.persist(product);

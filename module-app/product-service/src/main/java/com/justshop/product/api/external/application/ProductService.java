@@ -5,14 +5,17 @@ import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.core.kafka.message.order.OrderCreate.OrderQuantity;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
-import com.justshop.product.client.reader.FileReader;
-import com.justshop.product.client.response.FileResponse;
+import com.justshop.product.domain.entity.Product;
 import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.repository.ProductOptionRepository;
 import com.justshop.product.domain.repository.ProductRepository;
 import com.justshop.product.domain.repository.querydsl.dto.ProductDto;
+import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,25 +31,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
-    private final FileReader fileReader;
 
     /* 상품 상세 조회 */
     public ProductResponse getProductInfo(Long productId) {
-        try {
-            ProductDto productDto = productRepository.findProductDto(productId);
-            List<Long> fileIds = extractFileIds(productDto.getImages());
-            List<FileResponse> files = fileReader.read(fileIds);
-            return ProductResponse.of(productDto, files);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private List<Long> extractFileIds(List<ProductDto.ProductImageDto> images) {
-        return images.stream()
-                .map(ProductDto.ProductImageDto::getFileId)
-                .collect(Collectors.toList());
+        ProductDto productDto = productRepository.findProductDto(productId);
+        return ProductResponse.of(productDto);
     }
 
     /* 상품 재고수량 감소 */
@@ -77,6 +66,16 @@ public class ProductService {
                         OrderQuantity::getProductOptionId,
                         orderQuantity -> Long.valueOf(orderQuantity.getQuantity()))
                 );
+    }
+
+    /* 상품목록 페이징 조회 */
+    public Page<ProductResponse> getProductsForPage(SearchCondition searchCondition, Pageable pageable) {
+        Page<Product> pageResult = productRepository.findProductsPageBy(searchCondition, pageable);
+        List<ProductResponse> content = pageResult.getContent()
+                .stream().map(product -> ProductResponse.from(product))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(content, pageable, pageResult.getTotalElements());
     }
 
 }

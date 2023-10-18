@@ -60,24 +60,32 @@ public class ProductDto {
 
     @Getter
     public static class ProductImageDto {
-        private Long productImageId; //상품 이미지 ID
-        private Long fileId; // 파일 ID
-        private Long productId; // 상품 ID
-        private boolean basicYn; // 기본이미지 여부
+        private Long productImageId;
+        private Long productId;
+        private boolean basicYn;
+        private String saveFileName;
+        private String originFileName;
+        private String path;
 
         @Builder
-        private ProductImageDto(Long productImageId, Long fileId, Long productId, boolean basicYn) {
+        public ProductImageDto(Long productImageId, Long productId, boolean basicYn, String saveFileName,
+                               String originFileName, String path) {
             this.productImageId = productImageId;
-            this.fileId = fileId;
             this.productId = productId;
             this.basicYn = basicYn;
+            this.saveFileName = saveFileName;
+            this.originFileName = originFileName;
+            this.path = path;
         }
 
         public static ProductImageDto from(ProductImage productImage) {
             return ProductImageDto.builder()
                     .productImageId(productImage.getId())
+                    .productId(productImage.getProduct().getId())
                     .basicYn(productImage.isBasicYn())
-                    .fileId(productImage.getFileId())
+                    .saveFileName(productImage.getSaveFileName())
+                    .originFileName(productImage.getOriginFileName())
+                    .path(productImage.getPath())
                     .build();
         }
     }

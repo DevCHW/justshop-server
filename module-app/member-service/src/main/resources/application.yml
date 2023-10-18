@@ -1,46 +1,19 @@
-server:
-  port: 8083
-
 spring:
+  profiles:
+    default: local
+
   application:
-    name: member-service
-
-  cloud:
-    config:
-      name: member-service
-
-  config:
-    import: optional:configserver:http://localhost:8888
-
-    refresh:
-      extra-refreshable: com.zaxxer.hikari.HikariDataSource
-
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+    name: product-service
 
   output:
     ansi:
       enabled: always
 
   datasource:
-    url: jdbc:h2:mem:~/justShopApplication
     driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:~/justShopApplication
     username: sa
     password:
-
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-    # (2.5~) Hibernate 초기화 이후 data.sql 실행, 테스트 데이터 넣을 때 넣는 옵션
-    defer-datasource-initialization: true
 
   h2:
     console:
@@ -48,21 +21,8 @@ spring:
       settings:
         web-allow-others: true
 
-  eureka:
-    instance:
-      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    client:
-      register-with-eureka: true
-      fetch-registry: true
-      service-url:
-        defaultZone: http://localhost:8761/eureka
-
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: refresh, health, beans, busrefresh, info, metrics, prometheus
-
-token:
-  expiration_time: 86400000
-  secret: springboot_my_json_web_token_default
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus

@@ -42,7 +42,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/users
+            - Path=/member-service/members
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -51,7 +51,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/member-service/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie

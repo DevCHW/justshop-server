@@ -8,6 +8,8 @@ import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
 import com.justshop.product.domain.entity.enums.Size;
 
+import java.util.UUID;
+
 public class DataFactoryUtil {
 
     private DataFactoryUtil() {
@@ -17,10 +19,13 @@ public class DataFactoryUtil {
         return new ProductCategory(product, categoryId);
     }
 
-    public static ProductImage generateProductImage(Long fileId, boolean basicYn) {
+    public static ProductImage generateProductImage(Product product, String saveFileName, String originFileName, String path, boolean basicYn) {
         return ProductImage.builder()
-                .fileId(fileId)
+                .product(product)
                 .basicYn(basicYn)
+                .saveFileName(saveFileName)
+                .originFileName(originFileName)
+                .path(path)
                 .build();
     }
 
@@ -44,11 +49,11 @@ public class DataFactoryUtil {
         product.addProductOption(Size.S, Color.WHITE, null, 0, 300);
         product.addProductOption(Size.M, Color.WHITE, null, 0, 400);
         product.addProductOption(Size.L, Color.WHITE, null, 0, 500);
-        product.addProductImage(1L, true);
-        product.addProductImage(2L, false);
-        product.addProductImage(3L, false);
-        product.addProductImage(4L, false);
-        product.addProductImage(5L, false);
+        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지1.PNG", "C://file/product/images", true);
+        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지2.PNG", "C://file/product/images", false);
+        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지3.PNG", "C://file/product/images", false);
+        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지4.PNG", "C://file/product/images", false);
+        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false);
         product.addProductDetail("Test Product Description .");
         return product;
     }

@@ -1,7 +1,9 @@
 package com.justshop.product.api.external.application.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.justshop.product.client.response.FileResponse;
+import com.justshop.product.domain.entity.Product;
+import com.justshop.product.domain.entity.ProductImage;
+import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
@@ -12,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.justshop.product.domain.repository.querydsl.dto.ProductDto.*;
@@ -30,14 +31,14 @@ public class ProductResponse {
     private SellingStatus status; //상품 판매상태
     private Gender gender; // 성별
     private String detail; // 상품 설명
-    private List<ProductOption> options; // 상품 옵션 List
-    private List<ProductImage> images; //상품 이미지 List
+    private List<ProductOptionResponse> options; // 상품 옵션 List
+    private List<ProductImageResponse> images; //상품 이미지 List
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean likeExists; //좋아요 존재 여부
 
     @Builder
-    private ProductResponse(Long productId, String name, Integer price, Long salesQuantity, Long likeCount, Long reviewCount, SellingStatus status, Gender gender, String detail, List<ProductOption> options, List<ProductImage> images, Boolean likeExists) {
+    private ProductResponse(Long productId, String name, Integer price, Long salesQuantity, Long likeCount, Long reviewCount, SellingStatus status, Gender gender, String detail, List<ProductOptionResponse> options, List<ProductImageResponse> images, Boolean likeExists) {
         this.productId = productId;
         this.name = name;
         this.price = price;
@@ -52,15 +53,13 @@ public class ProductResponse {
         this.likeExists = likeExists;
     }
 
-    public static ProductResponse of(ProductDto productDto, List<FileResponse> files) {
-        List<ProductOption> options = productDto.getProductOptions().stream().map(option -> ProductOption.from(option))
+    public static ProductResponse of(ProductDto productDto) {
+        List<ProductOptionResponse> options = productDto.getProductOptions().stream()
+                .map(option -> ProductOptionResponse.from(option))
                 .collect(Collectors.toList());
 
-        Map<Long, FileResponse> fileResponseMap = files.stream()
-                .collect(Collectors.toMap(file -> file.getFileId(), file -> file));
-
-        List<ProductImage> images = productDto.getImages().stream()
-                .map(imageDto -> ProductImage.of(fileResponseMap.get(imageDto.getFileId()), imageDto))
+        List<ProductImageResponse> images = productDto.getImages().stream()
+                .map(productImageDto -> ProductImageResponse.from(productImageDto))
                 .collect(Collectors.toList());
 
         return ProductResponse.builder()
@@ -78,42 +77,76 @@ public class ProductResponse {
                 .build();
     }
 
+    public static ProductResponse from(Product product) {
+        List<ProductOptionResponse> productOptionResponses = product.getProductOptions().stream()
+                .map(productOption -> ProductOptionResponse.from(productOption))
+                .collect(Collectors.toList());
+
+        List<ProductImageResponse> productImageResponses = product.getProductImages().stream()
+                .map(productImage -> ProductImageResponse.from(productImage))
+                .collect(Collectors.toList());
+
+        return ProductResponse.builder()
+                .productId(product.getId())
+                .name(product.getName())
+                .price(product.getPrice())
+                .salesQuantity(product.getSalesQuantity())
+                .likeCount(product.getLikeCount())
+                .reviewCount(product.getReviewCount())
+                .status(product.getStatus())
+                .gender(product.getGender())
+                .detail(product.getProductDetail().getDescription())
+                .options(productOptionResponses)
+                .images(productImageResponses)
+                .build();
+    }
+
     @Getter
     @NoArgsConstructor
-    public static class ProductImage {
+    public static class ProductImageResponse {
         private Long productImageId; //상품 이미지 ID
+        private Long productId; //상품 ID
         private boolean basicYn; //기본이미지 여부
         private String saveFileName; // 저장 파일명
         private String originFileName; // 원래 파일명
-        private Long fileId; // 파일 ID
         private String path; // 파일 경로
 
         @Builder
-        public ProductImage(Long productImageId, boolean basicYn, String saveFileName,
-                            String originFileName, Long fileId, String path) {
+        public ProductImageResponse(Long productImageId, Long productId, boolean basicYn, String saveFileName,
+                                    String originFileName, String path) {
             this.productImageId = productImageId;
+            this.productId = productId;
             this.basicYn = basicYn;
             this.saveFileName = saveFileName;
             this.originFileName = originFileName;
-            this.fileId = fileId;
             this.path = path;
         }
 
-        public static ProductImage of(FileResponse fileResponse, ProductImageDto productImageDto) {
-            return ProductImage.builder()
+        public static ProductImageResponse from(ProductImageDto productImageDto) {
+            return ProductImageResponse.builder()
                     .productImageId(productImageDto.getProductImageId())
-                    .fileId(fileResponse.getFileId())
+                    .productId(productImageDto.getProductId())
                     .basicYn(productImageDto.isBasicYn())
-                    .saveFileName(fileResponse.getSaveFileName())
-                    .originFileName(fileResponse.getOriginFileName())
-                    .path(fileResponse.getFilePath())
+                    .saveFileName(productImageDto.getSaveFileName())
+                    .originFileName(productImageDto.getOriginFileName())
+                    .path(productImageDto.getPath())
+                    .build();
+        }
+
+        public static ProductImageResponse from(ProductImage productImage) {
+            return ProductImageResponse.builder()
+                    .productImageId(productImage.getId())
+                    .basicYn(productImage.isBasicYn())
+                    .saveFileName(productImage.getSaveFileName())
+                    .originFileName(productImage.getOriginFileName())
+                    .path(productImage.getPath())
                     .build();
         }
     }
 
     @Getter
     @NoArgsConstructor
-    public static class ProductOption {
+    public static class ProductOptionResponse {
         private Long productOptionId; // 상품 옵션 ID
         private Size size; // 사이즈
         private Color color; // 색상
@@ -122,7 +155,7 @@ public class ProductResponse {
         private Long stockQuantity; //재고수량
 
         @Builder
-        private ProductOption(Long productOptionId, Size size, Color color, String etc, Long additionalPrice, Long stockQuantity) {
+        private ProductOptionResponse(Long productOptionId, Size size, Color color, String etc, Long additionalPrice, Long stockQuantity) {
             this.productOptionId = productOptionId;
             this.size = size;
             this.color = color;
@@ -131,14 +164,25 @@ public class ProductResponse {
             this.stockQuantity = stockQuantity;
         }
 
-        public static ProductOption from(ProductOptionDto productOptionDto) {
-            return ProductOption.builder()
+        public static ProductOptionResponse from(ProductOptionDto productOptionDto) {
+            return ProductOptionResponse.builder()
                     .productOptionId(productOptionDto.getProductOptionId())
                     .size(productOptionDto.getSize())
                     .color(productOptionDto.getColor())
                     .etc(productOptionDto.getEtc())
                     .additionalPrice(productOptionDto.getAdditionalPrice())
                     .stockQuantity(productOptionDto.getStockQuantity())
+                    .build();
+        }
+
+        public static ProductOptionResponse from(ProductOption productOption) {
+            return ProductOptionResponse.builder()
+                    .productOptionId(productOption.getId())
+                    .size(productOption.getProductSize())
+                    .color(productOption.getColor())
+                    .etc(productOption.getEtc())
+                    .additionalPrice((long) productOption.getAdditionalPrice())
+                    .stockQuantity((long) productOption.getStockQuantity())
                     .build();
         }
     }
