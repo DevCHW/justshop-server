@@ -1,6 +1,7 @@
 package com.justshop.product.domain.repository.querydsl;
 
 import com.justshop.product.domain.entity.Product;
+import com.justshop.product.domain.entity.ProductCategory;
 import com.justshop.product.domain.repository.querydsl.dto.ProductDto;
 import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
 import org.springframework.data.domain.Page;
@@ -11,4 +12,6 @@ public interface QueryDslRepository {
     ProductDto findProductDto(Long productId);
 
     Page<Product> findProductsPageBy(SearchCondition searchCondition, Pageable pageable);
+
+    Page<ProductCategory> findProductsPageByCategoryId(Long categoryId, SearchCondition searchCondition, Pageable pageable);
 }

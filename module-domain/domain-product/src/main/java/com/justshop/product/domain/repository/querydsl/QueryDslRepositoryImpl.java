@@ -9,18 +9,20 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.justshop.product.domain.entity.QProduct.*;
+import static com.justshop.product.domain.entity.QProductCategory.*;
 import static com.justshop.product.domain.entity.QProductDetail.*;
 import static com.justshop.product.domain.entity.QProductImage.*;
 import static com.justshop.product.domain.entity.QProductOption.*;
@@ -66,10 +68,11 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
     // TODO : 테스트 작성
     @Override
     public Page<Product> findProductsPageBy(SearchCondition searchCondition, Pageable pageable) {
-        List<Product> content = queryFactory.selectFrom(product)
+        List<Product> content = queryFactory
+                .selectFrom(product)
                 .where(
                         nameContains(searchCondition.getName()),
-                        priceBetween(searchCondition.getMinPrice(), searchCondition.getMinPrice()),
+                        priceBetween(searchCondition.getMinPrice(), searchCondition.getMaxPrice()),
                         statusEq(searchCondition.getStatus()),
                         genderEq(searchCondition.getGender()))
                 .orderBy(createProductOrderSpecifiers(pageable))
@@ -77,23 +80,61 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        Long total = queryFactory.select(product.countDistinct())
+        JPAQuery<Long> countQuery = queryFactory
+                .select(product.countDistinct())
                 .from(product)
                 .where(
                         nameContains(searchCondition.getName()),
                         priceBetween(searchCondition.getMinPrice(), searchCondition.getMinPrice()),
                         statusEq(searchCondition.getStatus()),
-                        genderEq(searchCondition.getGender()))
-                .fetchOne();
-        return new PageImpl<>(content, pageable, total);
+                        genderEq(searchCondition.getGender())
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
+    /* 카테고리별 검색 조회 페이징*/
+    // TODO : 테스트 작성
+    @Override
+    public Page<ProductCategory> findProductsPageByCategoryId(Long categoryId, SearchCondition searchCondition, Pageable pageable) {
+        List<ProductCategory> content = queryFactory
+                .select(productCategory)
+                .from(productCategory)
+                .join(productCategory.product, product)
+                .fetchJoin()
+                .where(
+                        productCategory.categoryId.eq(categoryId),
+                        nameContains(searchCondition.getName()),
+                        priceBetween(searchCondition.getMinPrice(), searchCondition.getMaxPrice()),
+                        statusEq(searchCondition.getStatus()),
+                        genderEq(searchCondition.getGender()))
+                .orderBy(createProductOrderSpecifiers(pageable))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(productCategory.count())
+                .from(productCategory)
+                .join(productCategory.product, product)
+                .where(
+                        productCategory.categoryId.eq(categoryId),
+                        nameContains(searchCondition.getName()),
+                        priceBetween(searchCondition.getMinPrice(), searchCondition.getMinPrice()),
+                        statusEq(searchCondition.getStatus()),
+                        genderEq(searchCondition.getGender())
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    // == 동적쿼리 조건절 == //
     private BooleanExpression nameContains(String name) {
         return hasText(name)? product.name.contains(name) : null;
     }
 
     private BooleanExpression priceBetween(Integer minPrice, Integer maxPrice) {
-        return minPrice != null && maxPrice != null ? product.price.between(minPrice, maxPrice) : null;
+        return minPrice != null && maxPrice != null ? product.price.between(minPrice, maxPrice): null;
     }
 
     private BooleanExpression statusEq(SellingStatus status) {
@@ -104,7 +145,7 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
         return gender != null ? product.gender.eq(gender) : null;
     }
 
-    /* 정렬 */
+    // == 정렬 == //
     private OrderSpecifier[] createProductOrderSpecifiers(Pageable pageable) {
         Sort sort = pageable.getSort();
         List<OrderSpecifier> orderSpecifiers = new ArrayList<>();
