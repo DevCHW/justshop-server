@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Slf4j
 @RestControllerAdvice
@@ -27,12 +28,18 @@ public class GlobalExceptionHandler {
             builder.append(fieldError.getField());
             builder.append("](은)는 ");
             builder.append(fieldError.getDefaultMessage());
-            builder.append(". ");
         }
 
         builder.deleteCharAt(builder.length() - 1);
 
         final ErrorResponse response = new ErrorResponse(errorCode.getCode(), builder.toString());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<ErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException e) {
+        ErrorCode errorCode = ErrorCode.INVALID_INPUT_VALUE;
+        final ErrorResponse response = new ErrorResponse(errorCode.getCode(), "Type Mismatch.");
         return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
     }
 

@@ -66,12 +66,9 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
     // TODO : 테스트 작성
     @Override
     public Page<Product> findProductsPageBy(SearchCondition searchCondition, Pageable pageable) {
-        System.out.println(searchCondition);
-        System.out.println(pageable);
-
         List<Product> content = queryFactory.selectFrom(product)
                 .where(
-                        nameEq(searchCondition.getName()),
+                        nameContains(searchCondition.getName()),
                         priceBetween(searchCondition.getMinPrice(), searchCondition.getMinPrice()),
                         statusEq(searchCondition.getStatus()),
                         genderEq(searchCondition.getGender()))
@@ -83,7 +80,7 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
         Long total = queryFactory.select(product.countDistinct())
                 .from(product)
                 .where(
-                        nameEq(searchCondition.getName()),
+                        nameContains(searchCondition.getName()),
                         priceBetween(searchCondition.getMinPrice(), searchCondition.getMinPrice()),
                         statusEq(searchCondition.getStatus()),
                         genderEq(searchCondition.getGender()))
@@ -91,8 +88,8 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
         return new PageImpl<>(content, pageable, total);
     }
 
-    private BooleanExpression nameEq(String name) {
-        return hasText(name)? product.name.eq(name) : null;
+    private BooleanExpression nameContains(String name) {
+        return hasText(name)? product.name.contains(name) : null;
     }
 
     private BooleanExpression priceBetween(Integer minPrice, Integer maxPrice) {
@@ -111,16 +108,16 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
     private OrderSpecifier[] createProductOrderSpecifiers(Pageable pageable) {
         Sort sort = pageable.getSort();
         List<OrderSpecifier> orderSpecifiers = new ArrayList<>();
-
         List<OrderSpecifier> productOrderSpecifiers = sort.get()
-                .map(o -> {
-                    Order order = o.isAscending() ? Order.ASC : Order.DESC;
-                    String property = o.getProperty();
+                .map(order -> {
+                    Order direction = order.isAscending() ? Order.ASC : Order.DESC;
+                    String property = order.getProperty();
                     PathBuilder<Product> pathBuilder = new PathBuilder<>(Product.class, "product");
-                    return new OrderSpecifier(order, pathBuilder.getString(property));
+                    return new OrderSpecifier(direction, pathBuilder.getString(property));
                 }).collect(Collectors.toList());
 
         orderSpecifiers.addAll(productOrderSpecifiers);
+        orderSpecifiers.add(new OrderSpecifier(Order.DESC, product.createdDateTime));
         return orderSpecifiers.toArray(OrderSpecifier[]::new);
     }
 

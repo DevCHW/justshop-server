@@ -1,8 +1,9 @@
 package com.justshop.product.api.external.presentation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.justshop.product.api.external.application.ProductService;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
+import com.justshop.product.domain.entity.enums.Gender;
+import com.justshop.product.domain.entity.enums.SellingStatus;
 import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
 import com.justshop.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Objects;
+import static org.springframework.util.StringUtils.*;
 
 @Slf4j
 @RestController
@@ -33,14 +33,21 @@ public class ProductController {
 
     /* 상품 목록 조회 (페이징) */
     @GetMapping
-    public ApiResponse<Page<ProductResponse>> getProductsForPage(@RequestParam(required = false) SearchCondition searchCondition,
+    public ApiResponse<Page<ProductResponse>> getProductsForPage(@RequestParam(required = false) String name,
+                                                                 @RequestParam(required = false) String minPrice,
+                                                                 @RequestParam(required = false) String maxPrice,
+                                                                 @RequestParam(required = false) SellingStatus status,
+                                                                 @RequestParam(required = false) Gender gender,
                                                                  @PageableDefault(
                                                                          page = 0, size = 10, sort = "createdDateTime", direction = Sort.Direction.ASC
                                                                  ) Pageable pageable) {
-        if (Objects.isNull(searchCondition)) {
-            searchCondition = new SearchCondition();
-        }
-
+        SearchCondition searchCondition = SearchCondition.builder()
+                .name(name)
+                .minPrice(hasText(minPrice)? Integer.parseInt(minPrice) : null)
+                .maxPrice(hasText(maxPrice)? Integer.parseInt(maxPrice) : null)
+                .status(status)
+                .gender(gender)
+                .build();
         Page<ProductResponse> response = productService.getProductsForPage(searchCondition, pageable);
         return ApiResponse.ok(response);
     }

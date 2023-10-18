@@ -5,9 +5,11 @@ import com.justshop.product.domain.entity.enums.SellingStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class SearchCondition {
 
     private String name;
@@ -24,4 +26,5 @@ public class SearchCondition {
         this.status = status;
         this.gender = gender;
     }
+
 }
