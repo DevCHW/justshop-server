@@ -2,13 +2,18 @@ package com.justshop.member.api.external.presentation;
 
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.external.application.MemberService;
+import com.justshop.member.api.external.application.dto.request.SignUpServiceRequest;
+import com.justshop.member.api.external.presentation.dto.request.SignUpRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdateNicknameRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdatePasswordRequest;
+import com.justshop.member.domain.entity.enums.Gender;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+
+import java.time.LocalDate;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -29,6 +34,52 @@ class MemberControllerTest extends RestDocsSupport {
     @Override
     protected Object initController() {
         return new MemberController(memberService);
+    }
+
+    @DisplayName("회원가입에 필요한 정보를 받아서 회원가입을 할 수 있다.")
+    @Test
+    void signUp() throws Exception {
+        // given
+        SignUpRequest request = SignUpRequest.builder()
+                .email("testEmail@naver.com")
+                .password("testPassword")
+                .name("testName")
+                .nickname("testNickname")
+                .birthday(LocalDate.of(1997, 1, 3))
+                .gender(Gender.MAN)
+                .build();
+
+        Long createMemberId = 1L;
+        given(memberService.signUp(any(SignUpServiceRequest.class))).willReturn(createMemberId);
+
+        // when & then
+        mockMvc.perform(
+                        post("/api/v1/members")
+                                .content(objectMapper.writeValueAsString(request))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.code").value("201"))
+                .andExpect(jsonPath("$.status").value("CREATED"))
+                .andExpect(jsonPath("$.message").value("CREATED"))
+                .andDo(document("member-create",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                requestFields(
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
+                                        fieldWithPath("nickname").type(JsonFieldType.STRING).description("닉네임"),
+                                        fieldWithPath("birthday").type(JsonFieldType.STRING).description("생년월일"),
+                                        fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
+                                ),
+                                responseFields(
+                                        fieldWithPath("code").type(JsonFieldType.STRING).description("상태 코드"),
+                                        fieldWithPath("status").type(JsonFieldType.STRING).description("상태"),
+                                        fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")
+                                )
+                        )
+                );
     }
     
     @DisplayName("회원은 비밀번호를 변경할 수 있다.")

@@ -3,7 +3,6 @@ package com.justshop.product.api.external.presentation;
 import com.justshop.product.RestDocsSupport;
 import com.justshop.product.api.external.application.ProductService;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
-import com.justshop.product.domain.entity.ProductCategory;
 import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
@@ -75,6 +74,7 @@ class ProductControllerTest extends RestDocsSupport {
                                         fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
                                         fieldWithPath("data").type(JsonFieldType.OBJECT).description("상품 정보"),
                                         fieldWithPath("data.productId").type(JsonFieldType.NUMBER).description("상품 ID"),
+                                        fieldWithPath("data.categoryId").type(JsonFieldType.NUMBER).optional().description("카테고리 ID"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("상품명"),
                                         fieldWithPath("data.price").type(JsonFieldType.NUMBER).description("상품 가격"),
                                         fieldWithPath("data.salesQuantity").type(JsonFieldType.NUMBER).description("상품 판매수량"),
@@ -162,6 +162,7 @@ class ProductControllerTest extends RestDocsSupport {
                                         fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
                                         fieldWithPath("data").type(JsonFieldType.OBJECT).description("조회 결과"),
                                         fieldWithPath("data.content[].productId").type(JsonFieldType.NUMBER).description("상품 ID"),
+                                        fieldWithPath("data.content[].categoryId").type(JsonFieldType.NUMBER).optional().description("카테고리 ID"),
                                         fieldWithPath("data.content[].name").type(JsonFieldType.STRING).description("상품명"),
                                         fieldWithPath("data.content[].price").type(JsonFieldType.NUMBER).description("상품 가격"),
                                         fieldWithPath("data.content[].salesQuantity").type(JsonFieldType.NUMBER).description("상품 판매수량"),

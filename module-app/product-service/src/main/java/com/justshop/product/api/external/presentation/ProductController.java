@@ -6,6 +6,7 @@ import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
 import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
 import com.justshop.response.ApiResponse;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class ProductController {
     }
 
     /* 상품 목록 조회 (페이징) */
+    @Timed("products.getProductsForPage")
     @GetMapping
     public ApiResponse<Page<ProductResponse>> getProductsForPage(@RequestParam(required = false) String name,
                                                                  @RequestParam(required = false) String minPrice,
@@ -48,6 +50,7 @@ public class ProductController {
     }
 
     /* 해당 카테고리의 상품 목록 조회 (페이징) */
+    @Timed("products.getProductsCategoryForPage")
     @GetMapping("/categories/{categoryId}")
     public ApiResponse<Page<ProductResponse>> getProductsCategoryForPage(@PathVariable Long categoryId,
                                                                  @RequestParam(required = false) String name,

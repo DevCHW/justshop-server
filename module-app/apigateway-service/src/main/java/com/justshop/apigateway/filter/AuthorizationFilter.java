@@ -18,11 +18,11 @@ import java.util.Base64;
 
 @Slf4j
 @Component
-public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
+public class AuthorizationFilter extends AbstractGatewayFilterFactory<AuthorizationFilter.Config> {
 
     private Environment env;
 
-    public AuthorizationHeaderFilter(Environment env) {
+    public AuthorizationFilter(Environment env) {
         super(Config.class);
         this.env = env;
     }
@@ -44,6 +44,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             if (!isJwtValid(jwt)) {
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
+
+            log.info("회원 정보={}", getInfo(jwt));
             return chain.filter(exchange);
         };
     }
@@ -70,6 +72,12 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         }
 
         return returnValue;
+    }
+
+    private String getInfo(String jwt) {
+        byte[] tokenSecret = env.getProperty("token.secret").getBytes();
+        String encodedSecret = Base64.getEncoder().encodeToString(tokenSecret);
+        return Jwts.parser().setSigningKey(encodedSecret).parseClaimsJws(jwt).getBody().getSubject();
     }
 
     // Mono, Flux -> Spring WebFlux

@@ -13,6 +13,9 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     testImplementation 'com.h2database:h2'
 
+    // mysql
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
     //querydsl
     api "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"

@@ -13,14 +13,14 @@ public class SearchCondition {
     private String name;
     private SellingStatus status;
     private Gender gender;
-    private Integer minPrice = 0;
-    private Integer maxPrice = 2147483647;
+    private Integer minPrice;
+    private Integer maxPrice;
 
     @Builder
     public SearchCondition(String name, Integer minPrice, Integer maxPrice, SellingStatus status, Gender gender) {
         this.name = name;
-        this.minPrice = minPrice;
-        this.maxPrice = maxPrice;
+        this.minPrice = minPrice != null? minPrice: 0;
+        this.maxPrice = maxPrice != null? maxPrice: 2147483647;
         this.status = status;
         this.gender = gender;
     }
