@@ -25,6 +25,7 @@ import static org.assertj.core.groups.Tuple.tuple;
 
 @SpringBootTest
 @Transactional
+@ActiveProfiles("test")
 class DeliveryAddressServiceTest {
 
     @Autowired
