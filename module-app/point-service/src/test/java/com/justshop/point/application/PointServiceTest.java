@@ -1,14 +1,22 @@
 package com.justshop.point.application;
 
+import com.justshop.core.kafka.message.point.PointEventCreate;
 import com.justshop.point.domain.entity.PointEventHistory;
 import com.justshop.point.domain.repository.PointEventHistoryRepository;
 import com.justshop.point.infrastructure.kafka.producer.PointEventHistoryCreateProducer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @Transactional
@@ -20,7 +28,7 @@ class PointServiceTest {
     @Autowired
     private PointEventHistoryRepository pointEventHistoryRepository;
 
-    @Autowired
+    @MockBean
     private PointEventHistoryCreateProducer pointEventHistoryCreateProducer;
 
     @DisplayName("포인트 변동 양, 회원 ID, 포인트 이벤트 메세지를 입력받아서 포인트를 차감한다.")
@@ -36,9 +44,9 @@ class PointServiceTest {
         PointEventHistory savedHistory = pointEventHistoryRepository.findById(savedHistoryId).get();
 
         // then
-        Assertions.assertThat(savedHistory.getAmount()).isEqualTo(amount);
-        Assertions.assertThat(savedHistory.getMemberId()).isEqualTo(memberId);
-        Assertions.assertThat(savedHistory.getEventMessage()).isEqualTo(pointEventMessage);
+        assertThat(savedHistory.getAmount()).isEqualTo(amount);
+        assertThat(savedHistory.getMemberId()).isEqualTo(memberId);
+        assertThat(savedHistory.getEventMessage()).isEqualTo(pointEventMessage);
     }
 
     @DisplayName("포인트 변동 양, 회원 ID, 포인트 이벤트 메세지를 입력받아서 포인트를 적립한다.")
@@ -49,14 +57,19 @@ class PointServiceTest {
         Long memberId = 1L;
         String pointEventMessage = "Test Increase";
 
+        PointEventCreate message = new PointEventCreate();
+        BDDMockito.given(pointEventHistoryCreateProducer.send(any(PointEventCreate.class)))
+                .willReturn(message);
+
         // when
         Long savedHistoryId = pointService.addPoint(amount, memberId, pointEventMessage);
         PointEventHistory savedHistory = pointEventHistoryRepository.findById(savedHistoryId).get();
 
         // then
-        Assertions.assertThat(savedHistory.getAmount()).isEqualTo(amount);
-        Assertions.assertThat(savedHistory.getMemberId()).isEqualTo(memberId);
-        Assertions.assertThat(savedHistory.getEventMessage()).isEqualTo(pointEventMessage);
+        verify(pointEventHistoryCreateProducer, times(1)).send(any(PointEventCreate.class));
+        assertThat(savedHistory.getAmount()).isEqualTo(amount);
+        assertThat(savedHistory.getMemberId()).isEqualTo(memberId);
+        assertThat(savedHistory.getEventMessage()).isEqualTo(pointEventMessage);
     }
 
 }
