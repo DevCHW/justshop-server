@@ -40,6 +40,6 @@ out/
 # Java heap dump
 *.hprof
 
-application-*.yml
-!application.yml
-!application-test.yml
+
+application-prod.yml
+
