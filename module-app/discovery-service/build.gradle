@@ -1,0 +1,14 @@
+ext {
+    set('springCloudVersion', "2021.0.8")
+}
+
+dependencies {
+    // eureka-server
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
