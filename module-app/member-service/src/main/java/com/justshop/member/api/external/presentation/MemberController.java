@@ -2,7 +2,7 @@ package com.justshop.member.api.external.presentation;
 
 import com.justshop.member.api.external.application.MemberService;
 import com.justshop.member.api.external.presentation.dto.mapper.ServiceLayerDtoMapper;
-import com.justshop.member.api.external.presentation.dto.request.SignUpRequest;
+import com.justshop.member.api.external.presentation.dto.request.CreateMemberRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdateNicknameRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdatePasswordRequest;
 import com.justshop.response.ApiResponse;
@@ -64,7 +64,7 @@ public class MemberController {
     // 회원가입
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse signUp(@RequestBody @Valid SignUpRequest request) {
+    public ApiResponse signUp(@RequestBody @Valid CreateMemberRequest request) {
         memberService.signUp(ServiceLayerDtoMapper.mapping(request));
         return ApiResponse.created();
     }

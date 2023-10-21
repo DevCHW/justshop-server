@@ -1,7 +1,7 @@
 package com.justshop.member.api.external.application;
 
 import com.justshop.core.exception.BusinessException;
-import com.justshop.member.api.external.application.dto.request.SignUpServiceRequest;
+import com.justshop.member.api.external.application.dto.request.CreateMemberServiceRequest;
 import com.justshop.member.domain.entity.Member;
 import com.justshop.member.domain.repository.MemberRepository;
 import com.justshop.member.infrastructure.kafka.producer.MemberCreateProducer;
@@ -24,7 +24,7 @@ public class MemberService {
     private final MemberCreateProducer memberCreateProducer;
 
     @Transactional
-    public Long signUp(SignUpServiceRequest request) {
+    public Long signUp(CreateMemberServiceRequest request) {
         Long savedMemberId = memberRepository.save(request.toEntity(passwordEncoder)).getId();
         memberCreateProducer.send(savedMemberId);
         return savedMemberId;

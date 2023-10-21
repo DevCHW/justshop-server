@@ -2,8 +2,8 @@ package com.justshop.member.api.external.presentation;
 
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.external.application.MemberService;
-import com.justshop.member.api.external.application.dto.request.SignUpServiceRequest;
-import com.justshop.member.api.external.presentation.dto.request.SignUpRequest;
+import com.justshop.member.api.external.application.dto.request.CreateMemberServiceRequest;
+import com.justshop.member.api.external.presentation.dto.request.CreateMemberRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdateNicknameRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdatePasswordRequest;
 import com.justshop.member.domain.entity.enums.Gender;
@@ -40,7 +40,7 @@ class MemberControllerTest extends RestDocsSupport {
     @Test
     void signUp() throws Exception {
         // given
-        SignUpRequest request = SignUpRequest.builder()
+        CreateMemberRequest request = CreateMemberRequest.builder()
                 .email("testEmail@naver.com")
                 .password("testPassword")
                 .name("testName")
@@ -50,7 +50,7 @@ class MemberControllerTest extends RestDocsSupport {
                 .build();
 
         Long createMemberId = 1L;
-        given(memberService.signUp(any(SignUpServiceRequest.class))).willReturn(createMemberId);
+        given(memberService.signUp(any(CreateMemberServiceRequest.class))).willReturn(createMemberId);
 
         // when & then
         mockMvc.perform(

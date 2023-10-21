@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
-public class SignUpRequest {
+public class CreateMemberRequest {
 
     @NotBlank(message = "이메일은 필수값입니다.")
     @Email
@@ -36,7 +36,7 @@ public class SignUpRequest {
     private Gender gender; //성별
 
     @Builder
-    public SignUpRequest(String email, String password, String name, String nickname, LocalDate birthday, Gender gender) {
+    public CreateMemberRequest(String email, String password, String name, String nickname, LocalDate birthday, Gender gender) {
         this.email = email;
         this.password = password;
         this.name = name;

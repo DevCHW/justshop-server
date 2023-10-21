@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDate;
 
 @Getter
-public class SignUpServiceRequest {
+public class CreateMemberServiceRequest {
 
     private String email; //이메일
     private String password; //비밀번호
@@ -21,7 +21,7 @@ public class SignUpServiceRequest {
     private Gender gender; //성별
 
     @Builder
-    public SignUpServiceRequest(String email, String password, String name, String nickname, LocalDate birthday, Gender gender) {
+    public CreateMemberServiceRequest(String email, String password, String name, String nickname, LocalDate birthday, Gender gender) {
         this.email = email;
         this.password = password;
         this.name = name;
