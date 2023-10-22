@@ -7,10 +7,10 @@ spring:
       on-profile: dev
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3305/justshop_local
-    username: root
-    password: 1234
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:~/justShopApplication
+    username: sa
+    password:
 
   cloud:
     config:
@@ -26,6 +26,10 @@ spring:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 500
+
+  sql:
+    init:
+      mode: never
 
 eureka:
   instance:
