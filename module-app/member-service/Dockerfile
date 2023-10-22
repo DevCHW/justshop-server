@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk11
 VOLUME /tmp
-COPY member-service.jar member-service.jar
-ENTRYPOINT ["java", "-jar", "member-service.jar"]
+COPY build/libs/member-service.jar member-service.jar
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "member-service.jar"]
 
