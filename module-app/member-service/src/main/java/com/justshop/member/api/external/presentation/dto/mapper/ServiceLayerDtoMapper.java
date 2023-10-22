@@ -1,16 +1,16 @@
 package com.justshop.member.api.external.presentation.dto.mapper;
 
 import com.justshop.member.api.external.application.dto.request.CreateDeliveryAddressServiceRequest;
-import com.justshop.member.api.external.application.dto.request.SignUpServiceRequest;
+import com.justshop.member.api.external.application.dto.request.CreateMemberServiceRequest;
 import com.justshop.member.api.external.application.dto.request.UpdateDeliveryAddressServiceRequest;
 import com.justshop.member.api.external.presentation.dto.request.CreateDeliveryAddressRequest;
-import com.justshop.member.api.external.presentation.dto.request.SignUpRequest;
+import com.justshop.member.api.external.presentation.dto.request.CreateMemberRequest;
 import com.justshop.member.api.external.presentation.dto.request.UpdateDeliveryAddressRequest;
 
 public class ServiceLayerDtoMapper {
 
-    public static SignUpServiceRequest mapping(SignUpRequest target) {
-        return SignUpServiceRequest.builder()
+    public static CreateMemberServiceRequest mapping(CreateMemberRequest target) {
+        return CreateMemberServiceRequest.builder()
                 .email(target.getEmail())
                 .password(target.getPassword())
                 .name(target.getName())

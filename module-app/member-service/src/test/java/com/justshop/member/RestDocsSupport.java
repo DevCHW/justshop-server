@@ -20,12 +20,13 @@ public abstract class RestDocsSupport {
 
     protected MockMvc mockMvc;
 
-    protected ObjectMapper objectMapper = new ObjectMapper();
+    protected ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider provider) {
-        objectMapper.registerModule(new JavaTimeModule()); // 추가
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 추가
+//        objectMapper.registerModule(new JavaTimeModule()); // 추가
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 추가
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(initController())
                 .setControllerAdvice(new GlobalExceptionHandler())

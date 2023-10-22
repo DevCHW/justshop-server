@@ -7,7 +7,7 @@ spring:
       enable: always
 
   application:
-    name: discoveryservice
+    name: discovery-service
 
 eureka:
   client:

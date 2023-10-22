@@ -4,7 +4,6 @@ import com.justshop.category.DataFactoryUtil;
 import com.justshop.category.RestDocsSupport;
 import com.justshop.category.api.external.application.CategoryService;
 import com.justshop.category.api.external.application.dto.response.CategoryResponse;
-import com.justshop.category.api.external.presentation.CategoryController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

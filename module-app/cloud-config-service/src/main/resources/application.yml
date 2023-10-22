@@ -1,34 +1,10 @@
-server:
-  port: 8888
-
 spring:
   output:
     ansi:
       enabled: always
 
-  application:
-    name: config-server
-
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-
   profiles:
-    active: native
+    default: prod
 
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/DevCHW/spring-cloud-config
-#          만약 private repository로 만들었다?
-#          username: [your username]
-#          password: [your password]
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, busrefresh
+  application:
+    name: config-service

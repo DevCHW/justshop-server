@@ -1,18 +1,16 @@
 package com.justshop.order.api.external.application;
 
+import com.justshop.client.CouponReader;
+import com.justshop.client.MemberReader;
+import com.justshop.client.ProductReader;
+import com.justshop.client.dto.MemberResponse;
+import com.justshop.client.dto.OrderProductInfo;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderUpdate;
 import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.api.external.application.dto.response.OrderResponse;
-import com.justshop.order.client.reader.CouponReader;
-import com.justshop.order.client.reader.DeliveryReader;
-import com.justshop.order.client.reader.MemberReader;
-import com.justshop.order.client.reader.ProductReader;
-import com.justshop.order.client.response.DeliveryResponse;
 import com.justshop.order.infrastructure.kafka.producer.OrderCreateProducer;
 import com.justshop.core.kafka.message.order.OrderCreate;
-import com.justshop.order.client.response.MemberResponse;
-import com.justshop.order.client.response.OrderProductInfo;
 import com.justshop.order.domain.entity.Order;
 import com.justshop.order.domain.repository.OrderRepository;
 import com.justshop.order.infrastructure.kafka.producer.OrderUpdateProducer;
@@ -20,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +38,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderCreateProducer orderCreateProducer;
     private final OrderUpdateProducer orderUpdateProducer;
-    private final DeliveryReader deliveryReader;
     private final MemberReader memberReader;
     private final ProductReader productReader;
     private final CouponReader couponReader;
@@ -51,10 +50,10 @@ public class OrderService {
         pointCheck(request.getUsePoint(), memberInfo.getPoint());
 
         // 쿠폰 서비스에서 쿠폰 할인율 조회
-        int couponDiscountRate = couponReader.read(request.getCouponId());
+        int couponDiscountRate = couponReader.read(request.getCouponId()).getDiscountRate();
 
         // 주문상품 조회하여 재고체크, 주문상품 총 가격계산
-        List<OrderProductInfo> orderProductInfoList = productReader.read(request.getOrderProducts());
+        List<OrderProductInfo> orderProductInfoList = productReader.read(generateProductOptionIdsMap(request));
         Long totalPrice = getTotalPriceAndStockCheck(request.getOrderProducts(), orderProductInfoList);
 
         // 최종결제금액 계산
@@ -68,6 +67,14 @@ public class OrderService {
         orderCreateProducer.send(message);
 
         return savedOrderId;
+    }
+
+    private MultiValueMap<String, Long> generateProductOptionIdsMap(CreateOrderServiceRequest request) {
+        MultiValueMap<String, Long> productOptionIds = new LinkedMultiValueMap<>();
+        request.getOrderProducts().forEach(op ->
+                productOptionIds.add("productOptionId", op.getProductOptionId())
+        );
+        return productOptionIds;
     }
 
     // 보유포인트 체크
@@ -135,7 +142,7 @@ public class OrderService {
         }
 
         // 배송정보 조회해서 배송중이라면 취소불가
-        DeliveryResponse deliveryResponse = deliveryReader.read(orderId);
+//        DeliveryResponse deliveryResponse = deliveryReader.read(orderId);
         // TODO : 배송중 또는 배송완료일 시 취소 처리 로직 ....
 
         // TODO : 결제정보 조회
