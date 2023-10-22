@@ -37,6 +37,10 @@ public enum ErrorCode {
     // MAIL
     SEND_MAIL_FAIL(422, "MAIL-001", "메일 전송에 실패하였습니다."),
 
+    // COUPON
+    COUPON_NOT_FOUND(404, "COUPON-001", "쿠폰을 찾을 수 없습니다."),
+    COUPON_SERVER_ERROR(500, "COUPON-002", "쿠폰 시스템 장애로 쿠폰 정보를 조회할 수 없습니다."),
+
     // SERVER ERROR
     INTERNAL_SERVER_ERROR(500, "SERVER-001", "서버가 요청을 처리할 수 없습니다."),
     JSON_PARSING_ERROR(500, "SERVER-002", "JSON 파싱에 실패하였습니다.");

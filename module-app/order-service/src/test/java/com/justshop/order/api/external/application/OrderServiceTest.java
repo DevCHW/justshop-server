@@ -1,17 +1,15 @@
 package com.justshop.order.api.external.application;
 
+import com.justshop.client.CouponReader;
+import com.justshop.client.MemberReader;
+import com.justshop.client.ProductReader;
+import com.justshop.client.dto.CouponResponse;
+import com.justshop.client.dto.MemberResponse;
+import com.justshop.client.dto.OrderProductInfo;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.order.DataFactoryUtil;
-import com.justshop.order.api.external.application.OrderService;
 import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest.OrderProductRequest;
-import com.justshop.order.client.reader.CouponReader;
-import com.justshop.order.client.reader.DeliveryReader;
-import com.justshop.order.client.reader.MemberReader;
-import com.justshop.order.client.reader.ProductReader;
-import com.justshop.order.client.response.DeliveryResponse;
-import com.justshop.order.client.response.MemberResponse;
-import com.justshop.order.client.response.OrderProductInfo;
 import com.justshop.order.domain.entity.Order;
 import com.justshop.order.domain.entity.enums.OrderStatus;
 import com.justshop.order.domain.repository.OrderRepository;
@@ -23,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,9 +52,6 @@ class OrderServiceTest {
     private CouponReader couponReader;
 
     @MockBean
-    private DeliveryReader deliveryReader;
-
-    @MockBean
     private OrderCreateProducer orderCreateProducer;
 
     @MockBean
@@ -76,11 +72,15 @@ class OrderServiceTest {
         MemberResponse memberResponse = generateMemberResponse();
         List<OrderProductInfo> orderProductInfoList = new ArrayList<>();
 
+        CouponResponse couponResponse = new CouponResponse(2L, memberResponse.getMemberId(), 20);
         given(memberReader.read(anyLong()))
                 .willReturn(memberResponse);
 
-        given(productReader.read(any(List.class)))
+        given(productReader.read(any(MultiValueMap.class)))
                 .willReturn(orderProductInfoList);
+
+        given(couponReader.read(anyLong()))
+                .willReturn(couponResponse);
 
         // when
         Long savedOrderId = orderService.order(request);
@@ -113,12 +113,16 @@ class OrderServiceTest {
                 .status("ACTIVE")
                 .build();;
         List<OrderProductInfo> orderProductInfoList = new ArrayList<>();
+        CouponResponse couponResponse = new CouponResponse(2L, memberResponse.getMemberId(), 20);
 
         given(memberReader.read(anyLong()))
                 .willReturn(memberResponse);
 
-        given(productReader.read(any(List.class)))
+        given(productReader.read(any(MultiValueMap.class)))
                 .willReturn(orderProductInfoList);
+
+        given(couponReader.read(anyLong()))
+                .willReturn(couponResponse);
 
         // when & then
         assertThatThrownBy(() -> orderService.order(request))
@@ -140,12 +144,16 @@ class OrderServiceTest {
 
         MemberResponse memberResponse = generateMemberResponse();
         List<OrderProductInfo> orderProductInfoList = generateOrderProductInfoList();
+        CouponResponse couponResponse = new CouponResponse(2L, memberResponse.getMemberId(), 20);
 
         given(memberReader.read(anyLong()))
                 .willReturn(memberResponse);
 
-        given(productReader.read(any(List.class)))
+        given(productReader.read(any(MultiValueMap.class)))
                 .willReturn(orderProductInfoList);
+
+        given(couponReader.read(anyLong()))
+                .willReturn(couponResponse);
 
         // when & then
         assertThatThrownBy(() -> orderService.order(request))
@@ -158,9 +166,6 @@ class OrderServiceTest {
     void cancel_success() {
         // given
         Order order = orderRepository.save(DataFactoryUtil.generateOrder());
-
-        DeliveryResponse response = new DeliveryResponse();
-        given(deliveryReader.read(anyLong())).willReturn(response);
 
         // when
         Long orderId = orderService.cancel(order.getId());

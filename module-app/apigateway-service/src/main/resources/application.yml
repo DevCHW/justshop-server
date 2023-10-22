@@ -1,6 +1,6 @@
 spring:
   profiles:
-    default: local
+    default: prod
 
   application:
     name: apigateway-service
@@ -8,15 +8,3 @@ spring:
   output:
     ansi:
       enabled: always
-
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans, busrefresh, info, metrics, prometheus

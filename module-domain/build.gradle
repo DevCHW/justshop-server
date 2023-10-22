@@ -29,6 +29,15 @@ project(':module-domain:domain-category') {
     }
 }
 
+project(':module-domain:domain-coupon') {
+    bootJar.enabled = false
+
+    dependencies {
+        api project(':module-domain:domain-jpa')
+        implementation project(':module-core')
+    }
+}
+
 project(':module-domain:domain-delivery') {
     bootJar.enabled = false
 

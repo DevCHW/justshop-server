@@ -33,9 +33,6 @@ dependencies {
     // prometheus
     implementation 'io.micrometer:micrometer-registry-prometheus'
 
-    // feign client
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
     // kafka
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.kafka:spring-kafka-test'

@@ -15,6 +15,9 @@ project(':module-app:order-service') {
         implementation project(':module-domain:domain-order')
         implementation project(':module-core')
         implementation project(':module-internal:core-web')
+        implementation project(':module-internal:member-client')
+        implementation project(':module-internal:product-client')
+        implementation project(':module-internal:coupon-client')
     }
 }
 
@@ -23,6 +26,16 @@ project(':module-app:category-service') {
 
     dependencies {
         implementation project(':module-domain:domain-category')
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+    }
+}
+
+project(':module-app:coupon-service') {
+    bootJar.enabled = true
+
+    dependencies {
+        implementation project(':module-domain:domain-coupon')
         implementation project(':module-core')
         implementation project(':module-internal:core-web')
     }

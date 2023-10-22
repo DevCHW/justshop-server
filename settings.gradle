@@ -12,6 +12,7 @@ include 'module-app:point-service'
 include 'module-app:apigateway-service'
 include 'module-app:discovery-service'
 include 'module-app:cloud-config-service'
+include 'module-app:coupon-service'
 
 // core
 include 'module-core'
@@ -26,9 +27,12 @@ include 'module-domain:domain-payment'
 include 'module-domain:domain-delivery'
 include 'module-domain:domain-category'
 include 'module-domain:domain-point'
+include 'module-domain:domain-coupon'
 
 // internal
 include 'module-internal'
 include 'module-internal:core-web'
-
-
+include 'module-internal:member-client'
+include 'module-internal:order-client'
+include 'module-internal:product-client'
+include 'module-internal:coupon-client'
