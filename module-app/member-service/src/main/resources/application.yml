@@ -20,9 +20,3 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans, busrefresh, info, metrics, prometheus

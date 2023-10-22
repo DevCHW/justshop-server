@@ -26,6 +26,16 @@ project(':module-internal:coupon-client') {
     }
 }
 
+project(':module-internal:order-client') {
+    bootJar.enabled = false
+
+    dependencies {
+        implementation project(':module-core')
+        implementation project(':module-internal:core-web')
+
+    }
+}
+
 project(':module-internal:product-client') {
     bootJar.enabled = false
 
