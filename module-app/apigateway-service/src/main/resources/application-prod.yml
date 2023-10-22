@@ -1,0 +1,11 @@
+spring:
+  config:
+    import: optional:configserver:http://config-service:8888
+    active:
+      on-profile: prod
+
+  cloud:
+    config:
+      name: apigateway-service
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource

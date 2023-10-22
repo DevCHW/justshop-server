@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  config:
+    active:
+      on-profile: prod
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: admin
+    password: aclass
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/DevCHW/justshop-cloud-config.git
+          username: ggoma003@naver.com
+          password: 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
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
