@@ -1,7 +1,7 @@
 package com.justshop.order.domain.repository;
 
-import com.justshop.jpa.JpaConfig;
 import com.justshop.jpa.config.QueryDslConfig;
+import com.justshop.order.RepositoryTestSupport;
 import com.justshop.order.domain.entity.Order;
 import com.justshop.order.domain.entity.OrderProduct;
 import com.justshop.order.domain.entity.enums.OrderStatus;
@@ -16,7 +16,7 @@ import static org.assertj.core.groups.Tuple.tuple;
 
 @DataJpaTest
 @Import(QueryDslConfig.class)
-class OrderRepositoryTest {
+class OrderRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private OrderRepository orderRepository;

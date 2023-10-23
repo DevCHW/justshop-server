@@ -8,6 +8,7 @@ import com.justshop.client.dto.MemberResponse;
 import com.justshop.client.dto.OrderProductInfo;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.order.DataFactoryUtil;
+import com.justshop.order.IntegrationTestSupport;
 import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest;
 import com.justshop.order.api.external.application.dto.request.CreateOrderServiceRequest.OrderProductRequest;
 import com.justshop.order.domain.entity.Order;
@@ -34,7 +35,7 @@ import static org.mockito.BDDMockito.*;
 
 @SpringBootTest
 @Transactional
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;

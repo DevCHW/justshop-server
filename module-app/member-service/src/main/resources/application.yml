@@ -1,13 +1,12 @@
 spring:
-  profiles:
-    default: dev
-
-  application:
-    name: member-service
-
   output:
     ansi:
       enabled: always
+  profiles:
+    active: dev
+
+  application:
+    name: member-service
 
   datasource:
     driver-class-name: org.h2.Driver

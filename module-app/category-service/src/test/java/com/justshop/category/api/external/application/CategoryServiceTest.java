@@ -1,22 +1,21 @@
 package com.justshop.category.api.external.application;
 
 import com.justshop.category.DataFactoryUtil;
+import com.justshop.category.IntegrationTestSupport;
 import com.justshop.category.api.external.application.dto.response.CategoryResponse;
 import com.justshop.category.domain.entity.Category;
 import com.justshop.category.domain.repository.CategoryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
 @Transactional
-class CategoryServiceTest {
+class CategoryServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private CategoryService categoryService;

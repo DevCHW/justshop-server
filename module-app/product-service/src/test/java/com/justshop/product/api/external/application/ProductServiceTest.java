@@ -3,6 +3,7 @@ package com.justshop.product.api.external.application;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.product.DataFactoryUtil;
+import com.justshop.product.IntegrationTestSupport;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
 import com.justshop.product.domain.entity.Product;
 import com.justshop.product.domain.entity.ProductOption;
@@ -16,11 +17,9 @@ import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,9 +27,8 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
 @Transactional
-class ProductServiceTest {
+class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductService productService;

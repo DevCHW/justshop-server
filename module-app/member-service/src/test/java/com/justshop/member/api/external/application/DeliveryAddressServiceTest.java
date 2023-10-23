@@ -3,6 +3,7 @@ package com.justshop.member.api.external.application;
 import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.member.DataFactoryUtil;
+import com.justshop.member.IntegrationTestSupport;
 import com.justshop.member.api.external.application.dto.request.CreateDeliveryAddressServiceRequest;
 import com.justshop.member.api.external.application.dto.request.UpdateDeliveryAddressServiceRequest;
 import com.justshop.member.api.external.application.dto.response.DeliveryAddressResponse;
@@ -14,8 +15,6 @@ import com.justshop.member.domain.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,9 +22,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.groups.Tuple.tuple;
 
-@SpringBootTest
 @Transactional
-class DeliveryAddressServiceTest {
+class DeliveryAddressServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private DeliveryAddressService deliveryAddressService;

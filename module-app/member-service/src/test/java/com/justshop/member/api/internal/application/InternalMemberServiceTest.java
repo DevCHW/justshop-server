@@ -3,6 +3,7 @@ package com.justshop.member.api.internal.application;
 import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.member.DataFactoryUtil;
+import com.justshop.member.IntegrationTestSupport;
 import com.justshop.member.api.internal.application.dto.MemberResponse;
 import com.justshop.member.domain.entity.Member;
 import com.justshop.member.domain.repository.MemberRepository;
@@ -10,14 +11,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 @Transactional
-class InternalMemberServiceTest {
+class InternalMemberServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private InternalMemberService internalMemberService;

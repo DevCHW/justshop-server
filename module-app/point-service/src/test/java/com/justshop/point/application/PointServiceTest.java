@@ -1,10 +1,10 @@
 package com.justshop.point.application;
 
 import com.justshop.core.kafka.message.point.PointEventCreate;
+import com.justshop.point.IntegrationTestSupport;
 import com.justshop.point.domain.entity.PointEventHistory;
 import com.justshop.point.domain.repository.PointEventHistoryRepository;
 import com.justshop.point.infrastructure.kafka.producer.PointEventHistoryCreateProducer;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -18,9 +18,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest
 @Transactional
-class PointServiceTest {
+class PointServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private PointService pointService;

@@ -1,8 +1,9 @@
 spring:
   config:
     import: optional:configserver:http://config-service:8888
-    activate:
+    active:
       on-profile: prod
+
   cloud:
     config:
       name: member-service

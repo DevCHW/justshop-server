@@ -1,22 +1,18 @@
 package com.justshop.member.domain.repository;
 
-import com.justshop.jpa.JpaConfig;
+import com.justshop.member.RepositoryTestSupport;
 import com.justshop.member.domain.entity.Member;
 import com.justshop.member.domain.entity.enums.Gender;
 import com.justshop.member.domain.entity.enums.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DataJpaTest
-@Import(JpaConfig.class)
-class MemberRepositoryTest {
+class MemberRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private MemberRepository memberRepository;

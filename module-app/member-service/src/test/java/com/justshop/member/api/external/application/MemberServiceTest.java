@@ -2,6 +2,7 @@ package com.justshop.member.api.external.application;
 
 import com.justshop.core.exception.BusinessException;
 import com.justshop.member.DataFactoryUtil;
+import com.justshop.member.IntegrationTestSupport;
 import com.justshop.member.domain.entity.Member;
 import com.justshop.member.domain.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -18,9 +18,8 @@ import java.util.ArrayList;
 import static com.justshop.core.error.ErrorCode.MEMBER_NOT_FOUND;
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
 @Transactional
-class MemberServiceTest {
+class MemberServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private MemberRepository memberRepository;
