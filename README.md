@@ -1,12 +1,7 @@
-# JustShop - 의류, 신발, 악세사리 판매 쇼핑몰
+# JustShop
+MSA 적용 E-Commerce Server 프로젝트
 
-JustShop은 여러 다른 브랜드의 제품을 하나의 웹사이트에서 판매하는 형태의 온라인 쇼핑 시스템입니다.
-
-> API: 
-
---- 
-
-## 🚩 Developer
+## Developer
 
 ### 개발
 
@@ -32,42 +27,54 @@ JustShop은 여러 다른 브랜드의 제품을 하나의 웹사이트에서 �
 
 [JustShop-Github-Repository](https://github.com/DevCHW/justshop-server)
 
-## 🎵 프로젝트 소개
+## 기술 스택
+### Backend
+- Java11
+- Spring Boot 2.7.15
+- Spring Data JPA, QueryDSL
+- Spring Security
+- Spring Cloud
+- JUnit, Mockito
 
-### 프로젝트 기간
+### Database
+- MySQL
+- H2
 
-- 기획 및 설계 : 23.08.30 ~
-- 프로젝트 구현 : 22.08.30 ~
-- 버그 수정 및 리팩토링 :
+### DevOps
+- AWS EC2
+- Kafka
+- RabbitMQ
+- Prometheus, Grafana
+- Docker
+- Jenkins
 
-## 🔧 기술 스택
+## ERD
+https://www.erdcloud.com/d/pRwacMeGgiNsP2wYN
 
-<div align=left>
-<img src="https://img.shields.io/badge/java 11-007396?style=for-the-badge&logo=java&logoColor=white">
-<img src="https://img.shields.io/badge/springboot 2.7.15-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-<img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
-<img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-<img src="https://img.shields.io/badge/gradle 8.2.1-02303A?style=for-the-badge&logo=gradle&logoColor=white">
-<img src="https://img.shields.io/badge/junit5-25A162?style=for-the-badge&logo=junit5&logoColor=white">
+![erd.png](./docs/erd.png)
 
-<br>
 
-<img src="https://img.shields.io/badge/RestDocs-8CA1AF?style=for-the-badge&logo=readthedocs&logoColor=white">
+## 프로젝트 아키텍처
+![프로젝트아키텍처.png](./docs/프로젝트아키텍처.png)
 
-<br>
+## 모듈 구조
+```
+📦justshop
+ ┣ 📂module-app
+ ┣ 📂module-domain
+ ┣ 📂module-core
+ ┗ 📂module-internal
+```
 
-<img src="https://img.shields.io/badge/amazon aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
-<br>
+### module-app
+실행 가능한(Runnable)한 모듈들이 위치하며 각 모듈엔 @SpringBootApplication 어노테이션이 달린main 클래스가 존재합니다. 나머지 모듈들을 전부 의존할 수 있고 배포시 빌드가 될 모듈들입니다.
 
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-</div>
+### module-domain
+프로젝트의 도메인 모델 클래스들과 Repository가 위치합니다. 도메인 모델을 엔티티로 규정하였기에 JPA 기술을 강하게 의존하고있고, 각각의 모듈에 위치한 엔티티들은 domain-jpa를 의존하여 BaseEntity를 상속받을 수 있고, QueryDSL 설정을 한번에 할 수 있도록 설계하였습니다. 
 
-## 📖 ERD
+### module-core
+모든 모듈에서 의존할 수 있는 core 모듈입니다. 해당 모듈은 다른 모든 모듈이 의존하고 있기에 변경시 전체 시스템에 영향을 미치게 됩니다. 따라서 최대한 변경이 없을만한, 다른 어떠한 의존성도 없는 순수 자바 코드만 위치할 수 있습니다. 주로 Util성 클래스, Exception 클래스 등이 위치하도록 하였습니다.
 
-<img src="./docs/erd.png" style="border:1px solid; border-radius: 12px;"/>
+### module-internal
+내부적인 시스템을 위한 모듈입니다. core-web을 제외한 모듈들은 응답의 형태로 데이터를 제공하며, core 모듈은 어떠한 기술도 의존할 수 없어야 한다는 규칙을 정해놓았기에 spring web을 의존하고 있는 core-web 모듈을 따로 분리하여 웹 관련 공통 응답, Exception 핸들링 등을 해당 모듈에 위치시켰습니다.
 
-> Link: https://www.erdcloud.com/d/pRwacMeGgiNsP2wYN
-
-## 📦 패키지
