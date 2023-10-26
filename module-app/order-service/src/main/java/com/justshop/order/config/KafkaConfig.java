@@ -1,4 +1,4 @@
-package com.justshop.point.config;
+package com.justshop.order.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

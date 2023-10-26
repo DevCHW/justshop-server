@@ -56,4 +56,14 @@ public class Order extends BaseEntity {
         this.status = OrderStatus.CANCEL;
     }
 
+    // 주문 실패
+    public void fail() {
+        this.status = OrderStatus.FAIL;
+
+    }
+
+    // 주문 성공
+    public void success() {
+        this.status = OrderStatus.ORDERED;
+    }
 }

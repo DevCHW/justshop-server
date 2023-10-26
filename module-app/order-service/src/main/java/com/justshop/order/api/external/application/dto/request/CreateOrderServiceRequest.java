@@ -45,7 +45,7 @@ public class CreateOrderServiceRequest {
                 .orderPrice(orderPrice)
                 .discountAmount(orderPrice - payAmount)
                 .payAmount(payAmount)
-                .status(OrderStatus.ORDERED)
+                .status(OrderStatus.INIT)
                 .build();
 
         this.orderProducts.forEach(
