@@ -15,28 +15,36 @@ spring:
   cloud:
     config:
       enabled: false
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
 
   jpa:
     open-in-view: false
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
         show_sql: true
-#        default_batch_fetch_size: 500
-
-  sql:
-    init:
-      mode: never
+        default_batch_fetch_size: 500
+    defer-datasource-initialization: true
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
 
+token:
+  expiration_time: 86400000
+  secret: springboot_my_json_web_token_dev
+
 kafka:
   bootstrap:
     server:
       config: 127.0.0.1:9092
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus

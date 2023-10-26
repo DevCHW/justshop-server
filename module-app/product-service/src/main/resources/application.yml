@@ -1,13 +1,12 @@
 spring:
-  profiles:
-    default: dev
-
-  application:
-    name: product-service
-
   output:
     ansi:
       enabled: always
+  profiles:
+    active: dev
+
+  application:
+    name: product-service
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -20,9 +19,3 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans, busrefresh, info, metrics, prometheus
