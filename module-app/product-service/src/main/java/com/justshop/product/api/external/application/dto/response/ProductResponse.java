@@ -35,7 +35,10 @@ public class ProductResponse {
     private Long reviewCount; // 상품 리뷰 수
     private SellingStatus status; //상품 판매상태
     private Gender gender; // 성별
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String detail; // 상품 설명
+
     private List<ProductOptionResponse> options; // 상품 옵션 List
     private List<ProductImageResponse> images; //상품 이미지 List
 
@@ -101,7 +104,6 @@ public class ProductResponse {
                 .reviewCount(product.getReviewCount())
                 .status(product.getStatus())
                 .gender(product.getGender())
-                .detail(product.getProductDetail().getDescription())
                 .options(productOptionResponses)
                 .images(productImageResponses)
                 .build();

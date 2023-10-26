@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,9 @@ class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductOptionRepository productOptionRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @DisplayName("상품 ID를 받아서 상품 상세조회를 할 수 있다.")
     @Test
@@ -139,6 +143,13 @@ class ProductServiceTest extends IntegrationTestSupport {
     @Test
     void getProductsForPage_success() {
         // given
+        for(int i = 0; i < 11; i++) {
+            productRepository.save(DataFactoryUtil.generateProduct());
+        }
+
+        entityManager.flush();
+        entityManager.clear();
+
         SearchCondition searchCondition = SearchCondition.builder()
                 .name("")
                 .minPrice(0)

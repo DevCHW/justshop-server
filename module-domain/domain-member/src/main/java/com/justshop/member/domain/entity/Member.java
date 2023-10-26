@@ -22,10 +22,14 @@ public class Member extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String email; //이메일
+
+    @Column(unique = true)
+    private String nickname; //닉네임
+
     private String password; //비밀번호
     private String name; //이름
-    private String nickname; //닉네임
     private int point; //포인트
     private LocalDate birthday; //생년월일
 

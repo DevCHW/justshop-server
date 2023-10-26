@@ -24,7 +24,7 @@ public class DBInit {
 
     private final InitService initService;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         initService.initializeProduct();
     }

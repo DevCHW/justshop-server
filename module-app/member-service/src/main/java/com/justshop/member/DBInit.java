@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
@@ -30,7 +29,7 @@ public class DBInit {
     @Transactional
     @RequiredArgsConstructor
     public static class InitService {
-        private final EntityManager em;
+        private final EntityManager entityManager;
         private final PasswordEncoder passwordEncoder;
 
         public void initializeMember() {
@@ -46,7 +45,7 @@ public class DBInit {
                     .status(MemberStatus.ACTIVE)
                     .build();
 
-            em.persist(member);
+            entityManager.persist(member);
         }
     }
 }

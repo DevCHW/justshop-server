@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,12 @@ import static com.justshop.product.domain.entity.QProductOption.*;
 import static com.justshop.product.domain.repository.querydsl.dto.ProductDto.*;
 import static org.springframework.util.StringUtils.hasText;
 
+@Repository
 @RequiredArgsConstructor
 public class QueryDslRepositoryImpl implements QueryDslRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    // TODO : 테스트 작성
     @Override
     public ProductDto findProductDto(Long productId) {
         Product findProduct = queryFactory
@@ -65,7 +66,6 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
         return ProductDto.of(findProduct, productOptionDtoList, productImageDtoList);
     }
 
-    // TODO : 테스트 작성
     @Override
     public Page<Product> findProductsPageBy(SearchCondition searchCondition, Pageable pageable) {
         List<Product> content = queryFactory
@@ -94,7 +94,6 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
     }
 
     /* 카테고리별 검색 조회 페이징*/
-    // TODO : 테스트 작성
     @Override
     public Page<ProductCategory> findProductsPageByCategoryId(Long categoryId, SearchCondition searchCondition, Pageable pageable) {
         List<ProductCategory> content = queryFactory
