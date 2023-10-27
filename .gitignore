@@ -41,5 +41,5 @@ out/
 *.hprof
 
 /module-app/cloud-config-service/src/main/resources/*.yml
-
+.html
 
