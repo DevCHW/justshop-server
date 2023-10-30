@@ -33,4 +33,5 @@ public class OrderServiceConsumer {
 
         productService.decreaseStock(message);
     }
+
 }

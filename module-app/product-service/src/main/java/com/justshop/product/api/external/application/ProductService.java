@@ -4,6 +4,8 @@ import com.justshop.core.error.ErrorCode;
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderCreate;
 import com.justshop.core.kafka.message.order.OrderCreate.OrderQuantity;
+import com.justshop.core.kafka.message.order.OrderFail;
+import com.justshop.core.kafka.message.order.OrderFailReason;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
 import com.justshop.product.domain.entity.Product;
 import com.justshop.product.domain.entity.ProductCategory;
@@ -12,11 +14,14 @@ import com.justshop.product.domain.repository.ProductOptionRepository;
 import com.justshop.product.domain.repository.ProductRepository;
 import com.justshop.product.domain.repository.querydsl.dto.ProductDto;
 import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
+import com.justshop.product.infrastructure.kafka.producer.OrderFailProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +37,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
+    private final OrderFailProducer orderFailProducer;
 
     /* 상품 상세 조회 */
     public ProductResponse getProductInfo(Long productId) {
@@ -54,6 +60,7 @@ public class ProductService {
                 productOption -> {
                     Long quantity = orderQuntityMap.get(productOption.getId());
                     if (productOption.getStockQuantity() < quantity) {
+                        orderFailProducer.send(new OrderFail(message.getOrderId(), OrderFailReason.NOT_ENOUGH_STOCK));
                         throw new BusinessException(ErrorCode.NOT_ENOUGH_STOCK, "주문 수량보다 재고가 부족합니다.");
                     }
                     productOption.decreaseStock(quantity);

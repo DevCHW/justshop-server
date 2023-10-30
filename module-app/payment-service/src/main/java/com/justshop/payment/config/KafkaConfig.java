@@ -1,4 +1,4 @@
-package com.justshop.product.config;
+package com.justshop.payment.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -56,4 +56,5 @@ public class KafkaConfig {
 
         return kafkaListenerContainerFactory;
     }
+
 }
