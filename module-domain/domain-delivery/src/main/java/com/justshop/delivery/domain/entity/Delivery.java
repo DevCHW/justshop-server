@@ -16,6 +16,7 @@ public class Delivery {
     private Long id;
 
     private Long orderId; //주문 ID
+
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; //배송 상태
     private String trackingNumber; //송장번호

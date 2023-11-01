@@ -16,6 +16,9 @@ public class OrderCreate {
     private Long couponId;  // 사용 쿠폰 ID
     private Long usePoint;  // 사용 포인트
     private Long payAmount; // 최종 금액
+    private String city; // 주문자 주소
+    private String zipcode; // 주문자 주소
+    private String street; // 주문자 주소
     private List<OrderQuantity> orderQuantities = new ArrayList<>(); // 주문수량 정보
 
     @Builder
