@@ -2,6 +2,7 @@ package com.justshop.product.api.external.application;
 
 import com.justshop.core.exception.BusinessException;
 import com.justshop.core.kafka.message.order.OrderCreate;
+import com.justshop.core.kafka.message.order.OrderFail;
 import com.justshop.product.DataFactoryUtil;
 import com.justshop.product.IntegrationTestSupport;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
@@ -14,9 +15,11 @@ import com.justshop.product.domain.entity.enums.Size;
 import com.justshop.product.domain.repository.ProductOptionRepository;
 import com.justshop.product.domain.repository.ProductRepository;
 import com.justshop.product.domain.repository.querydsl.dto.SearchCondition;
+import com.justshop.product.infrastructure.kafka.producer.OrderFailProducer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 
 @Transactional
 class ProductServiceTest extends IntegrationTestSupport {
@@ -42,6 +47,10 @@ class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private EntityManager entityManager;
+
+    @MockBean
+    private OrderFailProducer orderFailProducer;
+
 
     @DisplayName("상품 ID를 받아서 상품 상세조회를 할 수 있다.")
     @Test
@@ -132,6 +141,9 @@ class ProductServiceTest extends IntegrationTestSupport {
                 .payAmount(100000L)
                 .orderQuantities(orderQuantities)
                 .build();
+
+        given(orderFailProducer.send(any(OrderFail.class)))
+                .willReturn(any(OrderFail.class));
 
         // when & then
         assertThatThrownBy(() -> productService.decreaseStock(orderCreate))
