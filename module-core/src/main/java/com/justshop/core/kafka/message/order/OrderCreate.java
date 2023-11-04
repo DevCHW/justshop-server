@@ -22,9 +22,15 @@ public class OrderCreate {
     private List<OrderQuantity> orderQuantities = new ArrayList<>(); // 주문수량 정보
 
     @Builder
-    public OrderCreate(Long orderId, Long memberId, Long couponId, Long usePoint, Long payAmount, List<OrderQuantity> orderQuantities) {
+    public OrderCreate(Long orderId, Long memberId, Long couponId,
+                       Long usePoint, Long payAmount,
+                       String city, String zipcode, String street,
+                       List<OrderQuantity> orderQuantities) {
         this.orderId = orderId;
         this.memberId = memberId;
+        this.street = street;
+        this.zipcode = zipcode;
+        this.city = city;
         this.couponId = couponId;
         this.usePoint = usePoint;
         this.payAmount = payAmount;

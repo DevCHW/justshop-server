@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -42,6 +44,9 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus status; //상태
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<DeliveryAddress> address = new ArrayList<>();
+
     @Builder
     public Member(String email, String password, String name, String nickname, int point, LocalDate birthday, Role memberRole, Gender gender, MemberStatus status) {
         this.email = email;
@@ -53,6 +58,12 @@ public class Member extends BaseEntity {
         this.memberRole = memberRole;
         this.gender = gender;
         this.status = status;
+    }
+
+    // 연관관계 편의 메서드
+    public void addDeliveryAddress(DeliveryAddress address) {
+        this.address.add(address);
+        address.addMember(this);
     }
 
     // 비밀번호 변경
@@ -78,6 +89,14 @@ public class Member extends BaseEntity {
             throw new BusinessException(ErrorCode.NOT_ENOUGH_POINT, "회원의 보유 포인트가 부족하여 포인트를 차감할 수 없습니다.");
         }
         this.point -= amount;
+    }
+
+    // 기본배송지 반환
+    public DeliveryAddress getBasicAddress() {
+        return this.address.stream()
+                .filter(address -> address.isBasicYn())
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(ErrorCode.DELIVERY_NOT_FOUND));
     }
 
 }

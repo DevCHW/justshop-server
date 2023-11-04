@@ -197,6 +197,7 @@ class OrderServiceTest extends IntegrationTestSupport {
                 .memberRole("USER")
                 .gender("MAN")
                 .status("ACTIVE")
+                .address(new MemberResponse.DeliveryAddressResponse("test city", "test street", "test zipcode"))
                 .build();
     }
 

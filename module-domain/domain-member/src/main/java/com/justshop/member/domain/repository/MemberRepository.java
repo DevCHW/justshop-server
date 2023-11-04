@@ -1,6 +1,7 @@
 package com.justshop.member.domain.repository;
 
 import com.justshop.member.domain.entity.Member;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -14,4 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Boolean existsByNickname(String nickname);
 
     Boolean existsByEmail(String email);
+
+    @EntityGraph(attributePaths = {"address"})
+    Optional<Member> findWithDeliveryAddressById(Long memberId);
 }

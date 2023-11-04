@@ -2,6 +2,7 @@ package com.justshop.delivery.domain.entity;
 
 import com.justshop.delivery.domain.entity.enums.DeliveryStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,5 +28,12 @@ public class Delivery {
     @Embedded
     private Period period; // 배송 기간
 
-    private String requestContent; //요청사항
+    @Builder
+    public Delivery(Long orderId, DeliveryStatus status, String trackingNumber, Address address, Period period) {
+        this.orderId = orderId;
+        this.status = status;
+        this.trackingNumber = trackingNumber;
+        this.address = address;
+        this.period = period;
+    }
 }

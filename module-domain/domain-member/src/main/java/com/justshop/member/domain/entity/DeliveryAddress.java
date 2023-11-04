@@ -36,6 +36,10 @@ public class DeliveryAddress extends BaseEntity {
         this.address = address;
     }
 
+    // 연관관계 편의 메서드
+    public void addMember(Member member) {
+        this.member = member;
+    }
     /* basicYn 변경 */
     public void changeBasicYn() {
         this.basicYn = this.basicYn?false:true;

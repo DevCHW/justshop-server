@@ -1,7 +1,7 @@
 package com.justshop.member.api.internal.presentation;
 
+import com.justshop.client.dto.MemberResponse;
 import com.justshop.member.api.internal.application.InternalMemberService;
-import com.justshop.member.api.internal.application.dto.MemberResponse;
 import com.justshop.response.ApiResponse;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ public class InternalMemberController {// 회원 정보 조회
 
     @GetMapping("/{memberId}")
     @Timed("members.getMemberInfo")
-    public ApiResponse<MemberResponse> getMemberInfo(@PathVariable Long memberId) {
-        MemberResponse response = internalMemberService.getMemberInfo(memberId);
+        public ApiResponse<MemberResponse> getMemberInfo(@PathVariable Long memberId) {
+            MemberResponse response = internalMemberService.getMemberInfo(memberId);
         return ApiResponse.ok(response);
     }
 }

@@ -63,7 +63,7 @@ public class OrderService {
         Long savedOrderId = orderRepository.save(request.toEntity(totalPrice, payAmount)).getId();
 
         // 주문 생성 이벤트 메세지 발행
-        OrderCreate message = CreateOrderCreateEventMessage(request, payAmount, savedOrderId);
+        OrderCreate message = CreateOrderCreateEventMessage(request, payAmount, savedOrderId, memberInfo);
         orderCreateProducer.send(message);
 
         return savedOrderId;
@@ -107,13 +107,20 @@ public class OrderService {
     }
 
     // 주문생성 Event Message 생성
-    private OrderCreate CreateOrderCreateEventMessage(CreateOrderServiceRequest request, Long payAmount, Long orderId) {
+    private OrderCreate CreateOrderCreateEventMessage(CreateOrderServiceRequest request,
+                                                      Long payAmount,
+                                                      Long orderId,
+                                                      MemberResponse member) {
         List<OrderCreate.OrderQuantity> orderQuantities = request.getOrderProducts().stream()
                 .map(op -> new OrderCreate.OrderQuantity(op.getProductOptionId(), op.getQuantity()))
                 .collect(Collectors.toList());
+
         return OrderCreate.builder()
                 .orderId(orderId)
                 .memberId(request.getMemberId())
+                .street(member.getAddress().getStreet())
+                .city(member.getAddress().getCity())
+                .zipcode(member.getAddress().getZipcode())
                 .couponId(request.getCouponId())
                 .usePoint(request.getUsePoint())
                 .payAmount(payAmount)

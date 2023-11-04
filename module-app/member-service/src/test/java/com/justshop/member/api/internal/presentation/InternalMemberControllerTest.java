@@ -1,8 +1,8 @@
 package com.justshop.member.api.internal.presentation;
 
+import com.justshop.client.dto.MemberResponse;
 import com.justshop.member.RestDocsSupport;
 import com.justshop.member.api.internal.application.InternalMemberService;
-import com.justshop.member.api.internal.application.dto.MemberResponse;
 import com.justshop.member.domain.entity.enums.Gender;
 import com.justshop.member.domain.entity.enums.MemberStatus;
 import com.justshop.member.domain.entity.enums.Role;
@@ -35,7 +35,7 @@ class InternalMemberControllerTest extends RestDocsSupport {
         return new InternalMemberController(internalMemberService);
     }
 
-    @DisplayName("회원의 정보를 조회할 수 있다.")
+    @DisplayName("회원 ID를 받아 회원의 정보와 기본배송지 정보를 조회할 수 있다.")
     @Test
     void getMemberInfo() throws Exception {
         // given
@@ -49,6 +49,12 @@ class InternalMemberControllerTest extends RestDocsSupport {
         Gender gender = Gender.MAN;
         MemberStatus status = MemberStatus.ACTIVE;
 
+        MemberResponse.DeliveryAddressResponse address = MemberResponse.DeliveryAddressResponse.builder()
+                .city("test city")
+                .zipcode("test zipcode")
+                .street("test street")
+                .build();
+
         MemberResponse response = MemberResponse.builder()
                 .memberId(memberId)
                 .email(email)
@@ -56,9 +62,10 @@ class InternalMemberControllerTest extends RestDocsSupport {
                 .nickname(nickname)
                 .point(point)
                 .birthday(birthday)
-                .memberRole(memberRole)
-                .gender(gender)
-                .status(status)
+                .memberRole(memberRole.toString())
+                .gender(gender.toString())
+                .status(status.toString())
+                .address(address)
                 .build();
 
         given(internalMemberService.getMemberInfo(memberId)).willReturn(response);
@@ -78,6 +85,10 @@ class InternalMemberControllerTest extends RestDocsSupport {
                 .andExpect(jsonPath("$.data.memberRole").value("USER"))
                 .andExpect(jsonPath("$.data.gender").value("MAN"))
                 .andExpect(jsonPath("$.data.status").value("ACTIVE"))
+                .andExpect(jsonPath("$.data.address").exists())
+                .andExpect(jsonPath("$.data.address.city").value("test city"))
+                .andExpect(jsonPath("$.data.address.street").value("test street"))
+                .andExpect(jsonPath("$.data.address.zipcode").value("test zipcode"))
                 .andDo(document("member-get-my-info",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
@@ -97,7 +108,11 @@ class InternalMemberControllerTest extends RestDocsSupport {
                                         fieldWithPath("data.birthday").type(JsonFieldType.STRING).description("생년월일"),
                                         fieldWithPath("data.memberRole").type(JsonFieldType.STRING).description("회원 권한"),
                                         fieldWithPath("data.gender").type(JsonFieldType.STRING).description("성별"),
-                                        fieldWithPath("data.status").type(JsonFieldType.STRING).description("회원 상태")
+                                        fieldWithPath("data.status").type(JsonFieldType.STRING).description("회원 상태"),
+                                        fieldWithPath("data.address").type(JsonFieldType.OBJECT).description("회원의 기본배송지 정보"),
+                                        fieldWithPath("data.address.city").type(JsonFieldType.STRING).description("기본배송지 주소 1"),
+                                        fieldWithPath("data.address.zipcode").type(JsonFieldType.STRING).description("기본배송지 주소 2"),
+                                        fieldWithPath("data.address.street").type(JsonFieldType.STRING).description("기본배송지 주소 3")
                                 )
                         )
                 );

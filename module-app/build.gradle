@@ -5,6 +5,7 @@ project(':module-app:member-service') {
         implementation project(':module-domain:domain-member')
         implementation project(':module-core')
         implementation project(':module-internal:core-web')
+        implementation project(':module-internal:member-client')
     }
 }
 
