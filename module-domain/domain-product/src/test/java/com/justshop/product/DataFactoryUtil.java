@@ -3,6 +3,7 @@ package com.justshop.product;
 import com.justshop.product.domain.entity.Product;
 import com.justshop.product.domain.entity.ProductCategory;
 import com.justshop.product.domain.entity.ProductImage;
+import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Gender;
 import com.justshop.product.domain.entity.enums.SellingStatus;
@@ -19,9 +20,8 @@ public class DataFactoryUtil {
         return new ProductCategory(product, categoryId);
     }
 
-    public static ProductImage generateProductImage(Product product, String saveFileName, String originFileName, String path, boolean basicYn) {
+    public static ProductImage generateProductImage(String saveFileName, String originFileName, String path, boolean basicYn) {
         return ProductImage.builder()
-                .product(product)
                 .basicYn(basicYn)
                 .saveFileName(saveFileName)
                 .originFileName(originFileName)
@@ -43,17 +43,17 @@ public class DataFactoryUtil {
         product.addProductCategory(1L);
         product.addProductCategory(2L);
         product.addProductCategory(3L);
-        product.addProductOption(Size.S, Color.BLACK, null, 0, 100);
-        product.addProductOption(Size.M, Color.BLACK, null, 0, 200);
-        product.addProductOption(Size.L, Color.BLACK, null, 0, 300);
-        product.addProductOption(Size.S, Color.WHITE, null, 0, 300);
-        product.addProductOption(Size.M, Color.WHITE, null, 0, 400);
-        product.addProductOption(Size.L, Color.WHITE, null, 0, 500);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지1.PNG", "C://file/product/images", true);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지2.PNG", "C://file/product/images", false);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지3.PNG", "C://file/product/images", false);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지4.PNG", "C://file/product/images", false);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false);
+        product.addProductOption(new ProductOption(Size.S, Color.BLACK, null, 0, 100));
+        product.addProductOption(new ProductOption(Size.M, Color.BLACK, null, 0, 200));
+        product.addProductOption(new ProductOption(Size.L, Color.BLACK, null, 0, 300));
+        product.addProductOption(new ProductOption(Size.S, Color.WHITE, null, 0, 300));
+        product.addProductOption(new ProductOption(Size.M, Color.WHITE, null, 0, 400));
+        product.addProductOption(new ProductOption(Size.L, Color.WHITE, null, 0, 500));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지1.PNG", "C://file/product/images", true));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지2.PNG", "C://file/product/images", false));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지3.PNG", "C://file/product/images", false));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지4.PNG", "C://file/product/images", false));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false));
         product.addProductDetail("Test Product Description .");
         return product;
     }

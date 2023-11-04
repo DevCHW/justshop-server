@@ -31,13 +31,17 @@ public class ProductOption {
     private int stockQuantity; //재고수량
 
     @Builder
-    public ProductOption(Product product, Size productSize, Color color, String etc, int additionalPrice, int stockQuantity) {
-        this.product = product;
+    public ProductOption(Size productSize, Color color, String etc, int additionalPrice, int stockQuantity) {
         this.productSize = productSize;
         this.color = color;
         this.etc = etc;
         this.additionalPrice = additionalPrice;
         this.stockQuantity = stockQuantity;
+    }
+
+    // 연관관계 편의 메서드
+    public void addProduct(Product product) {
+        this.product = product;
     }
 
     // 재고수량 감소

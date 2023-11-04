@@ -59,23 +59,24 @@ public class Product extends BaseEntity {
         this.productCategories.add(new ProductCategory(this, categoryId));
     }
 
-    public void addProductOption(Size productSize, Color color, String etc, int additionalPrice, int stockQuantity) {
+    public void addProductOption(ProductOption productOption) {
         this.productOptions.add(ProductOption.builder()
-                .product(this)
-                .productSize(productSize)
-                .color(color)
-                .etc(etc)
-                .additionalPrice(additionalPrice)
-                .stockQuantity(stockQuantity)
+                .productSize(productOption.getProductSize())
+                .color(productOption.getColor())
+                .etc(productOption.getEtc())
+                .additionalPrice(productOption.getAdditionalPrice())
+                .stockQuantity(productOption.getStockQuantity())
                 .build());
+        productOption.addProduct(this);
     }
 
     public void addAllProductOption(List<ProductOption> productOptions) {
         this.productOptions.addAll(productOptions);
     }
 
-    public void addProductImage(String saveFileName, String originFileName, String path, boolean basicYn) {
-        this.productImages.add(new ProductImage(this, saveFileName, originFileName, path, basicYn));
+    public void addProductImage(ProductImage productImage) {
+        this.productImages.add(productImage);
+        productImage.addProduct(this);
     }
 
     public void addAllProductImage(List<ProductImage> productImages) {

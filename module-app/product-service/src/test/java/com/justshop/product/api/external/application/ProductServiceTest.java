@@ -7,6 +7,7 @@ import com.justshop.product.DataFactoryUtil;
 import com.justshop.product.IntegrationTestSupport;
 import com.justshop.product.api.external.application.dto.response.ProductResponse;
 import com.justshop.product.domain.entity.Product;
+import com.justshop.product.domain.entity.ProductImage;
 import com.justshop.product.domain.entity.ProductOption;
 import com.justshop.product.domain.entity.enums.Color;
 import com.justshop.product.domain.entity.enums.Gender;
@@ -214,8 +215,8 @@ class ProductServiceTest extends IntegrationTestSupport {
                 .gender(Gender.FREE)
                 .build();
         product.addProductCategory(categoryId);
-        product.addProductOption(Size.S, Color.BLACK, null, 0, 100);
-        product.addProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false);
+        product.addProductOption(new ProductOption(Size.S, Color.BLACK, null, 0, 100));
+        product.addProductImage(new ProductImage(UUID.randomUUID()+".PNG", "상품이미지5.PNG", "C://file/product/images", false));
         product.addProductDetail("Test Product Description .");
         return product;
     }

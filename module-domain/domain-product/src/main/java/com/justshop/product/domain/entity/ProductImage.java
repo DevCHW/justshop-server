@@ -25,11 +25,15 @@ public class ProductImage {
     private String path;
 
     @Builder
-    public ProductImage(Product product, String saveFileName, String originFileName, String path, boolean basicYn) {
+    public ProductImage(String saveFileName, String originFileName, String path, boolean basicYn) {
         this.product = product;
         this.basicYn = basicYn;
         this.saveFileName = saveFileName;
         this.originFileName = originFileName;
         this.path = path;
+    }
+
+    public void addProduct(Product product) {
+        this.product = product;
     }
 }
