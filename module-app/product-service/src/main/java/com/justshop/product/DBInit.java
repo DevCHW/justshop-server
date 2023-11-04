@@ -52,19 +52,19 @@ public class DBInit {
                 product.addProductCategory(2L);
                 product.addProductCategory(3L);
 
-                ProductOption productOption1 = new ProductOption(product, Size.S, Color.BLACK, null, 0, 100);
-                ProductOption productOption2 = new ProductOption(product, Size.M, Color.BLACK, null, 0, 200);
-                ProductOption productOption3 = new ProductOption(product, Size.L, Color.BLACK, null, 0, 300);
-                ProductOption productOption4 = new ProductOption(product, Size.S, Color.WHITE, null, 0, 300);
-                ProductOption productOption5 = new ProductOption(product, Size.M, Color.WHITE, null, 0, 400);
-                ProductOption productOption6 = new ProductOption(product, Size.L, Color.WHITE, null, 0, 500);
+                ProductOption productOption1 = new ProductOption(Size.S, Color.BLACK, null, 0, 100);
+                ProductOption productOption2 = new ProductOption(Size.M, Color.BLACK, null, 0, 200);
+                ProductOption productOption3 = new ProductOption(Size.L, Color.BLACK, null, 0, 300);
+                ProductOption productOption4 = new ProductOption(Size.S, Color.WHITE, null, 0, 300);
+                ProductOption productOption5 = new ProductOption(Size.M, Color.WHITE, null, 0, 400);
+                ProductOption productOption6 = new ProductOption(Size.L, Color.WHITE, null, 0, 500);
                 product.addAllProductOption(List.of(productOption1, productOption2, productOption3, productOption4, productOption5, productOption6));
 
-                ProductImage productImage1 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지1.PNG", "C://file/product/images", true);
-                ProductImage productImage2 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지2.PNG", "C://file/product/images", false);
-                ProductImage productImage3 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지3.PNG", "C://file/product/images", false);
-                ProductImage productImage4 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지4.PNG", "C://file/product/images", false);
-                ProductImage productImage5 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지5.PNG", "C://file/product/images", false);
+                ProductImage productImage1 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지1.PNG", "C://file/product/images", true);
+                ProductImage productImage2 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지2.PNG", "C://file/product/images", false);
+                ProductImage productImage3 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지3.PNG", "C://file/product/images", false);
+                ProductImage productImage4 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지4.PNG", "C://file/product/images", false);
+                ProductImage productImage5 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지5.PNG", "C://file/product/images", false);
                 product.addAllProductImage(List.of(productImage1, productImage2, productImage3, productImage4, productImage5));
                 product.addProductDetail(product.getName() + "의 Description.");
 
@@ -84,19 +84,17 @@ public class DBInit {
 
                 product.addProductCategory(2L);
 
-                ProductOption productOption1 = new ProductOption(product, Size.S, Color.BLACK, null, 0, 100);
-                ProductOption productOption2 = new ProductOption(product, Size.M, Color.BLACK, null, 0, 200);
-                ProductOption productOption3 = new ProductOption(product, Size.L, Color.BLACK, null, 0, 300);
-                ProductOption productOption4 = new ProductOption(product, Size.S, Color.WHITE, null, 0, 300);
-                ProductOption productOption5 = new ProductOption(product, Size.M, Color.WHITE, null, 0, 400);
-                ProductOption productOption6 = new ProductOption(product, Size.L, Color.WHITE, null, 0, 500);
-                product.addAllProductOption(List.of(productOption1, productOption2, productOption3, productOption4, productOption5, productOption6));
-
-                ProductImage productImage1 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지1.PNG", "C://file/product/images", true);
-                ProductImage productImage2 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지2.PNG", "C://file/product/images", false);
-                ProductImage productImage3 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지3.PNG", "C://file/product/images", false);
-                ProductImage productImage4 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지4.PNG", "C://file/product/images", false);
-                ProductImage productImage5 = new ProductImage(product, UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지5.PNG", "C://file/product/images", false);
+                ProductOption productOption1 = new ProductOption(Size.S, Color.BLACK, null, 0, 100);
+                ProductOption productOption2 = new ProductOption(Size.M, Color.BLACK, null, 0, 200);
+                ProductOption productOption3 = new ProductOption(Size.L, Color.BLACK, null, 0, 300);
+                ProductOption productOption4 = new ProductOption(Size.S, Color.WHITE, null, 0, 300);
+                ProductOption productOption5 = new ProductOption(Size.M, Color.WHITE, null, 0, 400);
+                ProductOption productOption6 = new ProductOption(Size.L, Color.WHITE, null, 0, 500);
+                product.addAllProductOption(List.of(productOption1, productOption2, productOption3, productOption4, productOption5, productOption6));          ProductImage productImage1 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지1.PNG", "C://file/product/images", true);
+                ProductImage productImage2 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지2.PNG", "C://file/product/images", false);
+                ProductImage productImage3 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지3.PNG", "C://file/product/images", false);
+                ProductImage productImage4 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지4.PNG", "C://file/product/images", false);
+                ProductImage productImage5 = new ProductImage(UUID.randomUUID()+".PNG", product.getName() + "의 상품이미지5.PNG", "C://file/product/images", false);
                 product.addAllProductImage(List.of(productImage1, productImage2, productImage3, productImage4, productImage5));
                 product.addProductDetail(product.getName() + "의 Description.");
 

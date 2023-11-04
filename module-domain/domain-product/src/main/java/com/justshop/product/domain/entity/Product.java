@@ -72,6 +72,7 @@ public class Product extends BaseEntity {
 
     public void addAllProductOption(List<ProductOption> productOptions) {
         this.productOptions.addAll(productOptions);
+        productOptions.forEach(productOption -> productOption.addProduct(this));
     }
 
     public void addProductImage(ProductImage productImage) {
@@ -81,6 +82,7 @@ public class Product extends BaseEntity {
 
     public void addAllProductImage(List<ProductImage> productImages) {
         this.productImages.addAll(productImages);
+        productImages.forEach(productImage -> productImage.addProduct(this));
     }
 
     public void addProductDetail(String description) {
